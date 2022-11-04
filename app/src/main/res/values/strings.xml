@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MOBILE ELISA</string>
+    <string name="animal">You can either collect field data or laboratory data about animal diseases. To do so you will need to log in as;</string>
+</resources>

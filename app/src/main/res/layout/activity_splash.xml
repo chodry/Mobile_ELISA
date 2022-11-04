@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/relativelayout"
+    android:background="@drawable/homebackground"
+    tools:context=".SplashActivity">
+
+    <LinearLayout
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MOBILE ELISA"
+            android:textAllCaps="true"
+            android:textColor="#E3ECFA"
+            android:fontFamily="sans-serif-black"
+            android:letterSpacing=".1"
+            android:textSize="40sp"/>
+
+        <TextView
+            android:id="@+id/HomeSloganText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Collect Data about Cattle and Piggery"
+            android:textColor="@color/baby_blue"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+    </LinearLayout>
+
+</RelativeLayout>
