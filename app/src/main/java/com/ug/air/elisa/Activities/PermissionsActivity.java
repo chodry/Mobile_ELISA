@@ -1,4 +1,4 @@
-package com.ug.air.elisa;
+package com.ug.air.elisa.Activities;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
+import com.ug.air.elisa.R;
 import com.ug.air.elisa.Utils.SimpleMultiplePermissionsListener;
 
 public class PermissionsActivity extends AppCompatActivity {

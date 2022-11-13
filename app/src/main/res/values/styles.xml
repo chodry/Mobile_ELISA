@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/grotto_blue</item>
         <item name="android:windowBackground">@color/white</item>
     </style>
+
+    <style name="ToolbarThem2" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="colorControlNormal">@color/navy_blue</item>
+    </style>
 </resources>

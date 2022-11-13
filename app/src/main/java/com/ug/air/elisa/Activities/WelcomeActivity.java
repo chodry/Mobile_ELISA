@@ -1,4 +1,4 @@
-package com.ug.air.elisa;
+package com.ug.air.elisa.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import com.ug.air.elisa.R;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -39,5 +41,11 @@ public class WelcomeActivity extends AppCompatActivity {
                 startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/relativelayout"
     android:background="@drawable/homebackground"
-    tools:context=".SplashActivity">
+    tools:context=".Activities.SplashActivity">
 
     <LinearLayout
         android:id="@+id/logo"

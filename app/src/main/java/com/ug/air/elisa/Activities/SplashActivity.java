@@ -1,4 +1,4 @@
-package com.ug.air.elisa;
+package com.ug.air.elisa.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,8 +15,7 @@ import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
 import com.google.android.material.snackbar.Snackbar;
-
-import java.io.File;
+import com.ug.air.elisa.R;
 
 public class SplashActivity extends AppCompatActivity {
 

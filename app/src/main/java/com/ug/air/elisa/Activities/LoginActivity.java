@@ -1,4 +1,4 @@
-package com.ug.air.elisa;
+package com.ug.air.elisa.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+
+import com.ug.air.elisa.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,5 +29,11 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(LoginActivity.this, PermissionsActivity.class));
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

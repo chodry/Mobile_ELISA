@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.LoginActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.GPS">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,7 +17,9 @@
         android:layout_marginBottom="10dp"
         android:fadeScrollbars="true"
         android:padding="10dp"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/buttons">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,76 +27,25 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <ImageView
-                android:id="@+id/back"
-                android:layout_width="40dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_back"/>
-
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Log In"
-                android:textSize="25sp"
-                android:fontFamily="sans-serif-black"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/navy_blue"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Please provide your login credentials that were shared with you by the Administrator"
-                android:textSize="14sp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/black"/>
-
-            <EditText
-                android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:hint="Username"
-                android:inputType="text"
-                android:padding="15dp"
-                android:textSize="18sp"
+                android:text="Click the button below to get the current GPS loaction"
                 android:textColor="@color/black"
-                android:textColorHint="@color/gray"
-                android:background="@drawable/et_button"/>
-
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Password"
-                android:padding="15dp"
-                android:inputType="textPassword"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/gray"
-                android:background="@drawable/et_button"/>
-
-            <TextView
-                android:id="@+id/error"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:gravity="center_horizontal"
-                android:textStyle="bold"
                 android:textSize="16sp"
-                android:visibility="invisible"
-                android:text="This is the error message"
-                android:textColor="@color/red"/>
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
+                android:layout_marginTop="50dp"
                 android:layout_height="wrap_content">
 
                 <Button
                     android:id="@+id/login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Log In"
+                    android:text="Get GPS Location"
                     android:textAllCaps="false"
                     android:textSize="16sp"
                     android:layout_marginTop="5dp"
@@ -115,8 +70,43 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         </LinearLayout>
 
     </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_button_2"
+            android:text="Back"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_button"
+            android:text="save form"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

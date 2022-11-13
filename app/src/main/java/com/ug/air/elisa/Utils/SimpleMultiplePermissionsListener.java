@@ -1,6 +1,6 @@
 package com.ug.air.elisa.Utils;
 
-import com.ug.air.elisa.PermissionsActivity;
+import com.ug.air.elisa.Activities.PermissionsActivity;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
