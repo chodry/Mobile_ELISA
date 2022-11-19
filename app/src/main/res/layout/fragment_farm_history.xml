@@ -61,7 +61,8 @@
                     android:layout_weight="5"
                     android:background="@drawable/style_spinner"
                     android:orientation="vertical"
-                    android:layout_marginStart="10dp">
+                    android:layout_marginStart="10dp"
+                    android:padding="10dp">
 
                     <Spinner
                         android:id="@+id/time"
@@ -118,6 +119,13 @@
                 android:text="Birds" />
 
             <CheckBox
+                android:id="@+id/none"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="None" />
+
+            <CheckBox
                 android:id="@+id/others"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -134,7 +142,8 @@
                 android:hint="Please provide other animals on the farm"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

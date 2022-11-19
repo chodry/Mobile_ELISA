@@ -2,7 +2,9 @@ package com.ug.air.elisa.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -14,6 +16,11 @@ import com.ug.air.elisa.R;
 public class WelcomeActivity extends AppCompatActivity {
 
     Button vetBtn, labBtn;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    public static final String PERSON = "person";
+    public static final String SHARED_PREFS_1 = "identity";
+    String person;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +35,14 @@ public class WelcomeActivity extends AppCompatActivity {
         vetBtn = findViewById(R.id.vet);
         labBtn = findViewById(R.id.lab);
 
+        sharedPreferences = getSharedPreferences(SHARED_PREFS_1, 0);
+        editor = sharedPreferences.edit();
+
         vetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editor.putString(PERSON, "vet");
+                editor.apply();
                 startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
             }
         });
@@ -38,6 +50,8 @@ public class WelcomeActivity extends AppCompatActivity {
         labBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                editor.putString(PERSON, "lab");
+                editor.apply();
                 startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
             }
         });

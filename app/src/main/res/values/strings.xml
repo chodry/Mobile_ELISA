@@ -4,4 +4,10 @@
     <string name="collect">You can either collect field data or laboratory data about animal diseases. The animals we are interested in are cattle and pigs</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="time">
+        <item>Days</item>
+        <item>Months</item>
+        <item>Years</item>
+    </string-array>
 </resources>
