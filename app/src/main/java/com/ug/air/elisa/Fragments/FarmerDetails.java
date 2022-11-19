@@ -1,5 +1,7 @@
 package com.ug.air.elisa.Fragments;
 
+import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -26,7 +28,6 @@ public class FarmerDetails extends Fragment {
     String name, village, parish, subCounty, district;
     SharedPreferences sharedPreferences2;
     SharedPreferences.Editor editor2;
-    public static final String SHARED_PREFS_2 = "shared_prefs";
     public static final String NAME = "name";
     public static final String VILLAGE = "village";
     public static final String PARISH = "parish";

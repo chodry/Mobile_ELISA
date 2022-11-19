@@ -1,5 +1,9 @@
 package com.ug.air.elisa.Fragments;
 
+import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
+import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
+import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,11 +36,10 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
     Spinner spinner;
     CheckBox cattle, pigs, birds, goats, sheep, others, none;
     Boolean check1, check2, check3, check4, check5, check6, check7;
-    String time, period, period_2, other, nothing;
+    String time, period, period_2, other, nothing, animal;
     String s = "";
-    SharedPreferences sharedPreferences2;
+    SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
-    public static final String SHARED_PREFS_2 = "shared_prefs";
     public static final String CHECK1 = "check1";
     public static final String CHECK2 = "check2";
     public static final String CHECK3 = "check3";
@@ -44,7 +47,7 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
     public static final String CHECK5 = "check5";
     public static final String CHECK6 = "check6";
     public static final String CHECK7 = "check7";
-    public static final String ANIMALS = "animals";
+    public static final String FARM = "farm";
     public static final String PERIOD = "period";
     public static final String OTHERS = "others";
     public static final String PERIOD_2 = "period_2";
@@ -73,6 +76,15 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
 
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
+
+        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
+        animal = sharedPreferences.getString(ANIMAL, "");
+
+        if (animal.equals("cattle")){
+            cattle.setVisibility(View.GONE);
+        }else{
+            pigs.setVisibility(View.GONE);
+        }
 
         loadData();
         updateViews();
@@ -203,7 +215,7 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
         editor2.putBoolean(CHECK5, birds.isChecked());
         editor2.putBoolean(CHECK6, none.isChecked());
         editor2.putBoolean(CHECK7, others.isChecked());
-        editor2.putString(ANIMALS, s);
+        editor2.putString(FARM, s);
         editor2.putString(PERIOD, period_2);
         editor2.putString(OTHERS, other);
         editor2.putString(PERIOD_2, period);
