@@ -29,14 +29,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="What's the De-worming status for the animal"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <RadioGroup
-                android:id="@+id/radioGroup3"
+                android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
@@ -59,77 +59,86 @@
 
             </RadioGroup>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="When was the last de-worming exercise"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:weightSum="10">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:id="@+id/info"
+                android:visibility="gone">
 
-                <EditText
-                    android:id="@+id/weight"
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:background="@drawable/et_button"
-                    android:inputType="number"
-                    android:padding="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="When was the last de-worming exercise"
                     android:textColor="@color/black"
-                    android:textColorHint="@color/gray"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="5"
-                    android:background="@drawable/style_spinner"
-                    android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
 
-                    <Spinner
-                        android:id="@+id/time"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                    <EditText
+                        android:id="@+id/date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="4"
+                        android:background="@drawable/et_button"
+                        android:inputType="number"
+                        android:padding="15dp"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray"
+                        android:textSize="18sp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="5"
+                        android:background="@drawable/style_spinner"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/time"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="1"
+                        android:text="Ago"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_weight="2"
-                    android:text="Ago"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Medication Used"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/medication"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@drawable/et_button"
+                    android:gravity="top"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:textSize="14sp" />
+
 
             </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="Medication Used"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/otherText"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:background="@drawable/et_button"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:padding="10dp"
-                android:textSize="14sp" />
-
 
         </LinearLayout>
 
