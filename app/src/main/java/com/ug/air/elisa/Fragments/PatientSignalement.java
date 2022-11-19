@@ -103,7 +103,7 @@ public class PatientSignalement extends Fragment implements AdapterView.OnItemSe
                 age = etAge.getText().toString();
 
                 if (breed.isEmpty() || weight.isEmpty() || age.isEmpty() || gender.isEmpty()){
-                    Toast.makeText(getActivity(), "Please provide information about other animals", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }else {
                     age_2 = age + " " + time;
                     saveData();

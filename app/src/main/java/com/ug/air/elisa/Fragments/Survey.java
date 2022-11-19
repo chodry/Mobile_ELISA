@@ -107,7 +107,7 @@ public class Survey extends Fragment {
             public void onClick(View view) {
 
                 if (season.isEmpty() || survey.isEmpty()) {
-                    Toast.makeText(getActivity(), "Please provide all the data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }else {
                     saveData();
                 }

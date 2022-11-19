@@ -107,10 +107,10 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
                 date = etDate.getText().toString();
 
                 if (vaccine.isEmpty()){
-                    Toast.makeText(getActivity(), "Please provide information about other animals", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please provide the required information", Toast.LENGTH_SHORT).show();
                 }else {
                     if (vaccine.equals("Vaccinated") && (date.isEmpty() || medication.isEmpty())){
-                        Toast.makeText(getActivity(), "Please provide information about other animals", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                     }else{
                         date_2 = date + " " + time;
                         saveData();

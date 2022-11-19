@@ -77,7 +77,7 @@ public class FarmAnimals extends Fragment {
                 dead = etDead.getText().toString();
 
                 if (animals.isEmpty() || infected.isEmpty() || vaccinated.isEmpty() || dead.isEmpty()){
-                    Toast.makeText(getActivity(), "Please provide information about other animals", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }else {
                     saveData();
                 }

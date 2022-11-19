@@ -199,7 +199,7 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
         s = s.replaceAll(", $", "");
 
         if (period.isEmpty() || s.equals("")){
-            Toast.makeText(getActivity(), "Please provide all the data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
         }
         else {
             period_2 = period + " " + time;

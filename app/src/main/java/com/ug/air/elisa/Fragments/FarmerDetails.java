@@ -67,7 +67,7 @@ public class FarmerDetails extends Fragment {
                 district = etDistrict.getText().toString();
 
                 if (name.isEmpty() || village.isEmpty() || parish.isEmpty() || subCounty.isEmpty() || district.isEmpty()){
-                    Toast.makeText(getActivity(), "Please provide all the data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     saveData();
