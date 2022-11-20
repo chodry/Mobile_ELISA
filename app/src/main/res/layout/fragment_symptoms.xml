@@ -32,124 +32,114 @@
                 android:text="Clinical signs"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
 
             <CheckBox
+                android:id="@+id/diarrhea"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Diarrhea" />
 
             <CheckBox
+                android:id="@+id/vomit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Vomiting" />
 
             <CheckBox
+                android:id="@+id/loss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Loss of appetite" />
 
             <CheckBox
+                android:id="@+id/body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="General body weakness" />
 
             <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Loss of appetite" />
-
-            <CheckBox
+                android:id="@+id/death"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Sudden death" />
 
+<!--            <CheckBox-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="14sp"-->
+<!--                android:text="Redness of the skin" />-->
+
             <CheckBox
+                android:id="@+id/saliver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="Redness of the skin" />
+                android:text="Excessive salivation" />
+
+<!--            <CheckBox-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="14sp"-->
+<!--                android:text="Vesicles/ blister/ Wounds around the mouth" />-->
+
+<!--            <CheckBox-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="14sp"-->
+<!--                android:text="Vesicles/ blister/ Wounds in the mouth" />-->
 
             <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Excessive Salivation" />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Vesicles/ blister/ Wounds around the mouth" />
-
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Vesicles/ blister/ Wounds in the mouth" />
-
-            <CheckBox
+                android:id="@+id/fever"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Fever" />
 
             <CheckBox
+                android:id="@+id/none"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="Vesicles/ blister/ Wounds on the hooves" />
+                android:text="None of these" />
+
+<!--            <CheckBox-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="14sp"-->
+<!--                android:text="Vesicles/ blister/ Wounds on the hooves" />-->
+
+<!--            <CheckBox-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textSize="14sp"-->
+<!--                android:text="Vesicles/ blister/ Wounds on the udder" />-->
 
             <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Vesicles/ blister/ Wounds on the udder" />
-
-            <CheckBox
+                android:id="@+id/others"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Others" />
 
             <EditText
-                android:id="@+id/otherText"
+                android:id="@+id/othersText"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/et_button"
                 android:gravity="top"
+                android:hint="Please provide any other symptoms"
+                android:visibility="gone"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="14sp"/>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Body condition score (from 1 to 5)"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"/>
-
-            <EditText
-                android:id="@+id/period"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:padding="15dp"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/gray"
-                android:background="@drawable/et_button"/>
 
         </LinearLayout>
 

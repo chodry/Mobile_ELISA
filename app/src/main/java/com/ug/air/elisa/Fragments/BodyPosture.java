@@ -1,5 +1,8 @@
 package com.ug.air.elisa.Fragments;
 
+import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,7 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ug.air.elisa.R;
 
@@ -19,6 +26,20 @@ public class BodyPosture extends Fragment {
     View view;
     Button backBtn, nextBtn;
     TextView textView;
+    EditText etOthers, etScore;
+    CheckBox leap, stand, loss, others, none;
+    Boolean check1, check2, check3, check4, check5, check6;
+    String other, s, score;
+    SharedPreferences sharedPreferences2, sharedPreferences;
+    SharedPreferences.Editor editor2;
+    public static final String CHECK11X = "check11x";
+    public static final String CHECK12X = "check12x";
+    public static final String CHECK13X = "check13x";
+    public static final String CHECK14X = "check14x";
+    public static final String CHECK15X = "check15x";
+    public static final String POSTURE = "posture";
+    public static final String OTHERS2 = "others2";
+    public static final String SCORE = "score";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,16 +50,65 @@ public class BodyPosture extends Fragment {
         nextBtn = view.findViewById(R.id.next);
         backBtn = view.findViewById(R.id.back);
         textView = view.findViewById(R.id.heading);
+        etOthers = view.findViewById(R.id.othersText);
+        etScore = view.findViewById(R.id.score);
+        stand = view.findViewById(R.id.stand);
+        leap = view.findViewById(R.id.leap);
+        loss = view.findViewById(R.id.loss);
+        others = view.findViewById(R.id.others);
+        none = view.findViewById(R.id.none);
 
         textView.setText("Body Posture");
+
+        sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
+        editor2 = sharedPreferences2.edit();
+
+        loadData();
+        updateViews();
+
+        others.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (others.isChecked()){
+                    etOthers.setVisibility(View.VISIBLE);
+                }else {
+                    etOthers.setVisibility(View.GONE);
+                    etOthers.setText("");
+                }
+            }
+        });
+
+        none.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (none.isChecked()){
+                    checked(stand);
+                    checked(leap);
+                    checked(loss);
+                    checked(others);
+
+                }else {
+                    stand.setEnabled(true);
+                    leap.setEnabled(true);
+                    loss.setEnabled(true);
+                    others.setEnabled(true);
+                }
+            }
+        });
+
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Temperature());
-                fr.addToBackStack(null);
-                fr.commit();
+                other = etOthers.getText().toString();
+                score = etScore.getText().toString();
+
+                if (etOthers.getVisibility()==View.VISIBLE && other.isEmpty()){
+                    Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    checkedList();
+                }
             }
         });
 
@@ -52,5 +122,89 @@ public class BodyPosture extends Fragment {
         });
 
         return view;
+    }
+
+    private void checked(CheckBox checkBox){
+        checkBox.setChecked(false);
+        checkBox.setSelected(false);
+        checkBox.setEnabled(false);
+    }
+
+    private void checkedList() {
+        s = "";
+
+        if(stand.isChecked()){
+            s += "Unable to stand, ";
+        }
+        if(leap.isChecked()){
+            s += "Leaping, ";
+        }
+        if(loss.isChecked()){
+            s += "Loss of weight, ";
+        }
+        if(none.isChecked()){
+            s = "None, ";
+        }
+        if (!other.isEmpty()){
+            s += other + ", ";
+        }
+        s = s.replaceAll(", $", "");
+
+        if (s.equals("") || score.isEmpty()){
+            Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            saveData();
+        }
+    }
+
+    public void saveData(){
+
+        editor2.putString(POSTURE, s);
+        editor2.putString(OTHERS2, other);
+        editor2.putString(SCORE, score);
+        editor2.putBoolean(CHECK11X, stand.isChecked());
+        editor2.putBoolean(CHECK12X, leap.isChecked());
+        editor2.putBoolean(CHECK13X, loss.isChecked());
+        editor2.putBoolean(CHECK14X, none.isChecked());
+        editor2.putBoolean(CHECK15X, others.isChecked());
+        editor2.apply();
+
+        FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
+        fr.replace(R.id.fragment_container, new Temperature());
+        fr.addToBackStack(null);
+        fr.commit();
+    }
+
+    private void loadData() {
+        check1 = sharedPreferences2.getBoolean(CHECK11X, false);
+        check2 = sharedPreferences2.getBoolean(CHECK12X, false);
+        check3 = sharedPreferences2.getBoolean(CHECK13X, false);
+        check4 = sharedPreferences2.getBoolean(CHECK14X, false);
+        check5 = sharedPreferences2.getBoolean(CHECK15X, false);
+        other = sharedPreferences2.getString(OTHERS2, "");
+        score = sharedPreferences2.getString(SCORE, "");
+    }
+
+    private void updateViews() {
+        stand.setChecked(check1);
+        leap.setChecked(check2);
+        loss.setChecked(check3);
+        none.setChecked(check4);
+        others.setChecked(check5);
+
+        if (none.isChecked()){
+            checked(leap);
+            checked(loss);
+            checked(stand);
+            checked(others);
+        }
+
+        if (!other.isEmpty()){
+            etOthers.setText(other);
+            etOthers.setVisibility(View.VISIBLE);
+        }
+
+        etScore.setText(score);
     }
 }

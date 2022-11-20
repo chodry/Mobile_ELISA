@@ -32,11 +32,11 @@
                 android:text="Body temperature (degrees celicus)"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
 
             <EditText
-                android:id="@+id/period"
+                android:id="@+id/temp"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -57,11 +57,12 @@
                 android:layout_marginBottom="10dp"/>
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/radioGroup1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <RadioButton
+                    android:id="@+id/normal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/navy_blue"
@@ -69,6 +70,7 @@
                     android:textSize="18sp" />
 
                 <RadioButton
+                    android:id="@+id/wheez"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -88,11 +90,12 @@
                 android:layout_marginBottom="10dp"/>
 
             <RadioGroup
-                android:id="@+id/radioGroup3"
+                android:id="@+id/radioGroup2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <RadioButton
+                    android:id="@+id/silent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/navy_blue"
@@ -100,6 +103,7 @@
                     android:textSize="18sp" />
 
                 <RadioButton
+                    android:id="@+id/disorganized"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

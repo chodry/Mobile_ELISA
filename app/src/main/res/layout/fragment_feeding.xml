@@ -32,51 +32,59 @@
                 android:text="Feeding mechanism"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
 
             <CheckBox
+                android:id="@+id/same"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Grass on the same farm" />
 
             <CheckBox
+                android:id="@+id/outside"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Grass from outside the farm" />
 
             <CheckBox
+                android:id="@+id/personal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Personal Leftovers" />
 
             <CheckBox
+                android:id="@+id/left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Leftovers from outside" />
 
             <CheckBox
+                android:id="@+id/drink"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Same drinking point with other animals" />
 
             <CheckBox
+                android:id="@+id/others"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Others" />
 
             <EditText
-                android:id="@+id/otherText"
+                android:id="@+id/othersText"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/et_button"
                 android:gravity="top"
+                android:visibility="gone"
+                android:hint="Please provide any other feeding mechanism"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
                 android:layout_marginTop="10dp"

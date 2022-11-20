@@ -27,21 +27,21 @@
             android:padding="10dp">
 
             <TextView
+                android:id="@+id/stocking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Stocking (Brought in new cattle/pigs)"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"/>
 
             <RadioGroup
-                android:id="@+id/radioGroup3"
+                android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/vaccinated"
+                    android:id="@+id/yes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/navy_blue"
@@ -49,7 +49,7 @@
                     android:textSize="18sp" />
 
                 <RadioButton
-                    android:id="@+id/not_vaccinated"
+                    android:id="@+id/no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -74,6 +74,7 @@
                 android:layout_height="wrap_content">
 
                 <RadioButton
+                    android:id="@+id/market"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/navy_blue"
@@ -81,6 +82,7 @@
                     android:textSize="18sp" />
 
                 <RadioButton
+                    android:id="@+id/farm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -89,6 +91,7 @@
                     android:textSize="18sp" />
 
                 <RadioButton
+                    android:id="@+id/both"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"

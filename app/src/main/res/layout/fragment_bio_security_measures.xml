@@ -32,47 +32,61 @@
                 android:text="What are the Bio-Security measures on the farm?"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
 
             <CheckBox
+                android:id="@+id/fencing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Fencing" />
 
             <CheckBox
+                android:id="@+id/disinfection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Disinfection" />
 
             <CheckBox
+                android:id="@+id/foot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Foot Bath" />
 
             <CheckBox
+                android:id="@+id/isolation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Isolation of new incoming animals" />
 
             <CheckBox
+                android:id="@+id/none"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="None" />
+
+            <CheckBox
+                android:id="@+id/others"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Others" />
 
             <EditText
-                android:id="@+id/otherText"
+                android:id="@+id/othersText"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/et_button"
                 android:gravity="top"
+                android:hint="Please provide any other bio-security measures"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
+                android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:textSize="14sp"/>
 
