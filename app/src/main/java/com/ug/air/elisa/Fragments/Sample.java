@@ -138,7 +138,7 @@ public class Sample extends Fragment {
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        fr.replace(R.id.fragment_container, new Camera1());
+        fr.replace(R.id.fragment_container, new GPS());
         fr.addToBackStack(null);
         fr.commit();
     }

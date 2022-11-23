@@ -40,4 +40,11 @@ public class FormMenuActivity extends AppCompatActivity {
 
     public void send_forms(View view) {
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
+    }
 }

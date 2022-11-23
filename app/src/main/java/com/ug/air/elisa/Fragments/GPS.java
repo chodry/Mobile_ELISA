@@ -1,11 +1,14 @@
 package com.ug.air.elisa.Fragments;
 
+import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
+import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Service;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,7 +36,13 @@ import android.widget.Toast;
 import com.ug.air.elisa.Activities.FormMenuActivity;
 import com.ug.air.elisa.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Map;
+import java.util.UUID;
 
 
 public class GPS extends Fragment implements LocationListener {
@@ -54,11 +63,15 @@ public class GPS extends Fragment implements LocationListener {
     boolean isNetwork = false;
     boolean canGetLocation = true;
     final String TAG = "GPS";
-    String lat, lon;
-    SharedPreferences sharedPreferences2;
-    SharedPreferences.Editor editor2;
+    String lat, lon, animal;
+    SharedPreferences sharedPreferences2, sharedPreferences, sharedPreferences3;
+    SharedPreferences.Editor editor2, editor3;
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
+    public static final String MAMMALS = "mammals";
+    public static final String UNIQUE = "unique";
+    public static final String FILENAME = "filename";
+    public static final String DATE = "date";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,6 +92,9 @@ public class GPS extends Fragment implements LocationListener {
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
 
+        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
+        animal = sharedPreferences.getString(ANIMAL, "");
+
         loadData();
         updateViews();
 
@@ -94,7 +110,13 @@ public class GPS extends Fragment implements LocationListener {
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), FormMenuActivity.class));
+
+                if (lon.isEmpty() || lat.isEmpty()){
+                    Toast.makeText(getActivity(), "Please provide information about other animals", Toast.LENGTH_SHORT).show();
+                }else {
+                    saveForm();
+                }
+
             }
         });
 
@@ -330,8 +352,10 @@ public class GPS extends Fragment implements LocationListener {
     }
 
     private void saveData(Location loc) {
-        editor2.putString(LATITUDE, ""+loc.getLatitude());
-        editor2.putString(LONGITUDE, ""+loc.getLongitude());
+        lat = ""+loc.getLatitude();
+        lon = ""+loc.getLongitude();
+        editor2.putString(LATITUDE, lat);
+        editor2.putString(LONGITUDE, lon);
         editor2.apply();
     }
 
@@ -343,5 +367,34 @@ public class GPS extends Fragment implements LocationListener {
     private void updateViews(){
         txtLocation1.setText(lat);
         txtLocation2.setText(lon);
+    }
+
+    public void saveForm(){
+
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
+        String formattedDate = df.format(currentTime);
+
+        String uniqueID = UUID.randomUUID().toString();
+        String filename = formattedDate + "_" + uniqueID;
+
+        editor2.putString(MAMMALS, animal);
+        editor2.putString(UNIQUE, uniqueID);
+        editor2.putString(DATE, formattedDate);
+        editor2.putString(FILENAME, filename);
+        editor2.apply();
+
+        sharedPreferences3 = requireActivity().getSharedPreferences(filename, Context.MODE_PRIVATE);
+        editor3 = sharedPreferences3.edit();
+
+        Map<String, ?> all = sharedPreferences2.getAll();
+        for (Map.Entry<String, ?> x : all.entrySet()) {
+            if (x.getValue().getClass().equals(String.class))  editor3.putString(x.getKey(),  (String)x.getValue());
+        }
+
+        editor3.commit();
+        editor2.clear();
+        editor2.commit();
+        startActivity(new Intent(getActivity(), FormMenuActivity.class));
     }
 }
