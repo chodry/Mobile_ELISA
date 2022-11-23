@@ -106,11 +106,11 @@
                     tools:ignore="OnClick,UsingOnClickInXml">
 
                     <TextView
+                        android:id="@+id/sent"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textColor="@color/black"
                         android:textAllCaps="true"
-                        android:text="send forms (45)"
                         android:textStyle="bold"
                         android:gravity="center"
                         android:textSize="18sp"/>

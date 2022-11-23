@@ -39,7 +39,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/baby_blue"
                         android:gravity="center_horizontal"
-                        android:text="Welcome to Mobile ELISA"
+                        android:text="Welcome to M-ELISA"
                         android:fontFamily="sans-serif-black"
                         android:textSize="20sp"/>
 
