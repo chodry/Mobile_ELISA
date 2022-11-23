@@ -33,16 +33,16 @@
                 android:text="Click the button below to get the current GPS loaction"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/login"
+                    android:id="@+id/gps"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Get GPS Location"
@@ -64,11 +64,28 @@
                     android:layout_height="20dp"
                     android:layout_marginRight="16dp"
                     android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="@+id/login"
-                    app:layout_constraintEnd_toEndOf="@+id/login"
-                    app:layout_constraintTop_toTopOf="@+id/login" />
+                    app:layout_constraintBottom_toBottomOf="@+id/gps"
+                    app:layout_constraintEnd_toEndOf="@+id/gps"
+                    app:layout_constraintTop_toTopOf="@+id/gps" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:id="@+id/location"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:gravity="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/location2"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:gravity="center"/>
 
 
         </LinearLayout>

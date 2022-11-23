@@ -32,41 +32,46 @@
                 android:text="Samples taken"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
 
             <CheckBox
+                android:id="@+id/blood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Blood serum" />
 
             <CheckBox
+                android:id="@+id/swabs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Swabs" />
 
             <CheckBox
+                android:id="@+id/fluid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Fluid from vesicle" />
 
             <CheckBox
+                android:id="@+id/others"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Others" />
 
             <EditText
-                android:id="@+id/otherText"
+                android:id="@+id/othersText"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/et_button"
                 android:gravity="top"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
+                android:visibility="gone"
                 android:layout_marginTop="10dp"
                 android:textSize="14sp"/>
 

@@ -32,11 +32,11 @@
                 android:text="Suspected Disease/ tentative diagnosis"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
 
             <EditText
-                android:id="@+id/otherText"
+                android:id="@+id/disease"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:background="@drawable/et_button"
@@ -57,12 +57,12 @@
                 android:layout_marginBottom="10dp"/>
 
             <RadioGroup
-                android:id="@+id/radioGroup3"
+                android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/vaccinated"
+                    android:id="@+id/good"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/navy_blue"
@@ -70,7 +70,7 @@
                     android:textSize="18sp" />
 
                 <RadioButton
-                    android:id="@+id/not_vaccinated"
+                    android:id="@+id/bad"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -90,6 +90,7 @@
                 android:layout_marginBottom="10dp"/>
 
             <EditText
+                android:id="@+id/treatment"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:background="@drawable/et_button"
