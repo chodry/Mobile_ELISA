@@ -1,9 +1,13 @@
 package com.ug.air.elisa.Activities;
 
+import static com.ug.air.elisa.Activities.LoginActivity.TOKEN;
+import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,6 +25,9 @@ public class SplashActivity extends AppCompatActivity {
 
     boolean InternetCheck = true;
     RelativeLayout relativeLayout;
+    String token;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +40,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         relativeLayout = findViewById(R.id.relativelayout);
+
+        sharedPreferences = getSharedPreferences(SHARED_PREFS_1, 0);
+        token = sharedPreferences.getString(TOKEN, "");
     }
 
     @Override
@@ -45,9 +55,17 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
+                if (token.isEmpty()){
+                    boolean InternetResult = checkConnection();
+                    if (InternetResult){
+                        startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
+                    }else{
+                        DialogAppear();
+                    }
+                }else{
+                    startActivity(new Intent(SplashActivity.this, PermissionsActivity.class));
+                }
             }
-
         }, timeout);
     }
 
