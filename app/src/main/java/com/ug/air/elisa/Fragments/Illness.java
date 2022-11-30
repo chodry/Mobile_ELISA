@@ -38,9 +38,9 @@ public class Illness extends Fragment {
     String illness, suffering, treatment;
     SharedPreferences sharedPreferences2;
     SharedPreferences.Editor editor2;
-    public static final String SUFFERING = "suffering";
-    public static final String TREATMENT = "treatment";
-    public static final String ILLNESS = "illness";
+    public static final String SUFFERING = "animal_suffering_from";
+    public static final String TREATMENT = "treatment_given";
+    public static final String ILLNESS = "previous_illness";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

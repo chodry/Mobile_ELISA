@@ -35,7 +35,7 @@ public class Diagnosis extends Fragment {
     private static final int NO = 1;
     public static final String PROGNOSIS = "prognosis";
     public static final String DIAGNOSIS = "diagnosis";
-    public static final String TREAT = "treat";
+    public static final String TREAT = "supportive_treatment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

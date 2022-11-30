@@ -68,10 +68,10 @@ public class GPS extends Fragment implements LocationListener {
     SharedPreferences.Editor editor2, editor3;
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
-    public static final String MAMMALS = "mammals";
-    public static final String UNIQUE = "unique";
+    public static final String MAMMALS = "mammal";
+    public static final String UNIQUE = "unique_id";
     public static final String FILENAME = "filename";
-    public static final String DATE = "date";
+    public static final String DATE = "created_on";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -123,9 +123,9 @@ public class GPS extends Fragment implements LocationListener {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Camera4());
-                fr.commit();
+//                FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
+//                fr.replace(R.id.fragment_container, new Camera4());
+//                fr.commit();
             }
         });
 

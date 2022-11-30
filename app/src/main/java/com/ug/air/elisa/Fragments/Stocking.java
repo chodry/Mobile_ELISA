@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -25,7 +26,8 @@ public class Stocking extends Fragment {
 
     View view;
     Button backBtn, nextBtn;
-    TextView textView, textView2;
+    LinearLayout linearLayout;
+    TextView textView, textView2, textView3;
     RadioGroup radioGroup1, radioGroup2;
     RadioButton radioButton1, radioButton2, radioButton3, radioButton4, radioButton5;
     private static final int YES = 0;
@@ -36,8 +38,8 @@ public class Stocking extends Fragment {
     String stocking, stock, animal;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
-    public static final String STOCKING = "stocking";
-    public static final String STOCK = "stock";
+    public static final String STOCKING = "stock_from";
+    public static final String STOCK = "new_stock";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +58,8 @@ public class Stocking extends Fragment {
         radioButton4 = view.findViewById(R.id.farm);
         radioButton5 = view.findViewById(R.id.both);
         radioButton3 = view.findViewById(R.id.market);
+        linearLayout = view.findViewById(R.id.stock_from);
+        textView3 = view.findViewById(R.id.text2);
 
         textView.setText("Stocking");
 
@@ -67,8 +71,10 @@ public class Stocking extends Fragment {
 
         if (animal.equals("cattle")){
             textView2.setText("Stocking (Brought in new cattle)");
+            textView3.setText("Where did you buy the cattle from");
         }else{
             textView2.setText("Stocking (Brought in new pigs)");
+            textView3.setText("Where did you buy the pigs from");
         }
 
         loadData();
@@ -83,9 +89,12 @@ public class Stocking extends Fragment {
                 switch (index) {
                     case YES:
                         stock = "Yes";
+                        linearLayout.setVisibility(View.VISIBLE);
                         break;
                     case NO:
                         stock = "No";
+                        linearLayout.setVisibility(View.GONE);
+                        stocking = "";
                         break;
                     default:
                         break;
@@ -119,9 +128,9 @@ public class Stocking extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (stock.isEmpty() ||stocking.isEmpty()){
+                if (stock.isEmpty() || (stock.equals("Yes") && stocking.isEmpty())){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
-                }else{
+                }else  {
                     saveData();
                 }
             }

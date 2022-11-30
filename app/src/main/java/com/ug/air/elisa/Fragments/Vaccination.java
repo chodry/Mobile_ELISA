@@ -41,8 +41,8 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
     private static final int YES = 0;
     private static final int NO = 1;
     public static final String VACCINATION = "vaccination";
-    public static final String VACCINATION_PERIOD = "vaccination-period";
-    public static final String MEDICATION = "medication";
+    public static final String VACCINATION_PERIOD = "vaccination_period";
+    public static final String MEDICATION = "medication_1";
     public static final String PERIOD_4 = "period_4";
 
     @Override

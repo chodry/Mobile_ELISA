@@ -38,7 +38,7 @@ public class Feeding extends Fragment {
     public static final String CHECK4XX = "check4xx";
     public static final String CHECK5XX = "check5xx";
     public static final String CHECK6XX = "check6xx";
-    public static final String FEEDING = "feeding";
+    public static final String FEEDING = "feeding_mechanism";
     public static final String OTHERSXX = "othersxx";
 
     @Override

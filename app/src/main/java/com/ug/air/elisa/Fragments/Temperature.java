@@ -36,9 +36,9 @@ public class Temperature extends Fragment {
     String lung, heart, temperature;
     SharedPreferences sharedPreferences2;
     SharedPreferences.Editor editor2;
-    public static final String TEMPERATURE = "temperature";
-    public static final String HEART = "heart";
-    public static final String LUNG = "lung";
+    public static final String TEMPERATURE = "body_temperature";
+    public static final String HEART = "heart_sounds";
+    public static final String LUNG = "lung_sounds";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

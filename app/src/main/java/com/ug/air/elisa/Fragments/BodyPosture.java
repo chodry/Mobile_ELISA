@@ -37,9 +37,9 @@ public class BodyPosture extends Fragment {
     public static final String CHECK13X = "check13x";
     public static final String CHECK14X = "check14x";
     public static final String CHECK15X = "check15x";
-    public static final String POSTURE = "posture";
+    public static final String POSTURE = "body_posture";
     public static final String OTHERS2 = "others2";
-    public static final String SCORE = "score";
+    public static final String SCORE = "body_condition_score";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

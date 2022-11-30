@@ -30,7 +30,7 @@ public class FarmAnimals extends Fragment {
     String animals, animal, vaccinated, infected, dead;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
-    public static final String ANIMALS = "animals";
+    public static final String ANIMALS = "total_animals";
     public static final String VACCINATED = "vaccinated";
     public static final String INFECTED = "infected";
     public static final String DEAD = "dead";

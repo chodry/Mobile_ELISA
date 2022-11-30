@@ -31,7 +31,7 @@ public class FarmerDetails extends Fragment {
     public static final String NAME = "name";
     public static final String VILLAGE = "village";
     public static final String PARISH = "parish";
-    public static final String SUB_COUNTY = "subCounty";
+    public static final String SUB_COUNTY = "sub_county";
     public static final String DISTRICT = "district";
 
     @Override

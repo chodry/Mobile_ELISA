@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.Camera3">
+    tools:context=".Fragments.Camera">
 
     <include
         android:id="@+id/toolbar"
@@ -26,16 +26,8 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="Around the udder"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
             <Button
+                android:id="@+id/capture"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Take picture"
@@ -45,11 +37,10 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/bg_button"/>
 
-            <ImageView
-                android:id="@+id/image"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:layout_marginTop="10dp"/>
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
 

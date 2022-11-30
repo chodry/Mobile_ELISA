@@ -59,6 +59,10 @@ public class LoginActivity extends AppCompatActivity {
                 if (password.isEmpty() || username.isEmpty()){
                     Toast.makeText(LoginActivity.this, "Please provide both the username and password", Toast.LENGTH_SHORT).show();
                 }else {
+//                    editor.putString(TOKEN, "token");
+//                    editor.putString(USERNAME, username);
+//                    editor.apply();
+//                    startActivity(new Intent(LoginActivity.this, PermissionsActivity.class));
                     sendData();
                 }
             }

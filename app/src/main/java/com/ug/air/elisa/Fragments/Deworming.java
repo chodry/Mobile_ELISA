@@ -41,8 +41,8 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
     private static final int YES = 0;
     private static final int NO = 1;
     public static final String DEWORMING = "deworming";
-    public static final String DEWORMING_PERIOD = "deworming-period";
-    public static final String MEDICATION_2 = "medication-2";
+    public static final String DEWORMING_PERIOD = "deworming_period";
+    public static final String MEDICATION_2 = "medication_2";
     public static final String PERIOD_5 = "period_5";
 
     @Override

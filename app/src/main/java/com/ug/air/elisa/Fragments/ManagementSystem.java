@@ -36,7 +36,7 @@ public class ManagementSystem extends Fragment {
     private static final int NO2 = 3;
     private static final int YES3 = 4;
     private static final int NO3 = 5;
-    public static final String MANAGEMENT = "management";
+    public static final String MANAGEMENT = "management_system";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -47,8 +47,8 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
     public static final String CHECK5 = "check5";
     public static final String CHECK6 = "check6";
     public static final String CHECK7 = "check7";
-    public static final String FARM = "farm";
-    public static final String PERIOD = "period";
+    public static final String FARM = "farm_animals";
+    public static final String PERIOD = "farming_period";
     public static final String OTHERS = "others";
     public static final String PERIOD_2 = "period_2";
 
