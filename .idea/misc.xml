@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/drawable/et_button.xml" value="0.145" />
         <entry key="app/src/main/res/drawable/homebackground.xml" value="0.145" />
         <entry key="app/src/main/res/drawable/ic_back.xml" value="0.145" />
+        <entry key="app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.145" />
         <entry key="app/src/main/res/layout/activity_animals.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_form.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_form_menu.xml" value="0.21197916666666666" />
@@ -43,8 +44,10 @@
         <entry key="app/src/main/res/layout/fragment_temperature.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/fragment_vacciantion.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_visit.xml" value="0.22604166666666667" />
+        <entry key="app/src/main/res/layout/picture.xml" value="0.225" />
         <entry key="app/src/main/res/layout/picture_area.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/snack_bar.xml" value="0.22604166666666667" />
+        <entry key="app/src/main/res/layout/symptom.xml" value="0.22589949960783715" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.22604166666666667" />
       </map>
     </option>

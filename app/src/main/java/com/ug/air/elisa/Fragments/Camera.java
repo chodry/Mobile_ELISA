@@ -20,6 +20,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -40,12 +42,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.ug.air.elisa.Adapter.CameraAdapter;
+import com.ug.air.elisa.Models.Image;
 import com.ug.air.elisa.R;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -55,12 +62,12 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
     View view;
     Button backBtn, nextBtn, captureBtn, takeBtn, saveBtn, cancelBtn;
     Spinner spinner;
-    ImageView imageView;
+    ImageView imageView, imageView2;
     TextView textView;
     LinearLayout linearLayout;
-    Dialog dialog;
+    Dialog dialog, dialog2;
     EditText etOther;
-    String time, animal, other, currentPhotoPath;
+    String time, animal, other, currentPhotoPath, imagex, imagex2;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
     ArrayAdapter<CharSequence> adapter;
@@ -71,6 +78,9 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
     public static final String IMAGE_SYMPTOM = "image_symptom";
     List<String> image_url, image_symptom;
     Gson gson;
+    List<Image> imagesList;
+    CameraAdapter cameraAdapter;
+    RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,6 +92,7 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
         backBtn = view.findViewById(R.id.back);
         textView = view.findViewById(R.id.heading);
         captureBtn = view.findViewById(R.id.capture);
+        recyclerView = view.findViewById(R.id.recyclerview);
 
         textView.setText("Take Picture");
 
@@ -94,6 +105,40 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
         image_url = new ArrayList<String>();
         image_symptom = new ArrayList<String>();
         gson = new Gson();
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+
+        imagesList = new ArrayList<>();
+
+        String da1 = sharedPreferences2.getString(IMAGE_SYMPTOM, "");
+        List<String> elephantList = Arrays.asList(da1.split(","));
+//        Log.d("ELISA", "" + elephantList);
+
+        String da2 = sharedPreferences2.getString(IMAGE_URL, "");
+        List<String> elephantList2 = Arrays.asList(da2.split(","));
+//        Log.d("ELISA", "" + elephantList2);
+
+        if (elephantList.size() != 1){
+            for (String r: elephantList){
+                int index = elephantList.indexOf(r);
+                String url = elephantList2.get(index);
+                imagesList.add(new Image(r, url));
+                Log.d("ELISA22", " " + r + "__" + url);
+            }
+
+        }
+
+        cameraAdapter = new CameraAdapter(imagesList, getActivity());
+        recyclerView.setAdapter(cameraAdapter);
+
+        cameraAdapter.setOnItemClickListener(new CameraAdapter.OnItemClickListener() {
+            @Override
+            public void onShowClick(int position) {
+                Image image = imagesList.get(position);
+                showDialog2(image.getImage_url());
+            }
+        });
 
         captureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +205,9 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
                 if (time.equals("Select one") || (etOther.getVisibility() == View.VISIBLE && other.isEmpty())){
                     Toast.makeText(getActivity(), "Please provide information about other animals", Toast.LENGTH_SHORT).show();
                 }else {
+                    if (!other.isEmpty()){
+                       time = other;
+                    }
                     dispatchTakePictureIntent();
                 }
             }
@@ -168,17 +216,33 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                image_symptom.add(time);
-                image_url.add(currentPhotoPath);
+                String syt = sharedPreferences2.getString(IMAGE_SYMPTOM, "");
+                String syt2 = sharedPreferences2.getString(IMAGE_URL, "");
+                if (syt.isEmpty()){
+                    imagex = time;
+                }else {
+                    imagex = syt + "," + time;
+                }
 
-                String json1 = gson.toJson(image_url);
-                String json2 = gson.toJson(image_symptom);
+                if (syt2.isEmpty()){
+                    imagex2 = currentPhotoPath;
+                }else {
+                    imagex2 = syt2 + "," + currentPhotoPath;
+                }
 
-                editor2.putString(IMAGE_URL, json1);
-                editor2.putString(IMAGE_SYMPTOM, json2);
+                editor2.putString(IMAGE_SYMPTOM, imagex);
+                editor2.putString(IMAGE_URL, imagex2);
                 editor2.apply();
+
+                imagesList.add(new Image(time, currentPhotoPath));
+                cameraAdapter.notifyDataSetChanged();
+
                 currentPhotoPath = "";
+
                 dialog.dismiss();
+
+
+
             }
         });
 
@@ -273,5 +337,19 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
         currentPhotoPath = file.getAbsolutePath();
 
         return file;
+    }
+
+    private void showDialog2(String image_url) {
+        dialog2 = new Dialog(getActivity());
+        dialog2.setContentView(R.layout.picture);
+        dialog2.setCancelable(true);
+        Window window = dialog2.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+
+        imageView2 = dialog2.findViewById(R.id.image);
+        File f = new File(image_url);
+        imageView2.setImageURI(Uri.fromFile(f));
+
+        dialog2.show();
     }
 }
