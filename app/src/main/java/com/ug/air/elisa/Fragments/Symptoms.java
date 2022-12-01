@@ -199,7 +199,7 @@ public class Symptoms extends Fragment {
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        fr.replace(R.id.fragment_container, new Diagnosis());
+        fr.replace(R.id.fragment_container, new Camera());
         fr.addToBackStack(null);
         fr.commit();
     }

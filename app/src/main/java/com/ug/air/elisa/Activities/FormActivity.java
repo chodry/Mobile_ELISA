@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 
 import com.ug.air.elisa.Fragments.Camera;
+import com.ug.air.elisa.Fragments.Survey;
 import com.ug.air.elisa.R;
 
 public class FormActivity extends AppCompatActivity {
@@ -16,8 +17,8 @@ public class FormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_form);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-//        fragmentTransaction.add(R.id.fragment_container, new Survey());
-        fragmentTransaction.add(R.id.fragment_container, new Camera());
+        fragmentTransaction.add(R.id.fragment_container, new Survey());
+//        fragmentTransaction.add(R.id.fragment_container, new Camera());
         fragmentTransaction.commit();
 
     }

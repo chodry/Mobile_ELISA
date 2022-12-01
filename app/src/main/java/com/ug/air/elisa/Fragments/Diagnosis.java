@@ -99,7 +99,7 @@ public class Diagnosis extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Symptoms());
+                fr.replace(R.id.fragment_container, new Camera());
                 fr.commit();
             }
         });

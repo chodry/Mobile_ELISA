@@ -56,7 +56,7 @@
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/et_button"
                     android:gravity="top"
-                    android:hint="Please provide the region you want to capture"
+                    android:hint="Please enter the symptom"
                     android:inputType="textMultiLine"
                     android:padding="10dp"
                     android:textSize="14sp"

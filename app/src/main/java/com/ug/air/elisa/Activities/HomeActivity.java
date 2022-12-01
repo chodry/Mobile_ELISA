@@ -1,6 +1,7 @@
 package com.ug.air.elisa.Activities;
 
 import static com.ug.air.elisa.Activities.WelcomeActivity.PERSON;
+import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +16,6 @@ public class HomeActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    public static final String SHARED_PREFS_1 = "identity";
     public static final String ANIMAL = "animal";
     String person, animal;
 

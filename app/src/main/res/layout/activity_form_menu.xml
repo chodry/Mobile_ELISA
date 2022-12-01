@@ -102,7 +102,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="new_form"
+                    android:onClick="send_forms"
                     tools:ignore="OnClick,UsingOnClickInXml">
 
                     <TextView

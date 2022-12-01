@@ -67,7 +67,7 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
     LinearLayout linearLayout;
     Dialog dialog, dialog2;
     EditText etOther;
-    String time, animal, other, currentPhotoPath, imagex, imagex2;
+    String time, animal, other, currentPhotoPath, imagex, imagex2, da1, da2;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
     ArrayAdapter<CharSequence> adapter;
@@ -94,7 +94,7 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
         captureBtn = view.findViewById(R.id.capture);
         recyclerView = view.findViewById(R.id.recyclerview);
 
-        textView.setText("Take Picture");
+        textView.setText("Clinical Symptoms");
 
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
@@ -111,11 +111,11 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
 
         imagesList = new ArrayList<>();
 
-        String da1 = sharedPreferences2.getString(IMAGE_SYMPTOM, "");
+        da1 = sharedPreferences2.getString(IMAGE_SYMPTOM, "");
         List<String> elephantList = Arrays.asList(da1.split(","));
 //        Log.d("ELISA", "" + elephantList);
 
-        String da2 = sharedPreferences2.getString(IMAGE_URL, "");
+        da2 = sharedPreferences2.getString(IMAGE_URL, "");
         List<String> elephantList2 = Arrays.asList(da2.split(","));
 //        Log.d("ELISA", "" + elephantList2);
 
@@ -150,10 +150,16 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-//                fr.replace(R.id.fragment_container, new Camera2());
-//                fr.addToBackStack(null);
-//                fr.commit();
+
+                if (da1.isEmpty() || da2.isEmpty()){
+                    Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
+                }else{
+                    FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
+                    fr.replace(R.id.fragment_container, new Sample());
+                    fr.addToBackStack(null);
+                    fr.commit();
+                }
+
             }
         });
 
@@ -161,7 +167,7 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
             @Override
             public void onClick(View view) {
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Sample());
+                fr.replace(R.id.fragment_container, new Symptoms());
                 fr.commit();
             }
         });
