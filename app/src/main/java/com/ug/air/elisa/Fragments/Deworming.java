@@ -111,7 +111,11 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
                     if (vaccine.equals("De-wormed") && (date.isEmpty() || medication.isEmpty())){
                         Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                     }else{
-                        date_2 = date + " " + time;
+                        if (date.isEmpty()){
+                            date_2 = "";
+                        }else{
+                            date_2 = date + " " + time;
+                        }
                         saveData();
                     }
                 }

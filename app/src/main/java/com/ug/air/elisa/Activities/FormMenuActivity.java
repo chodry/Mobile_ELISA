@@ -121,11 +121,11 @@ public class FormMenuActivity extends AppCompatActivity {
                                     }
                                     String value = response.body();
 
-                                    fileX.delete();
-                                    for(String url: imagesList){
-                                        File file2 = new File(url);
-                                        file2.delete();
-                                    }
+//                                    fileX.delete();
+//                                    for(String url: imagesList){
+//                                        File file2 = new File(url);
+//                                        file2.delete();
+//                                    }
 
                                     Toast.makeText(FormMenuActivity.this, value, Toast.LENGTH_SHORT).show();
                                 }

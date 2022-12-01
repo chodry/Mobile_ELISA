@@ -151,11 +151,14 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
             @Override
             public void onClick(View view) {
 
+                da1 = sharedPreferences2.getString(IMAGE_SYMPTOM, "");
+                da2 = sharedPreferences2.getString(IMAGE_URL, "");
+
                 if (da1.isEmpty() || da2.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }else{
                     FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                    fr.replace(R.id.fragment_container, new Sample());
+                    fr.replace(R.id.fragment_container, new Diagnosis());
                     fr.addToBackStack(null);
                     fr.commit();
                 }

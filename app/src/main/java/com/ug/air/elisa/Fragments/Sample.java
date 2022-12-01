@@ -26,10 +26,10 @@ public class Sample extends Fragment {
     View view;
     Button backBtn, nextBtn;
     TextView textView;
-    EditText etOthers;
+    EditText etOthers, etSample;
     CheckBox blood, swabs, fluid, others;
     Boolean check1, check2, check3, check4;
-    String other, s;
+    String other, s, sample_name;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
     public static final String CHEC1 = "chec1";
@@ -38,6 +38,7 @@ public class Sample extends Fragment {
     public static final String CHEC4 = "chec4";
     public static final String SAMPLE = "sample";
     public static final String OTHERS4 = "others4";
+    public static final String SAMPLE_NAME = "sample_name";
 
 
     @Override
@@ -54,6 +55,7 @@ public class Sample extends Fragment {
         swabs = view.findViewById(R.id.swabs);
         fluid = view.findViewById(R.id.fluid);
         others = view.findViewById(R.id.others);
+        etSample = view.findViewById(R.id.sample_name);
 
         textView.setText("Clinical Samples");
 
@@ -80,8 +82,9 @@ public class Sample extends Fragment {
             public void onClick(View view) {
 
                 other = etOthers.getText().toString();
+                sample_name = etSample.getText().toString();
 
-                if (etOthers.getVisibility()==View.VISIBLE && other.isEmpty()){
+                if (sample_name.isEmpty() || (etOthers.getVisibility()==View.VISIBLE && other.isEmpty())){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -131,6 +134,7 @@ public class Sample extends Fragment {
 
         editor2.putString(SAMPLE, s);
         editor2.putString(OTHERS4, other);
+        editor2.putString(SAMPLE_NAME, sample_name);
         editor2.putBoolean(CHEC1, blood.isChecked());
         editor2.putBoolean(CHEC2, swabs.isChecked());
         editor2.putBoolean(CHEC3, fluid.isChecked());
@@ -149,6 +153,7 @@ public class Sample extends Fragment {
         check3 = sharedPreferences2.getBoolean(CHEC3, false);
         check4 = sharedPreferences2.getBoolean(CHEC4, false);
         other = sharedPreferences2.getString(OTHERS4, "");
+        sample_name = sharedPreferences2.getString(SAMPLE_NAME, "");
     }
 
     private void updateViews() {
@@ -161,5 +166,7 @@ public class Sample extends Fragment {
             etOthers.setText(other);
             etOthers.setVisibility(View.VISIBLE);
         }
+
+        etSample.setText(sample_name);
     }
 }
