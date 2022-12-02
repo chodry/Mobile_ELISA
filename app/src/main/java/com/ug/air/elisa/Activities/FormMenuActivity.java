@@ -6,6 +6,7 @@ import static com.ug.air.elisa.Activities.LoginActivity.TOKEN;
 import static com.ug.air.elisa.Activities.WelcomeActivity.PERSON;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Camera.IMAGE_URL;
+import static com.ug.air.elisa.Fragments.GPS.DATE;
 import static com.ug.air.elisa.Fragments.GPS.MAMMALS;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,8 +28,12 @@ import com.ug.air.elisa.BuildConfig;
 import com.ug.air.elisa.R;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -84,6 +89,7 @@ public class FormMenuActivity extends AppCompatActivity {
     }
 
     public void send_forms(View view) {
+//        Toast.makeText(this, "This feature is currently disabled", Toast.LENGTH_SHORT).show();
         File src = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs");
         if (src.exists()) {
             File[] contents = src.listFiles();
@@ -120,19 +126,18 @@ public class FormMenuActivity extends AppCompatActivity {
                                         return;
                                     }
                                     String value = response.body();
-
-//                                    fileX.delete();
-//                                    for(String url: imagesList){
-//                                        File file2 = new File(url);
-//                                        file2.delete();
-//                                    }
+                                    fileX.delete();
+                                    for(String url: imagesList){
+                                        File file2 = new File(url);
+                                        file2.delete();
+                                    }
 
                                     Toast.makeText(FormMenuActivity.this, value, Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
                                 public void onFailure(Call<String> call, Throwable t) {
-                                    Toast.makeText(FormMenuActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(FormMenuActivity.this, "Something went wrong" + t.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

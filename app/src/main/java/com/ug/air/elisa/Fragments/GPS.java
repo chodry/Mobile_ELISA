@@ -372,7 +372,7 @@ public class GPS extends Fragment implements LocationListener {
     public void saveForm(){
 
         Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
         String formattedDate = df.format(currentTime);
 
         String uniqueID = UUID.randomUUID().toString();
