@@ -25,10 +25,10 @@ public class Diagnosis extends Fragment {
     View view;
     Button backBtn, nextBtn;
     TextView textView;
-    EditText etTreatment, etDiagnosis;
+    EditText etTreatment, etDiagnosis, etDiagnosis2;
     RadioGroup radioGroup;
     RadioButton radioButton1, radioButton2;
-    String treatment, diagnosis, prognosis;
+    String treatment, diagnosis, prognosis, diagnosis2;
     SharedPreferences sharedPreferences2;
     SharedPreferences.Editor editor2;
     private static final int YES = 0;
@@ -36,6 +36,7 @@ public class Diagnosis extends Fragment {
     public static final String PROGNOSIS = "prognosis";
     public static final String DIAGNOSIS = "diagnosis";
     public static final String TREAT = "supportive_treatment";
+    public static final String OTHER_DIAGNOSIS = "other_diagnosis";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,6 +48,7 @@ public class Diagnosis extends Fragment {
         backBtn = view.findViewById(R.id.back);
         textView = view.findViewById(R.id.heading);
         etTreatment = view.findViewById(R.id.treatment);
+        etDiagnosis2 = view.findViewById(R.id.other_disease);
         etDiagnosis = view.findViewById(R.id.disease);
         radioGroup = view.findViewById(R.id.radioGroup);
         radioButton1 = view.findViewById(R.id.good);
@@ -86,6 +88,7 @@ public class Diagnosis extends Fragment {
 
                 treatment = etTreatment.getText().toString();
                 diagnosis = etDiagnosis.getText().toString();
+                diagnosis2 = etDiagnosis2.getText().toString();
 
                 if (diagnosis.isEmpty() || treatment.isEmpty() || prognosis.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
@@ -111,6 +114,7 @@ public class Diagnosis extends Fragment {
 
         editor2.putString(TREAT, treatment);
         editor2.putString(DIAGNOSIS, diagnosis);
+        editor2.putString(OTHER_DIAGNOSIS, diagnosis2);
         editor2.putString(PROGNOSIS, prognosis);
         editor2.apply();
 
@@ -123,11 +127,13 @@ public class Diagnosis extends Fragment {
     private void loadData(){
         treatment = sharedPreferences2.getString(TREAT, "");
         diagnosis = sharedPreferences2.getString(DIAGNOSIS, "");
+        diagnosis2 = sharedPreferences2.getString(OTHER_DIAGNOSIS, "");
         prognosis = sharedPreferences2.getString(PROGNOSIS, "");
     }
 
     private void updateViews(){
         etDiagnosis.setText(diagnosis);
+        etDiagnosis2.setText(diagnosis2);
         etTreatment.setText(treatment);
 
         if (prognosis.equals("Good")){

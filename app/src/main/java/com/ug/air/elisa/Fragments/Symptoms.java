@@ -1,5 +1,7 @@
 package com.ug.air.elisa.Fragments;
 
+import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
+import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.content.SharedPreferences;
@@ -27,9 +29,9 @@ public class Symptoms extends Fragment {
     Button backBtn, nextBtn;
     TextView textView;
     EditText etOthers;
-    CheckBox diarrhea, vomit, loss, body, death, saliva, fever, others, none;
-    Boolean check1, check2, check3, check4, check5, check6, check7, check8, check9;
-    String other, s;
+    CheckBox diarrhea, vomit, loss, body, death, saliva, fever, others, none, shivering, abortion;
+    Boolean check1, check2, check3, check4, check5, check6, check7, check8, check9, check10, check11;
+    String other, s, animal;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
     public static final String CHECK1X1 = "check1x1";
@@ -41,6 +43,8 @@ public class Symptoms extends Fragment {
     public static final String CHECK7X1 = "check7x1";
     public static final String CHECK8X1 = "check8x1";
     public static final String CHECK9X1 = "check9x1";
+    public static final String CHECK10X1 = "check10x1";
+    public static final String CHECK11X1 = "check11x1";
     public static final String SYMPTOMS = "symptoms";
     public static final String OTHERS3 = "others3";
 
@@ -61,6 +65,8 @@ public class Symptoms extends Fragment {
         death = view.findViewById(R.id.death);
         fever = view.findViewById(R.id.fever);
         saliva = view.findViewById(R.id.saliver);
+        shivering = view.findViewById(R.id.shivering);
+        abortion = view.findViewById(R.id.abortion);
         others = view.findViewById(R.id.others);
         none = view.findViewById(R.id.none);
 
@@ -68,6 +74,16 @@ public class Symptoms extends Fragment {
 
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
+
+        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
+        animal = sharedPreferences.getString(ANIMAL, "");
+
+        if (animal.equals("cattle")){
+            saliva.setVisibility(View.VISIBLE);
+        }else{
+            shivering.setVisibility(View.VISIBLE);
+            abortion.setVisibility(View.VISIBLE);
+        }
 
         loadData();
         updateViews();
@@ -94,8 +110,14 @@ public class Symptoms extends Fragment {
                     checked(fever);
                     checked(loss);
                     checked(body);
-                    checked(saliva);
                     checked(others);
+
+                    if (animal.equals("cattle")){
+                        checked(saliva);
+                    }else{
+                        checked(shivering);
+                        checked(abortion);
+                    }
 
                 }else {
                     diarrhea.setEnabled(true);
@@ -103,9 +125,16 @@ public class Symptoms extends Fragment {
                     death.setEnabled(true);
                     loss.setEnabled(true);
                     body.setEnabled(true);
-                    saliva.setEnabled(true);
                     fever.setEnabled(true);
                     others.setEnabled(true);
+//                    abortion.setEnabled(true);
+//                    shivering.setEnabled(true);
+                    if (animal.equals("cattle")){
+                        saliva.setEnabled(true);
+                    }else{
+                        shivering.setEnabled(true);
+                        abortion.setEnabled(true);
+                    }
                 }
             }
         });
@@ -167,6 +196,12 @@ public class Symptoms extends Fragment {
         if(saliva.isChecked()){
             s += "Excessive salivation, ";
         }
+        if(shivering.isChecked()){
+            s += "Shivering/ crowding, ";
+        }
+        if(saliva.isChecked()){
+            s += "Abortions, ";
+        }
         if(none.isChecked()){
             s = "None, ";
         }
@@ -192,10 +227,18 @@ public class Symptoms extends Fragment {
         editor2.putBoolean(CHECK3X1, loss.isChecked());
         editor2.putBoolean(CHECK4X1, body.isChecked());
         editor2.putBoolean(CHECK5X1, death.isChecked());
-        editor2.putBoolean(CHECK6X1, saliva.isChecked());
+
         editor2.putBoolean(CHECK7X1, fever.isChecked());
         editor2.putBoolean(CHECK8X1, none.isChecked());
         editor2.putBoolean(CHECK9X1, others.isChecked());
+
+        if (animal.equals("cattle")){
+            editor2.putBoolean(CHECK6X1, saliva.isChecked());
+        }else{
+            editor2.putBoolean(CHECK10X1, shivering.isChecked());
+            editor2.putBoolean(CHECK11X1, abortion.isChecked());
+        }
+
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -210,11 +253,18 @@ public class Symptoms extends Fragment {
         check3 = sharedPreferences2.getBoolean(CHECK3X1, false);
         check4 = sharedPreferences2.getBoolean(CHECK4X1, false);
         check5 = sharedPreferences2.getBoolean(CHECK5X1, false);
-        check6 = sharedPreferences2.getBoolean(CHECK6X1, false);
+
         check7 = sharedPreferences2.getBoolean(CHECK7X1, false);
         check8 = sharedPreferences2.getBoolean(CHECK8X1, false);
         check9 = sharedPreferences2.getBoolean(CHECK9X1, false);
         other = sharedPreferences2.getString(OTHERS3, "");
+
+//        if (animal.equals("cattle")){
+        check6 = sharedPreferences2.getBoolean(CHECK6X1, false);
+//        }else{
+        check10 = sharedPreferences2.getBoolean(CHECK10X1, false);
+        check11 = sharedPreferences2.getBoolean(CHECK11X1, false);
+//        }
     }
 
     private void updateViews() {
@@ -224,6 +274,8 @@ public class Symptoms extends Fragment {
         body.setChecked(check4);
         death.setChecked(check5);
         saliva.setChecked(check6);
+        shivering.setChecked(check10);
+        abortion.setChecked(check11);
         fever.setChecked(check7);
         none.setChecked(check8);
         others.setChecked(check9);
@@ -237,6 +289,8 @@ public class Symptoms extends Fragment {
             checked(body);
             checked(saliva);
             checked(others);
+            checked(shivering);
+            checked(abortion);
         }
 
         if (!other.isEmpty()){

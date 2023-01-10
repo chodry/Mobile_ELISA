@@ -66,16 +66,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/navy_blue"
-                    android:text="Normal sounds"
+                    android:text="Normal"
                     android:textSize="18sp" />
 
                 <RadioButton
-                    android:id="@+id/wheez"
+                    android:id="@+id/irregular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
                     android:buttonTint="@color/navy_blue"
-                    android:text="Wheezing Sounds"
+                    android:text="Irregular"
                     android:textSize="18sp" />
 
             </RadioGroup>
@@ -95,20 +94,29 @@
                 android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/silent"
+                    android:id="@+id/normal_s"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/navy_blue"
-                    android:text="Silent sounds"
+                    android:text="Normal"
                     android:textSize="18sp" />
 
                 <RadioButton
-                    android:id="@+id/disorganized"
+                    android:id="@+id/labored"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:buttonTint="@color/navy_blue"
-                    android:text="Disorganised Sounds"
+                    android:text="Labored Breath"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/wheez"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:buttonTint="@color/navy_blue"
+                    android:text="Wheezing"
                     android:textSize="18sp" />
 
             </RadioGroup>

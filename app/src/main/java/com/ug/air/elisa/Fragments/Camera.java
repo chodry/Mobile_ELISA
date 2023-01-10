@@ -225,33 +225,35 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String syt = sharedPreferences2.getString(IMAGE_SYMPTOM, "");
-                String syt2 = sharedPreferences2.getString(IMAGE_URL, "");
-                if (syt.isEmpty()){
-                    imagex = time;
+
+                if (currentPhotoPath.isEmpty()){
+                    Toast.makeText(getActivity(), "Please take the picture", Toast.LENGTH_SHORT).show();
                 }else {
-                    imagex = syt + "," + time;
+                    String syt = sharedPreferences2.getString(IMAGE_SYMPTOM, "");
+                    String syt2 = sharedPreferences2.getString(IMAGE_URL, "");
+                    if (syt.isEmpty()){
+                        imagex = time;
+                    }else {
+                        imagex = syt + "," + time;
+                    }
+
+                    if (syt2.isEmpty()){
+                        imagex2 = currentPhotoPath;
+                    }else {
+                        imagex2 = syt2 + "," + currentPhotoPath;
+                    }
+
+                    editor2.putString(IMAGE_SYMPTOM, imagex);
+                    editor2.putString(IMAGE_URL, imagex2);
+                    editor2.apply();
+
+                    imagesList.add(new Image(time, currentPhotoPath));
+                    cameraAdapter.notifyDataSetChanged();
+
+                    currentPhotoPath = "";
+
+                    dialog.dismiss();
                 }
-
-                if (syt2.isEmpty()){
-                    imagex2 = currentPhotoPath;
-                }else {
-                    imagex2 = syt2 + "," + currentPhotoPath;
-                }
-
-                editor2.putString(IMAGE_SYMPTOM, imagex);
-                editor2.putString(IMAGE_URL, imagex2);
-                editor2.apply();
-
-                imagesList.add(new Image(time, currentPhotoPath));
-                cameraAdapter.notifyDataSetChanged();
-
-                currentPhotoPath = "";
-
-                dialog.dismiss();
-
-
-
             }
         });
 

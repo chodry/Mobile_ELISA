@@ -180,6 +180,7 @@ public class Stocking extends Fragment {
 
         if (stock.equals("Yes")){
             radioButton1.setChecked(true);
+            linearLayout.setVisibility(View.VISIBLE);
         }else if (stock.equals("No")){
             radioButton2.setChecked(true);
         }else {

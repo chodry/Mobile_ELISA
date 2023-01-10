@@ -27,7 +27,7 @@ import android.widget.Toast;
 import com.ug.air.elisa.Activities.FormMenuActivity;
 import com.ug.air.elisa.R;
 
-public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedListener {
+public class FarmHistory extends Fragment {
 
     View view;
     Button backBtn, nextBtn;
@@ -48,9 +48,7 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
     public static final String CHECK6 = "check6";
     public static final String CHECK7 = "check7";
     public static final String FARM = "farm_animals";
-    public static final String PERIOD = "farming_period";
     public static final String OTHERS = "others";
-    public static final String PERIOD_2 = "period_2";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,7 +59,6 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
         nextBtn = view.findViewById(R.id.next);
         backBtn = view.findViewById(R.id.back);
         textView = view.findViewById(R.id.heading);
-        etPeriod = view.findViewById(R.id.period);
         etOthers = view.findViewById(R.id.otherText);
         spinner = view.findViewById(R.id.time);
         cattle = view.findViewById(R.id.cattle);
@@ -89,10 +86,6 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
         loadData();
         updateViews();
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.time, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
 
         others.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -111,7 +104,6 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
             public void onClick(View view) {
 
                 other = etOthers.getText().toString();
-                period = etPeriod.getText().toString();
 
                 if (etOthers.getVisibility()==View.VISIBLE && other.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide information about other animals", Toast.LENGTH_SHORT).show();
@@ -156,15 +148,6 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
         return view;
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        time = adapterView.getItemAtPosition(i).toString();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 
     private void checked(CheckBox checkBox){
         checkBox.setChecked(false);
@@ -198,11 +181,10 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
         }
         s = s.replaceAll(", $", "");
 
-        if (period.isEmpty() || s.equals("")){
+        if (s.equals("")){
             Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
         }
         else {
-            period_2 = period + " " + time;
             saveData();
         }
     }
@@ -216,9 +198,7 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
         editor2.putBoolean(CHECK6, none.isChecked());
         editor2.putBoolean(CHECK7, others.isChecked());
         editor2.putString(FARM, s);
-        editor2.putString(PERIOD, period_2);
         editor2.putString(OTHERS, other);
-        editor2.putString(PERIOD_2, period);
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -235,7 +215,6 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
         check5 = sharedPreferences2.getBoolean(CHECK5, false);
         check6 = sharedPreferences2.getBoolean(CHECK6, false);
         check7 = sharedPreferences2.getBoolean(CHECK7, false);
-        period = sharedPreferences2.getString(PERIOD_2, "");
         other = sharedPreferences2.getString(OTHERS, "");
     }
 
@@ -247,7 +226,6 @@ public class FarmHistory extends Fragment implements AdapterView.OnItemSelectedL
         birds.setChecked(check5);
         none.setChecked(check6);
         others.setChecked(check7);
-        etPeriod.setText(period);
 
         if (none.isChecked()){
             checked(cattle);

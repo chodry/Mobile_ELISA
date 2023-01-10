@@ -8,6 +8,8 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +68,8 @@ public class BodyPosture extends Fragment {
         loadData();
         updateViews();
 
+        etScore.addTextChangedListener(textWatcher);
+
         others.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -95,7 +99,6 @@ public class BodyPosture extends Fragment {
                 }
             }
         });
-
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,4 +210,30 @@ public class BodyPosture extends Fragment {
 
         etScore.setText(score);
     }
+
+    public TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            score = etScore.getText().toString();
+            if (!score.isEmpty()){
+                int sco = Integer.parseInt(score);
+                if (sco > 5){
+                    etScore.setError("The score should be below 5");
+                    nextBtn.setEnabled(false);
+                }else {
+                    nextBtn.setEnabled(true);
+                }
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
 }

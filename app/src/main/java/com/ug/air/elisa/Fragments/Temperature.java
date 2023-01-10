@@ -28,11 +28,12 @@ public class Temperature extends Fragment {
     TextView textView;
     EditText etTemp;
     RadioGroup radioGroup1, radioGroup2;
-    RadioButton radioButton1, radioButton2, radioButton3, radioButton4;
+    RadioButton radioButton1, radioButton2, radioButton3, radioButton4, radioButton5;
     private static final int YES = 0;
     private static final int NO = 1;
     private static final int YES2 = 0;
     private static final int NO2 = 1;
+    private static final int NO3 = 2;
     String lung, heart, temperature;
     SharedPreferences sharedPreferences2;
     SharedPreferences.Editor editor2;
@@ -51,10 +52,11 @@ public class Temperature extends Fragment {
         textView = view.findViewById(R.id.heading);
         radioGroup1 = view.findViewById(R.id.radioGroup1);
         radioButton1 = view.findViewById(R.id.normal);
-        radioButton2 = view.findViewById(R.id.wheez);
+        radioButton2 = view.findViewById(R.id.irregular);
         radioGroup2 = view.findViewById(R.id.radioGroup2);
-        radioButton3 = view.findViewById(R.id.silent);
-        radioButton4 = view.findViewById(R.id.disorganized);
+        radioButton3 = view.findViewById(R.id.normal_s);
+        radioButton4 = view.findViewById(R.id.labored);
+        radioButton5 = view.findViewById(R.id.wheez);
         etTemp = view.findViewById(R.id.temp);
 
         textView.setText("Auscultation");
@@ -73,10 +75,10 @@ public class Temperature extends Fragment {
 
                 switch (index) {
                     case YES:
-                        heart = "Yes";
+                        heart = "Normal";
                         break;
                     case NO:
-                        heart = "No";
+                        heart = "Irregular";
                         break;
                     default:
                         break;
@@ -92,10 +94,13 @@ public class Temperature extends Fragment {
 
                 switch (index) {
                     case YES2:
-                        lung = "Yes";
+                        lung = "Normal";
                         break;
                     case NO2:
-                        lung = "No";
+                        lung = "Labored breath";
+                        break;
+                    case NO3:
+                        lung = "Wheezing";
                         break;
                     default:
                         break;
@@ -149,22 +154,25 @@ public class Temperature extends Fragment {
     }
 
     private void updateViews() {
-        if (heart.equals("Yes")){
+        if (heart.equals("Normal")){
             radioButton1.setChecked(true);
-        }else if (heart.equals("No")){
+        }else if (heart.equals("Irregular")){
             radioButton2.setChecked(true);
         }else {
             radioButton1.setChecked(false);
             radioButton2.setChecked(false);
         }
 
-        if (lung.equals("Yes")){
+        if (lung.equals("Normal")){
             radioButton3.setChecked(true);
-        }else if (lung.equals("No")){
+        }else if (lung.equals("Labored breath")){
             radioButton4.setChecked(true);
+        }else if (lung.equals("Wheezing")){
+            radioButton5.setChecked(true);
         }else {
             radioButton3.setChecked(false);
             radioButton4.setChecked(false);
+            radioButton5.setChecked(false);
         }
 
         etTemp.setText(temperature);

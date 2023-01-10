@@ -29,7 +29,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Suspected Disease/ tentative diagnosis"
+                android:text="Tentative diagnosis/ Primary suspected disease"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:layout_marginTop="10dp"
@@ -38,7 +38,28 @@
             <EditText
                 android:id="@+id/disease"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="70dp"
+                android:background="@drawable/et_button"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="14sp"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Any other suspected disease (this is optional)"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
+
+            <EditText
+                android:id="@+id/other_disease"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
                 android:background="@drawable/et_button"
                 android:gravity="top"
                 android:inputType="textMultiLine"
@@ -92,7 +113,7 @@
             <EditText
                 android:id="@+id/treatment"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="100dp"
                 android:background="@drawable/et_button"
                 android:gravity="top"
                 android:inputType="textMultiLine"

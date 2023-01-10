@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.ug.air.elisa.R;
 
 
-public class PatientSignalement extends Fragment implements AdapterView.OnItemSelectedListener {
+public class PatientSignalement extends Fragment {
 
     View view;
     Button backBtn, nextBtn;
@@ -32,17 +32,17 @@ public class PatientSignalement extends Fragment implements AdapterView.OnItemSe
     EditText etBreed, etWeight, etAge;
     RadioGroup radioGroup;
     RadioButton radioButton1, radioButton2;
-    Spinner spinner;
-    String time, gender, breed, weight, age, age_2;
+    Spinner spinner, spinner2;
+    String time, gender, breed, age, age_2;
     SharedPreferences sharedPreferences2;
     SharedPreferences.Editor editor2;
     private static final int YES = 0;
     private static final int NO = 1;
     public static final String BREED = "breed";
     public static final String GENDER = "gender";
-    public static final String WEIGHT = "weight";
     public static final String AGE = "age";
     public static final String PERIOD_3 = "period_3";
+    ArrayAdapter<CharSequence> adapter, adapter2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,8 +54,7 @@ public class PatientSignalement extends Fragment implements AdapterView.OnItemSe
         backBtn = view.findViewById(R.id.back);
         textView = view.findViewById(R.id.heading);
         etAge = view.findViewById(R.id.age);
-        etBreed = view.findViewById(R.id.breed);
-        etWeight = view.findViewById(R.id.weight);
+        spinner2 = view.findViewById(R.id.breed);
         radioGroup = view.findViewById(R.id.radioGroup);
         radioButton1 = view.findViewById(R.id.male);
         radioButton2 = view.findViewById(R.id.female);
@@ -67,7 +66,6 @@ public class PatientSignalement extends Fragment implements AdapterView.OnItemSe
         editor2 = sharedPreferences2.edit();
 
         loadData();
-        updateViews();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -89,20 +87,27 @@ public class PatientSignalement extends Fragment implements AdapterView.OnItemSe
             }
         });
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.time, android.R.layout.simple_spinner_item);
+        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.time, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(new TimeSpinnerClass());
+
+        adapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.breed, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(adapter2);
+        spinner2.setOnItemSelectedListener(new BreedSpinnerClass());
+
+        updateViews();
+//        spinner2.setSelection(2);
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                breed = etBreed.getText().toString();
-                weight = etWeight.getText().toString();
+//                breed = etBreed.getText().toString();
                 age = etAge.getText().toString();
 
-                if (breed.isEmpty() || weight.isEmpty() || age.isEmpty() || gender.isEmpty()){
+                if (breed.isEmpty() || age.isEmpty() || gender.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }else {
                     age_2 = age + " " + time;
@@ -123,21 +128,37 @@ public class PatientSignalement extends Fragment implements AdapterView.OnItemSe
         return view;
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        time = adapterView.getItemAtPosition(i).toString();
+    public class TimeSpinnerClass implements AdapterView.OnItemSelectedListener {
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            time = adapterView.getItemAtPosition(i).toString();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
     }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+    public class BreedSpinnerClass implements AdapterView.OnItemSelectedListener {
 
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            breed = adapterView.getItemAtPosition(i).toString();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
     }
 
     private void saveData() {
 
         editor2.putString(BREED, breed);
         editor2.putString(AGE, age_2);
-        editor2.putString(WEIGHT, weight);
         editor2.putString(GENDER, gender);
         editor2.putString(PERIOD_3, age);
         editor2.apply();
@@ -152,13 +173,11 @@ public class PatientSignalement extends Fragment implements AdapterView.OnItemSe
         breed = sharedPreferences2.getString(BREED, "");
         age = sharedPreferences2.getString(PERIOD_3, "");
         gender = sharedPreferences2.getString(GENDER, "");
-        weight = sharedPreferences2.getString(WEIGHT, "");
     }
 
     private void updateViews() {
-        etBreed.setText(breed);
+//        etBreed.setText(breed);
         etAge.setText(age);
-        etWeight.setText(weight);
 
         if (gender.equals("Male")){
             radioButton1.setChecked(true);
@@ -168,5 +187,11 @@ public class PatientSignalement extends Fragment implements AdapterView.OnItemSe
             radioButton1.setChecked(false);
             radioButton2.setChecked(false);
         }
+
+        if (!breed.isEmpty()){
+            int position = adapter2.getPosition(breed);
+            spinner2.setSelection(position);
+        }
+
     }
 }

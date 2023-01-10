@@ -123,9 +123,9 @@ public class GPS extends Fragment implements LocationListener {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-//                fr.replace(R.id.fragment_container, new Camera4());
-//                fr.commit();
+                FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
+                fr.replace(R.id.fragment_container, new Sample());
+                fr.commit();
             }
         });
 

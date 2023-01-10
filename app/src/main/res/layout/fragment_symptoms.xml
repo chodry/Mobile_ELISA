@@ -76,24 +76,30 @@
             <!--                android:textSize="14sp"-->
             <!--                android:text="Redness of the skin" />-->
 
+
             <CheckBox
                 android:id="@+id/saliver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Excessive salivation"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone"/>
 
-            <!--            <CheckBox-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:textSize="14sp"-->
-            <!--                android:text="Vesicles/ blister/ Wounds around the mouth" />-->
+            <CheckBox
+                android:id="@+id/shivering"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Shivering/ crowding"
+                android:visibility="gone"/>
 
-            <!--            <CheckBox-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:textSize="14sp"-->
-            <!--                android:text="Vesicles/ blister/ Wounds in the mouth" />-->
+            <CheckBox
+                android:id="@+id/abortion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Abortions"
+                android:visibility="gone"/>
 
             <CheckBox
                 android:id="@+id/fever"
