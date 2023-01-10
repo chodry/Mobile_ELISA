@@ -1,23 +1,58 @@
 package com.ug.air.elisa.Activities;
 
+import static com.ug.air.elisa.Activities.LoginActivity.USERNAME;
+import static com.ug.air.elisa.Fragments.FarmerDetails.NAME;
+import static com.ug.air.elisa.Fragments.FarmerDetails.START_DATE;
+import static com.ug.air.elisa.Fragments.GPS.DATE;
+import static com.ug.air.elisa.Fragments.GPS.DURATION;
+import static com.ug.air.elisa.Fragments.GPS.FILENAME;
+import static com.ug.air.elisa.Fragments.GPS.INCOMPLETE;
+import static com.ug.air.elisa.Fragments.GPS.UNIQUE;
+import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
+import com.ug.air.elisa.BuildConfig;
 import com.ug.air.elisa.Fragments.Camera;
+import com.ug.air.elisa.Fragments.FarmerDetails;
 import com.ug.air.elisa.Fragments.Survey;
 import com.ug.air.elisa.R;
 
+import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
 public class FormActivity extends AppCompatActivity {
+
+    SharedPreferences sharedPreferences2, sharedPreferences, sharedPreferences3;
+    SharedPreferences.Editor editor2, editor3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form);
 
+        sharedPreferences2 = getSharedPreferences(SHARED_PREFS_2, 0);
+        editor2 = sharedPreferences2.edit();
+
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, new Survey());
+        fragmentTransaction.add(R.id.fragment_container, new FarmerDetails());
 //        fragmentTransaction.add(R.id.fragment_container, new Camera());
         fragmentTransaction.commit();
 
@@ -25,7 +60,91 @@ public class FormActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        finish();
+        String name = sharedPreferences2.getString(NAME, "");
+
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.exit);
+        dialog.setCancelable(true);
+
+        Button btnYes = dialog.findViewById(R.id.yes);
+        Button btnNo = dialog.findViewById(R.id.no);
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (name.isEmpty()){
+                    dialog.dismiss();
+                    startActivity(new Intent(FormActivity.this, FormMenuActivity.class));
+                    finish();
+                }else{
+                    Date currentTime = Calendar.getInstance().getTime();
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
+                    String formattedDate = df.format(currentTime);
+
+                    getDuration(currentTime);
+
+                    String uniqueID = UUID.randomUUID().toString();
+                    String filename = formattedDate + "_" + uniqueID;
+
+                    editor2.putString(DATE, formattedDate);
+                    editor2.putString(UNIQUE, uniqueID);
+                    editor2.putString(FILENAME, filename);
+                    editor2.putString(INCOMPLETE, "incomplete");
+                    editor2.apply();
+
+                    doLogic(filename);
+
+                    dialog.dismiss();
+
+                }
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    private void doLogic(String file) {
+
+        sharedPreferences3 = getSharedPreferences(file, Context.MODE_PRIVATE);
+        editor3 = sharedPreferences3.edit();
+
+        Map<String, ?> all = sharedPreferences2.getAll();
+        for (Map.Entry<String, ?> x : all.entrySet()) {
+            if (x.getValue().getClass().equals(String.class))  editor3.putString(x.getKey(),  (String)x.getValue());
+            if (x.getValue().getClass().equals(Boolean.class))  editor3.putBoolean(x.getKey(),  (Boolean) x.getValue());
+        }
+
+        editor3.commit();
+        editor2.clear();
+        editor2.commit();
+
+        startActivity(new Intent(FormActivity.this, FormMenuActivity.class));
+    }
+
+    private void getDuration(Date currentTime) {
+        String initial_date = sharedPreferences2.getString(START_DATE, "");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
+        try {
+            Date d1 = format.parse(initial_date);
+
+            long diff = currentTime.getTime() - d1.getTime();//as given
+
+            long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+            String duration = String.valueOf(minutes);
+            editor2.putString(DURATION, duration);
+            editor2.apply();
+            Log.d("Difference in time", "getTimeDifference: " + minutes);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

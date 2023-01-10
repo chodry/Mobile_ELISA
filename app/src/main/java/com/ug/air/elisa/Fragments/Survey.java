@@ -117,7 +117,9 @@ public class Survey extends Fragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), FormMenuActivity.class));
+                FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
+                fr.replace(R.id.fragment_container, new FarmerDetails());
+                fr.commit();
             }
         });
 
@@ -131,7 +133,7 @@ public class Survey extends Fragment {
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        fr.replace(R.id.fragment_container, new FarmerDetails());
+        fr.replace(R.id.fragment_container, new FarmHistory());
         fr.addToBackStack(null);
         fr.commit();
     }

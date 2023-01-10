@@ -14,10 +14,13 @@
         <entry key="app/src/main/res/layout/activity_form.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_form_menu.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/activity_list.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_permissions.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/exit.xml" value="0.22604166666666667" />
+        <entry key="app/src/main/res/layout/form.xml" value="0.7370956420898438" />
         <entry key="app/src/main/res/layout/fragment_anamnesis.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_bio_security_measures.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/fragment_body_posture.xml" value="0.21197916666666666" />

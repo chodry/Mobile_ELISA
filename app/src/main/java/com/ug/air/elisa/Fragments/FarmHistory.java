@@ -119,7 +119,7 @@ public class FarmHistory extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new FarmerDetails());
+                fr.replace(R.id.fragment_container, new Survey());
                 fr.commit();
             }
         });

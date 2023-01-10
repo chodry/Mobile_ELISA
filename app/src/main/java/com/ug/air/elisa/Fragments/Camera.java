@@ -113,21 +113,34 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
 
         da1 = sharedPreferences2.getString(IMAGE_SYMPTOM, "");
         List<String> elephantList = Arrays.asList(da1.split(","));
-//        Log.d("ELISA", "" + elephantList);
+        Log.d("ELISA", "" + elephantList);
 
         da2 = sharedPreferences2.getString(IMAGE_URL, "");
         List<String> elephantList2 = Arrays.asList(da2.split(","));
-//        Log.d("ELISA", "" + elephantList2);
+        Log.d("ELISA", "" + elephantList2);
 
-        if (elephantList.size() != 1){
+        if (elephantList.isEmpty()){
+            Log.d("ELISA3344", "empty--" + elephantList);
+        }else{
+            Log.d("ELISA3344", "size--" + elephantList);
             for (String r: elephantList){
                 int index = elephantList.indexOf(r);
                 String url = elephantList2.get(index);
                 imagesList.add(new Image(r, url));
                 Log.d("ELISA22", " " + r + "__" + url);
             }
-
         }
+
+
+//        if (elephantList.size() != 1){
+//            for (String r: elephantList){
+//                int index = elephantList.indexOf(r);
+//                String url = elephantList2.get(index);
+//                imagesList.add(new Image(r, url));
+//                Log.d("ELISA22", " " + r + "__" + url);
+//            }
+//
+//        }
 
         cameraAdapter = new CameraAdapter(imagesList, getActivity());
         recyclerView.setAdapter(cameraAdapter);

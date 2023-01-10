@@ -7,7 +7,8 @@ import static com.ug.air.elisa.Activities.WelcomeActivity.PERSON;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Camera.IMAGE_URL;
 import static com.ug.air.elisa.Fragments.GPS.DATE;
-import static com.ug.air.elisa.Fragments.GPS.MAMMALS;
+import static com.ug.air.elisa.Fragments.FarmerDetails.MAMMALS;
+import static com.ug.air.elisa.Fragments.GPS.INCOMPLETE;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -48,8 +49,8 @@ public class FormMenuActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     String animal, token;
     File[] contents;
-    int count = 0;
-    TextView txtSend;
+    int count, count1 = 0;
+    TextView txtSend, txtEdit;
     List<String> imagesList;
     File fileX;
     ImageView imageViewBack;
@@ -61,6 +62,7 @@ public class FormMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_form_menu);
 
         txtSend = findViewById(R.id.sent);
+        txtEdit = findViewById(R.id.editformtext);
         imageViewBack = findViewById(R.id.back);
 
         jsonPlaceHolder = ApiClient.getClient().create(JsonPlaceHolder.class);
@@ -86,6 +88,7 @@ public class FormMenuActivity extends AppCompatActivity {
     }
 
     public void edit_form(View view) {
+        startActivity(new Intent(FormMenuActivity.this, ListActivity.class));
     }
 
     public void send_forms(View view) {
@@ -100,46 +103,52 @@ public class FormMenuActivity extends AppCompatActivity {
                         if (!name.equals("shared_prefs.xml") && !name.equals("identity.xml")){
                             String names = name.replace(".xml", "");
                             SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
-                            String image_urls = sharedPreferences2.getString(IMAGE_URL, "");
+                            String incomplete = sharedPreferences2.getString(INCOMPLETE, "");
+                            String mammal = sharedPreferences2.getString(MAMMALS, "");
 
-                            imagesList = Arrays.asList(image_urls.split(","));
-                            MultipartBody.Part[] fileUpload = new MultipartBody.Part[imagesList.size()];
-                            for(String url: imagesList){
-                                Log.d("ELISA", "" + url);
-                                File file2 = new File(url);
-                                RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), file2);
-                                fileUpload[imagesList.indexOf(url)] = MultipartBody.Part.createFormData("files", file2.getPath(), fileBody);
+                            if (incomplete.equals("complete") && mammal.equals(animal)){
+                                String image_urls = sharedPreferences2.getString(IMAGE_URL, "");
+
+                                imagesList = Arrays.asList(image_urls.split(","));
+                                MultipartBody.Part[] fileUpload = new MultipartBody.Part[imagesList.size()];
+                                for(String url: imagesList){
+                                    Log.d("ELISA", "" + url);
+                                    File file2 = new File(url);
+                                    RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), file2);
+                                    fileUpload[imagesList.indexOf(url)] = MultipartBody.Part.createFormData("files", file2.getPath(), fileBody);
+                                }
+
+                                fileX = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs/" + name);
+                                RequestBody filePart = RequestBody.create(MediaType.parse("*/*"), fileX);
+                                MultipartBody.Part fileUpload2 = MultipartBody.Part.createFormData("file", fileX.getName() ,filePart);
+
+
+                                token = sharedPreferences.getString(TOKEN, "");
+                                Call<String> call = jsonPlaceHolder.sendFile("Token " + token, fileUpload, fileUpload2);
+                                call.enqueue(new Callback<String>() {
+                                    @Override
+                                    public void onResponse(Call<String> call, Response<String> response) {
+                                        if (!response.isSuccessful()){
+                                            Toast.makeText(FormMenuActivity.this, "Something went wrong, Please try again later", Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+                                        String value = response.body();
+                                        fileX.delete();
+                                        for(String url: imagesList){
+                                            File file2 = new File(url);
+                                            file2.delete();
+                                        }
+
+                                        Toast.makeText(FormMenuActivity.this, value, Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<String> call, Throwable t) {
+                                        Toast.makeText(FormMenuActivity.this, "Something went wrong" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
 
-                            fileX = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs/" + name);
-                            RequestBody filePart = RequestBody.create(MediaType.parse("*/*"), fileX);
-                            MultipartBody.Part fileUpload2 = MultipartBody.Part.createFormData("file", fileX.getName() ,filePart);
-
-
-                            token = sharedPreferences.getString(TOKEN, "");
-                            Call<String> call = jsonPlaceHolder.sendFile("Token " + token, fileUpload, fileUpload2);
-                            call.enqueue(new Callback<String>() {
-                                @Override
-                                public void onResponse(Call<String> call, Response<String> response) {
-                                    if (!response.isSuccessful()){
-                                        Toast.makeText(FormMenuActivity.this, "Something went wrong, Please try again later", Toast.LENGTH_SHORT).show();
-                                        return;
-                                    }
-                                    String value = response.body();
-                                    fileX.delete();
-                                    for(String url: imagesList){
-                                        File file2 = new File(url);
-                                        file2.delete();
-                                    }
-
-                                    Toast.makeText(FormMenuActivity.this, value, Toast.LENGTH_SHORT).show();
-                                }
-
-                                @Override
-                                public void onFailure(Call<String> call, Throwable t) {
-                                    Toast.makeText(FormMenuActivity.this, "Something went wrong" + t.getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            });
                         }
                     }
                 }
@@ -166,13 +175,18 @@ public class FormMenuActivity extends AppCompatActivity {
                             String names = name.replace(".xml", "");
                             SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
                             String mammal = sharedPreferences2.getString(MAMMALS, "");
+                            String incomplete = sharedPreferences2.getString(INCOMPLETE, "");
                             if (mammal.equals(animal)){
                                 count += 1;
+                            }
+                            if(incomplete.equals("complete") && mammal.equals(animal)){
+                                count1 += 1;
                             }
                         }
                     }
                 }
-                txtSend.setText("Send Forms ("+ count + ")");
+                txtSend.setText("Send Forms ("+ count1 + ")");
+                txtEdit.setText("Edit Forms ("+ count + ")");
             }
         }
     }

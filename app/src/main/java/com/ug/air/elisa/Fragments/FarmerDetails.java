@@ -1,7 +1,11 @@
 package com.ug.air.elisa.Fragments;
 
+import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
+import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -16,7 +20,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ug.air.elisa.BuildConfig;
 import com.ug.air.elisa.R;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
 
 
 public class FarmerDetails extends Fragment {
@@ -25,14 +36,17 @@ public class FarmerDetails extends Fragment {
     Button backBtn, nextBtn;
     TextView textView;
     EditText etName, etVillage, etParish, etSubCounty, etDistrict;
-    String name, village, parish, subCounty, district;
-    SharedPreferences sharedPreferences2;
-    SharedPreferences.Editor editor2;
+    String name, village, parish, subCounty, district, start, animal, filename;
+    SharedPreferences sharedPreferences2, sharedPreferences, sharedPreferences3;
+    SharedPreferences.Editor editor2, editor3;
     public static final String NAME = "name";
+    public static final String SECOND = "second_filename";
     public static final String VILLAGE = "village";
     public static final String PARISH = "parish";
     public static final String SUB_COUNTY = "sub_county";
     public static final String DISTRICT = "district";
+    public static final String START_DATE = "start_date";
+    public static final String MAMMALS = "mammal";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,7 +55,7 @@ public class FarmerDetails extends Fragment {
         view = inflater.inflate(R.layout.fragment_farmer_details, container, false);
 
         nextBtn = view.findViewById(R.id.next);
-        backBtn = view.findViewById(R.id.back);
+//        backBtn = view.findViewById(R.id.back);
         textView = view.findViewById(R.id.heading);
         etName = view.findViewById(R.id.name);
         etVillage = view.findViewById(R.id.village);
@@ -49,10 +63,36 @@ public class FarmerDetails extends Fragment {
         etSubCounty = view.findViewById(R.id.sub_county);
         etDistrict = view.findViewById(R.id.district);
 
+        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
+        animal = sharedPreferences.getString(ANIMAL, "");
+
         textView.setText("Farmer Details");
 
-        sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
-        editor2 = sharedPreferences2.edit();
+        Intent intent = getActivity().getIntent();
+        if (intent.hasExtra("filename")) {
+            filename = intent.getExtras().getString("filename");
+            sharedPreferences3 = requireActivity().getSharedPreferences(filename, Context.MODE_PRIVATE);
+            sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, Context.MODE_PRIVATE);
+
+            editor2 = sharedPreferences2.edit();
+            Map<String, ?> all = sharedPreferences3.getAll();
+            for (Map.Entry<String, ?> x : all.entrySet()) {
+                if (x.getValue().getClass().equals(String.class))  editor2.putString(x.getKey(),  (String)x.getValue());
+                if (x.getValue().getClass().equals(Boolean.class))  editor2.putBoolean(x.getKey(),  (Boolean) x.getValue());
+            }
+            editor2.commit();
+            editor2.apply();
+
+            filename = filename + ".xml";
+            File src = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs/" + filename);
+            if (src.exists()){
+                src.delete();
+            }
+
+        }else {
+            sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
+            editor2 = sharedPreferences2.edit();
+        }
 
         loadData();
         updateViews();
@@ -76,35 +116,45 @@ public class FarmerDetails extends Fragment {
             }
         });
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Survey());
-                fr.commit();
-            }
-        });
+//        backBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
+//                fr.replace(R.id.fragment_container, new Survey());
+//                fr.commit();
+//            }
+//        });
 
         return view;
     }
 
     private void saveData() {
 
+        if (start.isEmpty()){
+            Date currentTime = Calendar.getInstance().getTime();
+            SimpleDateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+            String formattedDate = df.format(currentTime);
+            editor2.putString(START_DATE, formattedDate);
+        }
+
+
         editor2.putString(NAME, name);
         editor2.putString(VILLAGE, village);
         editor2.putString(PARISH, parish);
         editor2.putString(SUB_COUNTY, subCounty);
         editor2.putString(DISTRICT, district);
+        editor2.putString(MAMMALS, animal);
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        fr.replace(R.id.fragment_container, new FarmHistory());
+        fr.replace(R.id.fragment_container, new Survey());
         fr.addToBackStack(null);
         fr.commit();
     }
 
     private void loadData() {
         name = sharedPreferences2.getString(NAME, "");
+        start = sharedPreferences2.getString(START_DATE, "");
         village = sharedPreferences2.getString(VILLAGE, "");
         subCounty = sharedPreferences2.getString(SUB_COUNTY, "");
         parish = sharedPreferences2.getString(PARISH, "");

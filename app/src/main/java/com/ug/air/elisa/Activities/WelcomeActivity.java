@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.ug.air.elisa.R;
 
@@ -50,9 +51,10 @@ public class WelcomeActivity extends AppCompatActivity {
         labBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editor.putString(PERSON, "lab");
-                editor.apply();
-                startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+//                editor.putString(PERSON, "lab");
+//                editor.apply();
+//                startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+                Toast.makeText(WelcomeActivity.this, "This section is currently not working", Toast.LENGTH_SHORT).show();
             }
         });
     }

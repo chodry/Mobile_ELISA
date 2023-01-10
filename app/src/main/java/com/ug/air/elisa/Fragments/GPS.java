@@ -2,6 +2,7 @@ package com.ug.air.elisa.Fragments;
 
 import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
+import static com.ug.air.elisa.Fragments.FarmerDetails.START_DATE;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.Manifest;
@@ -36,6 +37,7 @@ import android.widget.Toast;
 import com.ug.air.elisa.Activities.FormMenuActivity;
 import com.ug.air.elisa.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,6 +45,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 
 public class GPS extends Fragment implements LocationListener {
@@ -68,10 +71,11 @@ public class GPS extends Fragment implements LocationListener {
     SharedPreferences.Editor editor2, editor3;
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
-    public static final String MAMMALS = "mammal";
     public static final String UNIQUE = "unique_id";
     public static final String FILENAME = "filename";
     public static final String DATE = "created_on";
+    public static final String DURATION = "duration";
+    public static final String INCOMPLETE = "incomplete";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,9 +95,6 @@ public class GPS extends Fragment implements LocationListener {
 
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
-
-        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
-        animal = sharedPreferences.getString(ANIMAL, "");
 
         loadData();
         updateViews();
@@ -375,13 +376,16 @@ public class GPS extends Fragment implements LocationListener {
         SimpleDateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
         String formattedDate = df.format(currentTime);
 
+        getDuration(currentTime);
+
         String uniqueID = UUID.randomUUID().toString();
         String filename = formattedDate + "_" + uniqueID;
 
-        editor2.putString(MAMMALS, animal);
+//        editor2.putString(MAMMALS, animal);
         editor2.putString(UNIQUE, uniqueID);
         editor2.putString(DATE, formattedDate);
         editor2.putString(FILENAME, filename);
+        editor2.putString(INCOMPLETE, "complete");
         editor2.apply();
 
         sharedPreferences3 = requireActivity().getSharedPreferences(filename, Context.MODE_PRIVATE);
@@ -390,11 +394,31 @@ public class GPS extends Fragment implements LocationListener {
         Map<String, ?> all = sharedPreferences2.getAll();
         for (Map.Entry<String, ?> x : all.entrySet()) {
             if (x.getValue().getClass().equals(String.class))  editor3.putString(x.getKey(),  (String)x.getValue());
+            if (x.getValue().getClass().equals(Boolean.class))  editor3.putBoolean(x.getKey(),  (Boolean) x.getValue());
         }
 
         editor3.commit();
         editor2.clear();
         editor2.commit();
         startActivity(new Intent(getActivity(), FormMenuActivity.class));
+    }
+
+    private void getDuration(Date currentTime) {
+        String initial_date = sharedPreferences2.getString(START_DATE, "");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
+        try {
+            Date d1 = format.parse(initial_date);
+
+            long diff = currentTime.getTime() - d1.getTime();//as given
+
+            long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+            String duration = String.valueOf(minutes);
+            editor2.putString(DURATION, duration);
+            editor2.apply();
+            Log.d("Difference in time", "getTimeDifference: " + minutes);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
