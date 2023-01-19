@@ -44,6 +44,8 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
     public static final String DEWORMING_PERIOD = "deworming_period";
     public static final String MEDICATION_2 = "medication_2";
     public static final String PERIOD_5 = "period_5";
+    public static final String TIME_3 = "time_3";
+    ArrayAdapter<CharSequence> adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,7 +70,6 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
         editor2 = sharedPreferences2.edit();
 
         loadData();
-        updateViews();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -94,10 +95,12 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
             }
         });
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.time, android.R.layout.simple_spinner_item);
+        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.time, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        updateViews();
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +111,7 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
                 if (vaccine.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide the required information", Toast.LENGTH_SHORT).show();
                 }else {
-                    if (vaccine.equals("De-wormed") && (date.isEmpty() || medication.isEmpty())){
+                    if (vaccine.equals("De-wormed") && (date.isEmpty() || medication.isEmpty() || time.equals("Select one"))){
                         Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                     }else{
                         if (date.isEmpty()){
@@ -149,6 +152,7 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
         editor2.putString(DEWORMING_PERIOD, date_2);
         editor2.putString(PERIOD_5, date);
         editor2.putString(MEDICATION_2, medication);
+        editor2.putString(TIME_3, time);
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -161,6 +165,7 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
         vaccine = sharedPreferences2.getString(DEWORMING, "");
         date = sharedPreferences2.getString(PERIOD_5, "");
         medication = sharedPreferences2.getString(MEDICATION_2, "");
+        time = sharedPreferences2.getString(TIME_3, "");
     }
 
     private void updateViews() {
@@ -174,6 +179,11 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
         }else {
             radioButton1.setChecked(false);
             radioButton2.setChecked(false);
+        }
+
+        if (!time.isEmpty()){
+            int position = adapter.getPosition(time);
+            spinner.setSelection(position);
         }
     }
 

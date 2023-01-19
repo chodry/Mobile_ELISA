@@ -42,6 +42,7 @@ public class PatientSignalement extends Fragment {
     public static final String GENDER = "gender";
     public static final String AGE = "age";
     public static final String PERIOD_3 = "period_3";
+    public static final String TIME_1 = "time_1";
     ArrayAdapter<CharSequence> adapter, adapter2;
 
     @Override
@@ -107,7 +108,7 @@ public class PatientSignalement extends Fragment {
 //                breed = etBreed.getText().toString();
                 age = etAge.getText().toString();
 
-                if (breed.isEmpty() || age.isEmpty() || gender.isEmpty()){
+                if (breed.equals("Select one") || breed.isEmpty() || age.isEmpty() || gender.isEmpty() || time.equals("Select one")){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }else {
                     age_2 = age + " " + time;
@@ -161,6 +162,7 @@ public class PatientSignalement extends Fragment {
         editor2.putString(AGE, age_2);
         editor2.putString(GENDER, gender);
         editor2.putString(PERIOD_3, age);
+        editor2.putString(TIME_1, time);
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -173,6 +175,7 @@ public class PatientSignalement extends Fragment {
         breed = sharedPreferences2.getString(BREED, "");
         age = sharedPreferences2.getString(PERIOD_3, "");
         gender = sharedPreferences2.getString(GENDER, "");
+        time = sharedPreferences2.getString(TIME_1, "");
     }
 
     private void updateViews() {
@@ -191,6 +194,11 @@ public class PatientSignalement extends Fragment {
         if (!breed.isEmpty()){
             int position = adapter2.getPosition(breed);
             spinner2.setSelection(position);
+        }
+
+        if (!time.isEmpty()){
+            int position = adapter.getPosition(time);
+            spinner.setSelection(position);
         }
 
     }

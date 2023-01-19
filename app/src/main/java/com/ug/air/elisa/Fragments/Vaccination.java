@@ -44,6 +44,8 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
     public static final String VACCINATION_PERIOD = "vaccination_period";
     public static final String MEDICATION = "medication_1";
     public static final String PERIOD_4 = "period_4";
+    public static final String TIME_2 = "time_2";
+    ArrayAdapter<CharSequence> adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,7 +70,6 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
         editor2 = sharedPreferences2.edit();
 
         loadData();
-        updateViews();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -94,10 +95,12 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
             }
         });
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.time, android.R.layout.simple_spinner_item);
+        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.time, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+        updateViews();
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +112,7 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
                 if (vaccine.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }else {
-                    if (vaccine.equals("Vaccinated") && (date.isEmpty() || medication.isEmpty())){
+                    if (vaccine.equals("Vaccinated") && (date.isEmpty() || medication.isEmpty() || time.equals("Select one"))){
                         Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                     }else{
                         if (date.isEmpty()){
@@ -151,6 +154,7 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
         editor2.putString(VACCINATION_PERIOD, date_2);
         editor2.putString(PERIOD_4, date);
         editor2.putString(MEDICATION, medication);
+        editor2.putString(TIME_2, time);
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -163,6 +167,7 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
         vaccine = sharedPreferences2.getString(VACCINATION, "");
         date = sharedPreferences2.getString(PERIOD_4, "");
         medication = sharedPreferences2.getString(MEDICATION, "");
+        time = sharedPreferences2.getString(TIME_2, "");
     }
 
     private void updateViews() {
@@ -176,6 +181,11 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
         }else {
             radioButton1.setChecked(false);
             radioButton2.setChecked(false);
+        }
+
+        if (!time.isEmpty()){
+            int position = adapter.getPosition(time);
+            spinner.setSelection(position);
         }
     }
 
