@@ -53,7 +53,10 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.FormHolder> {
         String ani = form.getAnimal();
         if (ani.equals("cattle")){
             holder.circleImageView.setImageResource(R.drawable.cow);
-        }else {
+        }else if (ani.equals("farm")){
+            holder.circleImageView.setImageResource(R.drawable.livestock);
+        }
+        else {
             holder.circleImageView.setImageResource(R.drawable.pig);
         }
         holder.date.setText(form.getDate());

@@ -33,13 +33,22 @@ public class HomeActivity extends AppCompatActivity {
     public void cattle(View view) {
         editor.putString(ANIMAL, "cattle");
         editor.apply();
-        startActivity(new Intent(HomeActivity.this, FormMenuActivity.class));
+        Intent intent = new Intent(new Intent(HomeActivity.this, FormMenuActivity.class));
+        startActivity(intent);
     }
 
     public void piggery(View view) {
         editor.putString(ANIMAL, "piggery");
         editor.apply();
-        startActivity(new Intent(HomeActivity.this, FormMenuActivity.class));
+        Intent intent = new Intent(new Intent(HomeActivity.this, FormMenuActivity.class));
+        startActivity(intent);
+    }
+
+    public void farm(View view) {
+        editor.putString(ANIMAL, "farm");
+        editor.apply();
+        Intent intent = new Intent(new Intent(HomeActivity.this, FormMenuActivity.class));
+        startActivity(intent);
     }
 
     public void laboratory(View view) {

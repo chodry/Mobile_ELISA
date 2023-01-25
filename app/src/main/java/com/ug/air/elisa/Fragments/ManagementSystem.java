@@ -1,5 +1,6 @@
 package com.ug.air.elisa.Fragments;
 
+import static com.ug.air.elisa.Fragments.Survey.DISEASE;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.content.SharedPreferences;
@@ -111,8 +112,16 @@ public class ManagementSystem extends Fragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
+//                fr.replace(R.id.fragment_container, new Deworming());
+//                fr.commit();
+                String disease = sharedPreferences2.getString(DISEASE, "");
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Deworming());
+                if (disease.equals("Both") || disease.equals("African Swine Fever")){
+                    fr.replace(R.id.fragment_container, new Piggery());
+                }else {
+                    fr.replace(R.id.fragment_container, new Cattle());
+                }
                 fr.commit();
             }
         });

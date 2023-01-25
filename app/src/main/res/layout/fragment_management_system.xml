@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/navy_blue"
-                    android:text="Intensive (In door)"
+                    android:text="Intensive (Zero grazing)"
                     android:textSize="18sp" />
 
                 <RadioButton
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:buttonTint="@color/navy_blue"
-                    android:text="Extensive (Zero grazing)"
+                    android:text="Extensive"
                     android:textSize="18sp" />
 
                 <RadioButton

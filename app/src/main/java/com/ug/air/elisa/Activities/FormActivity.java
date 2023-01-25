@@ -1,13 +1,21 @@
 package com.ug.air.elisa.Activities;
 
+import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.LoginActivity.USERNAME;
+import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.FarmerDetails.NAME;
 import static com.ug.air.elisa.Fragments.FarmerDetails.START_DATE;
+import static com.ug.air.elisa.Fragments.Feeding.DATE_2;
+import static com.ug.air.elisa.Fragments.Feeding.DURATION_2;
+import static com.ug.air.elisa.Fragments.Feeding.FILENAME_2;
+import static com.ug.air.elisa.Fragments.Feeding.INCOMPLETE_2;
+import static com.ug.air.elisa.Fragments.Feeding.UNIQUE_2;
 import static com.ug.air.elisa.Fragments.GPS.DATE;
 import static com.ug.air.elisa.Fragments.GPS.DURATION;
 import static com.ug.air.elisa.Fragments.GPS.FILENAME;
 import static com.ug.air.elisa.Fragments.GPS.INCOMPLETE;
 import static com.ug.air.elisa.Fragments.GPS.UNIQUE;
+import static com.ug.air.elisa.Fragments.PatientSignalement.START_DATE_2;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +33,7 @@ import android.widget.Button;
 import com.ug.air.elisa.BuildConfig;
 import com.ug.air.elisa.Fragments.Camera;
 import com.ug.air.elisa.Fragments.FarmerDetails;
+import com.ug.air.elisa.Fragments.PatientSignalement;
 import com.ug.air.elisa.Fragments.Survey;
 import com.ug.air.elisa.R;
 
@@ -41,7 +50,8 @@ import java.util.concurrent.TimeUnit;
 public class FormActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences2, sharedPreferences, sharedPreferences3;
-    SharedPreferences.Editor editor2, editor3;
+    SharedPreferences.Editor editor2, editor3, editor;
+    String farm, animal, filename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +61,27 @@ public class FormActivity extends AppCompatActivity {
         sharedPreferences2 = getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, new FarmerDetails());
-//        fragmentTransaction.add(R.id.fragment_container, new Camera());
-        fragmentTransaction.commit();
+        sharedPreferences = getSharedPreferences(SHARED_PREFS_1, 0);
+        editor = sharedPreferences.edit();
+
+        animal = sharedPreferences.getString(ANIMAL, "");
+
+//        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//        fragmentTransaction.add(R.id.fragment_container, new FarmerDetails());
+////        fragmentTransaction.add(R.id.fragment_container, new Camera());
+//        fragmentTransaction.commit();
+
+        Intent intent = getIntent();
+        if (intent.hasExtra("farm")){
+            farm = intent.getExtras().getString("farm");
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            if (farm.equals("yes")){
+                fragmentTransaction.add(R.id.fragment_container, new FarmerDetails());
+            }else if (farm.equals("no")){
+                fragmentTransaction.add(R.id.fragment_container, new PatientSignalement());
+            }
+            fragmentTransaction.commit();
+        }
 
     }
 
@@ -91,12 +118,26 @@ public class FormActivity extends AppCompatActivity {
                     getDuration(currentTime);
 
                     String uniqueID = UUID.randomUUID().toString();
-                    String filename = formattedDate + "_" + uniqueID;
 
-                    editor2.putString(DATE, formattedDate);
-                    editor2.putString(UNIQUE, uniqueID);
-                    editor2.putString(FILENAME, filename);
-                    editor2.putString(INCOMPLETE, "incomplete");
+
+                    if (animal.equals("farm")) {
+                        filename = "farm_" + formattedDate + "_" + uniqueID;
+
+                        editor2.putString(DATE_2, formattedDate);
+                        editor2.putString(UNIQUE_2, uniqueID);
+                        editor2.putString(FILENAME_2, filename);
+                        editor2.putString(INCOMPLETE_2, "incomplete");
+
+                    }else {
+                        filename = formattedDate + "_" + uniqueID;
+
+                        editor2.putString(DATE, formattedDate);
+                        editor2.putString(UNIQUE, uniqueID);
+                        editor2.putString(FILENAME, filename);
+                        editor2.putString(INCOMPLETE, "incomplete");
+
+                    }
+
                     editor2.apply();
 
                     doLogic(filename);
@@ -130,21 +171,43 @@ public class FormActivity extends AppCompatActivity {
     }
 
     private void getDuration(Date currentTime) {
-        String initial_date = sharedPreferences2.getString(START_DATE, "");
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
-        try {
-            Date d1 = format.parse(initial_date);
 
-            long diff = currentTime.getTime() - d1.getTime();//as given
+        if (animal.equals("farm")) {
+            String initial_date = sharedPreferences2.getString(START_DATE, "");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
+            try {
+                Date d1 = format.parse(initial_date);
 
-            long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
-            String duration = String.valueOf(minutes);
-            editor2.putString(DURATION, duration);
-            editor2.apply();
-            Log.d("Difference in time", "getTimeDifference: " + minutes);
+                long diff = currentTime.getTime() - d1.getTime();//as given
 
-        } catch (ParseException e) {
-            e.printStackTrace();
+                long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+                String duration = String.valueOf(minutes);
+                editor2.putString(DURATION_2, duration);
+                editor2.apply();
+                Log.d("Difference in time", "getTimeDifference: " + minutes);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }else {
+            String initial_date = sharedPreferences2.getString(START_DATE_2, "");
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
+            try {
+                Date d1 = format.parse(initial_date);
+
+                long diff = currentTime.getTime() - d1.getTime();//as given
+
+                long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+                String duration = String.valueOf(minutes);
+                editor2.putString(DURATION, duration);
+                editor2.apply();
+                Log.d("Difference in time", "getTimeDifference: " + minutes);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
+
     }
 }

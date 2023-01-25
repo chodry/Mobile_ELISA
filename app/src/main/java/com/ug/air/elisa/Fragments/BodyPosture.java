@@ -221,9 +221,9 @@ public class BodyPosture extends Fragment {
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             score = etScore.getText().toString();
             if (!score.isEmpty()){
-                int sco = Integer.parseInt(score);
-                if (sco > 5){
-                    etScore.setError("The score should be below 5");
+                float sco = Float.parseFloat(score);
+                if (sco > 5.0){
+                    etScore.setError("The score should be below 5.0");
                     nextBtn.setEnabled(false);
                 }else {
                     nextBtn.setEnabled(true);

@@ -1,5 +1,7 @@
 package com.ug.air.elisa.Fragments;
 
+import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
+import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.content.SharedPreferences;
@@ -28,14 +30,15 @@ public class Temperature extends Fragment {
     TextView textView;
     EditText etTemp;
     RadioGroup radioGroup1, radioGroup2;
-    RadioButton radioButton1, radioButton2, radioButton3, radioButton4, radioButton5;
+    RadioButton radioButton1, radioButton2, radioButton3, radioButton4, radioButton5, radioButton6;
     private static final int YES = 0;
     private static final int NO = 1;
     private static final int YES2 = 0;
     private static final int NO2 = 1;
     private static final int NO3 = 2;
-    String lung, heart, temperature;
-    SharedPreferences sharedPreferences2;
+    private static final int NO4 = 3;
+    String lung, heart, temperature, animal;
+    SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
     public static final String TEMPERATURE = "body_temperature";
     public static final String HEART = "heart_sounds";
@@ -57,12 +60,22 @@ public class Temperature extends Fragment {
         radioButton3 = view.findViewById(R.id.normal_s);
         radioButton4 = view.findViewById(R.id.labored);
         radioButton5 = view.findViewById(R.id.wheez);
+        radioButton6 = view.findViewById(R.id.muffled);
         etTemp = view.findViewById(R.id.temp);
 
         textView.setText("Auscultation");
 
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
+
+        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
+        animal = sharedPreferences.getString(ANIMAL, "");
+
+        if (animal.equals("cattle")){
+            radioButton6.setVisibility(View.GONE);
+        }else {
+            radioButton6.setVisibility(View.VISIBLE);
+        }
 
         loadData();
         updateViews();
@@ -101,6 +114,9 @@ public class Temperature extends Fragment {
                         break;
                     case NO3:
                         lung = "Wheezing";
+                        break;
+                    case NO4:
+                        lung = "Muffled condition";
                         break;
                     default:
                         break;
@@ -169,10 +185,13 @@ public class Temperature extends Fragment {
             radioButton4.setChecked(true);
         }else if (lung.equals("Wheezing")){
             radioButton5.setChecked(true);
+        }else if (lung.equals("Muffled condition")){
+            radioButton6.setChecked(true);
         }else {
             radioButton3.setChecked(false);
             radioButton4.setChecked(false);
             radioButton5.setChecked(false);
+            radioButton6.setChecked(false);
         }
 
         etTemp.setText(temperature);

@@ -43,6 +43,34 @@
                 android:padding="20dp">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/farmX"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp"
+                    android:visibility="gone"
+                    android:layout_margin="10dp"
+                    app:cardBackgroundColor="@color/baby_blue"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:onClick="new_farm"
+                    tools:ignore="OnClick,UsingOnClickInXml">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="new farm form"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textSize="18sp"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/animalX"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     app:cardCornerRadius="10dp"
@@ -60,7 +88,7 @@
                             android:layout_height="match_parent"
                             android:textColor="@color/black"
                             android:textAllCaps="true"
-                            android:text="new form"
+                            android:text="new animal form"
                             android:textStyle="bold"
                             android:gravity="center"
                             android:textSize="18sp"/>
@@ -68,9 +96,38 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/farmXX"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp"
+                    android:layout_margin="10dp"
+                    app:cardBackgroundColor="@color/green_blue"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:onClick="edit_farm"
+                    tools:ignore="OnClick,UsingOnClickInXml">
+
+                    <TextView
+                        android:id="@+id/editformtext2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/black"
+                        android:textAllCaps="true"
+                        android:text="edit farm info"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:textSize="18sp"/>
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:cardCornerRadius="10dp"
+                    android:id="@+id/animalXX"
                     app:cardElevation="5dp"
                     android:layout_margin="10dp"
                     app:cardBackgroundColor="@color/green_blue"
@@ -86,7 +143,7 @@
                         android:layout_height="match_parent"
                         android:textColor="@color/black"
                         android:textAllCaps="true"
-                        android:text="edit form"
+                        android:text="edit animal info"
                         android:textStyle="bold"
                         android:gravity="center"
                         android:textSize="18sp"/>
@@ -98,6 +155,7 @@
                     android:layout_height="50dp"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="5dp"
+                    android:id="@+id/animalXXX"
                     android:layout_margin="10dp"
                     app:cardBackgroundColor="@color/grotto_blue"
                     android:clickable="true"

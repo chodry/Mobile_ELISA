@@ -25,8 +25,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="10dp"
-                app:cardCornerRadius="10dp"
-                app:cardBackgroundColor="@color/navy_blue">
+                app:cardBackgroundColor="@color/navy_blue"
+                app:cardCornerRadius="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -37,20 +37,20 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/baby_blue"
+                        android:fontFamily="sans-serif-black"
                         android:gravity="center_horizontal"
                         android:text="Welcome to M-ELISA"
-                        android:fontFamily="sans-serif-black"
-                        android:textSize="20sp"/>
+                        android:textColor="@color/baby_blue"
+                        android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:gravity="center_horizontal"
                         android:text="@string/collect"
                         android:textColor="@color/baby_blue"
-                        android:gravity="center_horizontal"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -59,22 +59,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:orientation="horizontal"
-                android:weightSum="10"
-                android:layout_marginTop="30dp">
+                android:weightSum="10">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="150dp"
-                    android:layout_weight="5"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="5dp"
                     android:layout_margin="10dp"
-                    app:cardBackgroundColor="@color/baby_blue"
+                    android:layout_weight="5"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="cattle"
+                    android:onClick="farm"
+                    app:cardBackgroundColor="@color/baby_blue"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp"
                     tools:ignore="OnClick,UsingOnClickInXml">
 
                     <LinearLayout
@@ -87,17 +87,17 @@
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/cow"/>
+                            android:src="@drawable/livestock" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
                             android:layout_marginTop="10dp"
-                            android:text="Cattle"
-                            android:textStyle="bold"
+                            android:gravity="center_horizontal"
+                            android:text="Farm"
+                            android:textColor="@color/black"
                             android:textSize="18sp"
-                            android:gravity="center_horizontal"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -106,15 +106,15 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="150dp"
-                    android:layout_weight="5"
                     android:layout_margin="10dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="5dp"
-                    app:cardBackgroundColor="@color/green_blue"
+                    android:layout_weight="5"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="piggery"
+                    android:onClick="cattle"
+                    app:cardBackgroundColor="@color/green_blue"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp"
                     tools:ignore="OnClick,UsingOnClickInXml">
 
                     <LinearLayout
@@ -127,17 +127,17 @@
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/pig"/>
+                            android:src="@drawable/cow" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
                             android:layout_marginTop="10dp"
-                            android:text="Piggery"
-                            android:textStyle="bold"
+                            android:gravity="center_horizontal"
+                            android:text="Cattle"
+                            android:textColor="@color/black"
                             android:textSize="18sp"
-                            android:gravity="center_horizontal"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -148,22 +148,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                android:weightSum="10"
-                android:layout_marginTop="10dp">
+                android:weightSum="10">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="150dp"
-                    android:layout_weight="5"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="5dp"
                     android:layout_margin="10dp"
-                    app:cardBackgroundColor="@color/grotto_blue"
+                    android:layout_weight="5"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="laboratory"
+                    android:onClick="piggery"
+                    app:cardBackgroundColor="@color/grotto_blue"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp"
                     tools:ignore="OnClick,UsingOnClickInXml">
 
                     <LinearLayout
@@ -176,17 +176,17 @@
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/lab"/>
+                            android:src="@drawable/pig" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
                             android:layout_marginTop="10dp"
-                            android:text="Lab Results"
-                            android:textStyle="bold"
+                            android:gravity="center_horizontal"
+                            android:text="Piggery"
+                            android:textColor="@color/black"
                             android:textSize="18sp"
-                            android:gravity="center_horizontal"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -195,15 +195,15 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="150dp"
-                    android:layout_weight="5"
                     android:layout_margin="10dp"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="5dp"
-                    app:cardBackgroundColor="@color/baby_blue"
+                    android:layout_weight="5"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     android:onClick="contact"
+                    app:cardBackgroundColor="@color/baby_blue"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp"
                     tools:ignore="OnClick,UsingOnClickInXml">
 
                     <LinearLayout
@@ -216,17 +216,17 @@
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:layout_gravity="center"
-                            android:src="@drawable/call"/>
+                            android:src="@drawable/lab" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
                             android:layout_marginTop="10dp"
-                            android:text="Contact Us"
-                            android:textStyle="bold"
+                            android:gravity="center_horizontal"
+                            android:text="Lab Results"
+                            android:textColor="@color/black"
                             android:textSize="18sp"
-                            android:gravity="center_horizontal"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 

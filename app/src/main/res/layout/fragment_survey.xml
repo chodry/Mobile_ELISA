@@ -31,6 +31,39 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:text="Current Season"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/dry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/navy_blue"
+                    android:text="Dry Season"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/rainy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:buttonTint="@color/navy_blue"
+                    android:text="Rainy Season"
+                    android:textSize="18sp" />
+
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:text="What kind of survey is being carried out"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -64,30 +97,40 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
-                android:text="Current Season"
+                android:text="What kind of disease is this survey targeting"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
+
             <RadioGroup
-                android:id="@+id/radioGroup2"
+                android:id="@+id/radioGroup3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/dry"
+                    android:id="@+id/swine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/navy_blue"
-                    android:text="Dry Season"
+                    android:text="African Swine Fever"
                     android:textSize="18sp" />
 
                 <RadioButton
-                    android:id="@+id/rainy"
+                    android:id="@+id/fnd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:buttonTint="@color/navy_blue"
-                    android:text="Rainy Season"
+                    android:text="Foot and Mouth Disease"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/both"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:buttonTint="@color/navy_blue"
+                    android:text="Both"
                     android:textSize="18sp" />
 
             </RadioGroup>

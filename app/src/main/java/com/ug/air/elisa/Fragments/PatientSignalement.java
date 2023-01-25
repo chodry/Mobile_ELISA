@@ -1,7 +1,11 @@
 package com.ug.air.elisa.Fragments;
 
+import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
+import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -21,7 +25,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ug.air.elisa.BuildConfig;
 import com.ug.air.elisa.R;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Map;
 
 
 public class PatientSignalement extends Fragment {
@@ -33,8 +44,8 @@ public class PatientSignalement extends Fragment {
     RadioGroup radioGroup;
     RadioButton radioButton1, radioButton2;
     Spinner spinner, spinner2;
-    String time, gender, breed, age, age_2;
-    SharedPreferences sharedPreferences2;
+    String time, gender, breed, age, age_2, animal, start, filename;
+    SharedPreferences sharedPreferences2, sharedPreferences, sharedPreferences3;
     SharedPreferences.Editor editor2;
     private static final int YES = 0;
     private static final int NO = 1;
@@ -44,6 +55,8 @@ public class PatientSignalement extends Fragment {
     public static final String PERIOD_3 = "period_3";
     public static final String TIME_1 = "time_1";
     ArrayAdapter<CharSequence> adapter, adapter2;
+    public static final String START_DATE_2 = "start_date";
+    public static final String MAMMALS = "mammal";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +79,8 @@ public class PatientSignalement extends Fragment {
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
 
-        loadData();
+        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
+        animal = sharedPreferences.getString(ANIMAL, "");
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -98,6 +112,33 @@ public class PatientSignalement extends Fragment {
         spinner2.setAdapter(adapter2);
         spinner2.setOnItemSelectedListener(new BreedSpinnerClass());
 
+        Intent intent = getActivity().getIntent();
+        if (intent.hasExtra("filename")) {
+            filename = intent.getExtras().getString("filename");
+            sharedPreferences3 = requireActivity().getSharedPreferences(filename, Context.MODE_PRIVATE);
+            sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, Context.MODE_PRIVATE);
+
+            editor2 = sharedPreferences2.edit();
+            Map<String, ?> all = sharedPreferences3.getAll();
+            for (Map.Entry<String, ?> x : all.entrySet()) {
+                if (x.getValue().getClass().equals(String.class))  editor2.putString(x.getKey(),  (String)x.getValue());
+                if (x.getValue().getClass().equals(Boolean.class))  editor2.putBoolean(x.getKey(),  (Boolean) x.getValue());
+            }
+            editor2.commit();
+            editor2.apply();
+
+            filename = filename + ".xml";
+            File src = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs/" + filename);
+            if (src.exists()){
+                src.delete();
+            }
+
+        }else {
+            sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
+            editor2 = sharedPreferences2.edit();
+        }
+
+        loadData();
         updateViews();
 //        spinner2.setSelection(2);
 
@@ -121,7 +162,7 @@ public class PatientSignalement extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new FarmAnimals());
+                fr.replace(R.id.fragment_container, new Cattle());
                 fr.commit();
             }
         });
@@ -158,11 +199,19 @@ public class PatientSignalement extends Fragment {
 
     private void saveData() {
 
+        if (start.isEmpty()){
+            Date currentTime = Calendar.getInstance().getTime();
+            SimpleDateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+            String formattedDate = df.format(currentTime);
+            editor2.putString(START_DATE_2, formattedDate);
+        }
+
         editor2.putString(BREED, breed);
         editor2.putString(AGE, age_2);
         editor2.putString(GENDER, gender);
         editor2.putString(PERIOD_3, age);
         editor2.putString(TIME_1, time);
+        editor2.putString(MAMMALS, animal);
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -176,6 +225,7 @@ public class PatientSignalement extends Fragment {
         age = sharedPreferences2.getString(PERIOD_3, "");
         gender = sharedPreferences2.getString(GENDER, "");
         time = sharedPreferences2.getString(TIME_1, "");
+        start = sharedPreferences2.getString(START_DATE_2, "");
     }
 
     private void updateViews() {

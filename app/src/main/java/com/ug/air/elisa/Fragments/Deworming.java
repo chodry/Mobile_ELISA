@@ -156,7 +156,7 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        fr.replace(R.id.fragment_container, new ManagementSystem());
+        fr.replace(R.id.fragment_container, new Illness());
         fr.addToBackStack(null);
         fr.commit();
     }

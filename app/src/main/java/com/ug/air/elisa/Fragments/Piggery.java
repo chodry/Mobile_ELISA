@@ -2,6 +2,7 @@ package com.ug.air.elisa.Fragments;
 
 import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
+import static com.ug.air.elisa.Fragments.Survey.DISEASE;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.content.SharedPreferences;
@@ -20,8 +21,7 @@ import android.widget.Toast;
 
 import com.ug.air.elisa.R;
 
-
-public class FarmAnimals extends Fragment {
+public class Piggery extends Fragment {
 
     View view;
     Button backBtn, nextBtn;
@@ -30,16 +30,17 @@ public class FarmAnimals extends Fragment {
     String animals, animal, vaccinated, infected, dead;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
-    public static final String ANIMALS = "total_animals";
-    public static final String VACCINATED = "vaccinated";
-    public static final String INFECTED = "infected";
-    public static final String DEAD = "dead";
+
+    public static final String PIGGERY = "total_pigs";
+    public static final String PIGGERY_VACCINATED = "piggery_vaccinated";
+    public static final String PIGGERY_INFECTED = "piggery_infected";
+    public static final String PIGGERY_DEAD = "piggery_dead";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_farm_animals, container, false);
+        view = inflater.inflate(R.layout.fragment_piggery, container, false);
 
         nextBtn = view.findViewById(R.id.next);
         backBtn = view.findViewById(R.id.back);
@@ -54,15 +55,6 @@ public class FarmAnimals extends Fragment {
 
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
-
-        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
-        animal = sharedPreferences.getString(ANIMAL, "");
-
-        if (animal.equals("cattle")){
-            textView2.setText("Number of Cattle on the farm");
-        }else{
-            textView2.setText("Number of Pigs on the farm");
-        }
 
         loadData();
         updateViews();
@@ -87,34 +79,44 @@ public class FarmAnimals extends Fragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
+//                fr.replace(R.id.fragment_container, new FarmHistory());
+//                fr.commit();
+
+                String disease = sharedPreferences2.getString(DISEASE, "");
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new FarmHistory());
+                if (disease.equals("Both")){
+                    fr.replace(R.id.fragment_container, new Cattle());
+                }else {
+                    fr.replace(R.id.fragment_container, new FarmHistory());
+                }
                 fr.commit();
             }
         });
+
 
         return view;
     }
 
     private void saveData() {
 
-        editor2.putString(ANIMALS, animals);
-        editor2.putString(VACCINATED, vaccinated);
-        editor2.putString(INFECTED, infected);
-        editor2.putString(DEAD, dead);
+        editor2.putString(PIGGERY, animals);
+        editor2.putString(PIGGERY_VACCINATED, vaccinated);
+        editor2.putString(PIGGERY_INFECTED, infected);
+        editor2.putString(PIGGERY_DEAD, dead);
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        fr.replace(R.id.fragment_container, new PatientSignalement());
+        fr.replace(R.id.fragment_container, new ManagementSystem());
         fr.addToBackStack(null);
         fr.commit();
     }
 
     private void loadData() {
-        vaccinated = sharedPreferences2.getString(VACCINATED, "");
-        animals = sharedPreferences2.getString(ANIMALS, "");
-        infected = sharedPreferences2.getString(INFECTED, "");
-        dead = sharedPreferences2.getString(DEAD, "");
+        vaccinated = sharedPreferences2.getString(PIGGERY_VACCINATED, "");
+        animals = sharedPreferences2.getString(PIGGERY, "");
+        infected = sharedPreferences2.getString(PIGGERY_INFECTED, "");
+        dead = sharedPreferences2.getString(PIGGERY_DEAD, "");
     }
 
     private void updateViews() {

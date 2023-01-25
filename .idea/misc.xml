@@ -11,6 +11,7 @@
         <entry key="app/src/main/res/drawable/ic_back.xml" value="0.145" />
         <entry key="app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.145" />
         <entry key="app/src/main/res/layout/activity_animals.xml" value="0.22604166666666667" />
+        <entry key="app/src/main/res/layout/activity_farm.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_form.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_form_menu.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.21197916666666666" />
@@ -20,6 +21,7 @@
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.25" />
         <entry key="app/src/main/res/layout/exit.xml" value="0.22604166666666667" />
+        <entry key="app/src/main/res/layout/farm.xml" value="0.375" />
         <entry key="app/src/main/res/layout/form.xml" value="0.7370956420898438" />
         <entry key="app/src/main/res/layout/fragment_anamnesis.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_bio_security_measures.xml" value="0.21197916666666666" />
@@ -29,6 +31,7 @@
         <entry key="app/src/main/res/layout/fragment_camera2.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_camera3.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_camera4.xml" value="0.22604166666666667" />
+        <entry key="app/src/main/res/layout/fragment_cattle.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_deworming.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/fragment_diagnosis.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_farm_animals.xml" value="0.22604166666666667" />
@@ -40,6 +43,7 @@
         <entry key="app/src/main/res/layout/fragment_illness.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/fragment_management_system.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_patient_signalement.xml" value="0.21197916666666666" />
+        <entry key="app/src/main/res/layout/fragment_piggery.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/fragment_sample.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/fragment_stocking.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/fragment_survey.xml" value="0.22604166666666667" />

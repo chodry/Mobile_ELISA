@@ -46,7 +46,6 @@ public class FarmerDetails extends Fragment {
     public static final String SUB_COUNTY = "sub_county";
     public static final String DISTRICT = "district";
     public static final String START_DATE = "start_date";
-    public static final String MAMMALS = "mammal";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,14 +62,15 @@ public class FarmerDetails extends Fragment {
         etSubCounty = view.findViewById(R.id.sub_county);
         etDistrict = view.findViewById(R.id.district);
 
-        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
-        animal = sharedPreferences.getString(ANIMAL, "");
+//        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
+//        animal = sharedPreferences.getString(ANIMAL, "");
 
         textView.setText("Farmer Details");
 
         Intent intent = getActivity().getIntent();
         if (intent.hasExtra("filename")) {
             filename = intent.getExtras().getString("filename");
+
             sharedPreferences3 = requireActivity().getSharedPreferences(filename, Context.MODE_PRIVATE);
             sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, Context.MODE_PRIVATE);
 
@@ -143,7 +143,6 @@ public class FarmerDetails extends Fragment {
         editor2.putString(PARISH, parish);
         editor2.putString(SUB_COUNTY, subCounty);
         editor2.putString(DISTRICT, district);
-        editor2.putString(MAMMALS, animal);
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();

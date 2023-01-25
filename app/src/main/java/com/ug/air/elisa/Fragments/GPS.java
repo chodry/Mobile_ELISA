@@ -3,6 +3,7 @@ package com.ug.air.elisa.Fragments;
 import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.FarmerDetails.START_DATE;
+import static com.ug.air.elisa.Fragments.PatientSignalement.START_DATE_2;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.Manifest;
@@ -404,7 +405,7 @@ public class GPS extends Fragment implements LocationListener {
     }
 
     private void getDuration(Date currentTime) {
-        String initial_date = sharedPreferences2.getString(START_DATE, "");
+        String initial_date = sharedPreferences2.getString(START_DATE_2, "");
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
         try {
             Date d1 = format.parse(initial_date);

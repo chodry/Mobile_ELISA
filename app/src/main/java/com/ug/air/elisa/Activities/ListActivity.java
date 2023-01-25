@@ -3,7 +3,12 @@ package com.ug.air.elisa.Activities;
 import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.FarmerDetails.DISTRICT;
-import static com.ug.air.elisa.Fragments.FarmerDetails.MAMMALS;
+import static com.ug.air.elisa.Fragments.Feeding.DATE_2;
+import static com.ug.air.elisa.Fragments.Feeding.FILENAME_2;
+import static com.ug.air.elisa.Fragments.PatientSignalement.AGE;
+import static com.ug.air.elisa.Fragments.PatientSignalement.BREED;
+import static com.ug.air.elisa.Fragments.PatientSignalement.GENDER;
+import static com.ug.air.elisa.Fragments.PatientSignalement.MAMMALS;
 import static com.ug.air.elisa.Fragments.FarmerDetails.NAME;
 import static com.ug.air.elisa.Fragments.FarmerDetails.PARISH;
 import static com.ug.air.elisa.Fragments.FarmerDetails.SUB_COUNTY;
@@ -13,6 +18,7 @@ import static com.ug.air.elisa.Fragments.GPS.FILENAME;
 import static com.ug.air.elisa.Fragments.GPS.INCOMPLETE;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,9 +30,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ug.air.elisa.Adapter.FormAdapter;
 import com.ug.air.elisa.BuildConfig;
+import com.ug.air.elisa.Fragments.FarmerDetails;
+import com.ug.air.elisa.Fragments.PatientSignalement;
 import com.ug.air.elisa.Models.Form;
 import com.ug.air.elisa.R;
 
@@ -46,7 +55,7 @@ public class ListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     FormAdapter formAdapter;
     List<Form> formList;
-    String animal;
+    String animal, farm;
     ArrayList<String> files;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -78,6 +87,11 @@ public class ListActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
+        Intent intent = getIntent();
+        if (intent.hasExtra("farm")){
+            farm = intent.getExtras().getString("farm");
+        }
+
         formList = new ArrayList<>();
         files = new ArrayList<String>();
         accessSharedFile();
@@ -90,7 +104,9 @@ public class ListActivity extends AppCompatActivity {
             public void onItemClick(int position) {
                 Form form = formList.get(position);
                 String file = form.getFilename();
+//                Toast.makeText(ListActivity.this, file, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ListActivity.this, FormActivity.class);
+                intent.putExtra("farm", farm);
                 intent.putExtra("filename", file);
                 startActivity(intent);
             }
@@ -111,28 +127,45 @@ public class ListActivity extends AppCompatActivity {
                 }
                 Collections.reverse(files);
                 for(String name : files){
-                    if (!name.equals("shared_prefs.xml") && !name.equals("identity.xml")){
+                    if (farm.equals("yes")){
+                        if (name.startsWith("farm_")){
+                            Log.d("ELISA App", "accessSharedFile: "+ name);
 
-                        Log.d("ELISA App", "accessSharedFile: "+ name);
+                            String names = name.replace(".xml", "");
+                            SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
 
-                        String names = name.replace(".xml", "");
-                        SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
-                        String mammal = sharedPreferences2.getString(MAMMALS, "");
-
-                        if (mammal.equals(animal)){
-                            String incomplete = sharedPreferences2.getString(INCOMPLETE, "");
-                            String filename = sharedPreferences2.getString(FILENAME, "");
+                            String filename = sharedPreferences2.getString(FILENAME_2, "");
                             String farmer = sharedPreferences2.getString(NAME, "");
                             String village = sharedPreferences2.getString(VILLAGE, "");
                             String subCounty = sharedPreferences2.getString(SUB_COUNTY, "");
                             String parish = sharedPreferences2.getString(PARISH, "");
                             String district = sharedPreferences2.getString(DISTRICT, "");
-                            String dat = sharedPreferences2.getString(DATE, "");
+                            String dat = sharedPreferences2.getString(DATE_2, "");
                             String location = district + "-" + subCounty + "-" + parish + "-" + village;
-                            Form form = new Form(farmer, location, dat, mammal, filename);
+                            Form form = new Form(farmer, location, dat, "farm", filename);
                             formList.add(form);
                         }
+                    }else {
+                        if (!name.equals("shared_prefs.xml") && !name.equals("identity.xml") && !name.startsWith("farm_")){
 
+                            Log.d("ELISA App", "accessSharedFile: "+ name);
+
+                            String names = name.replace(".xml", "");
+                            SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
+
+                            String mammal = sharedPreferences2.getString(MAMMALS, "");
+
+                            if (mammal.equals(animal)){
+                                String filename = sharedPreferences2.getString(FILENAME, "");
+                                String breed = sharedPreferences2.getString(BREED, "");
+                                String age = sharedPreferences2.getString(AGE, "");
+                                String gender = sharedPreferences2.getString(GENDER, "");
+                                String dat = sharedPreferences2.getString(DATE, "");
+                                Form form = new Form(breed + " (" + gender + ")", age + " old", dat, mammal, filename);
+                                formList.add(form);
+                            }
+
+                        }
                     }
                 }
 

@@ -7,10 +7,12 @@ import static com.ug.air.elisa.Activities.WelcomeActivity.PERSON;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Camera.IMAGE_URL;
 import static com.ug.air.elisa.Fragments.GPS.DATE;
-import static com.ug.air.elisa.Fragments.FarmerDetails.MAMMALS;
+import static com.ug.air.elisa.Fragments.PatientSignalement.MAMMALS;
 import static com.ug.air.elisa.Fragments.GPS.INCOMPLETE;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +28,8 @@ import android.widget.Toast;
 import com.ug.air.elisa.Apis.ApiClient;
 import com.ug.air.elisa.Apis.JsonPlaceHolder;
 import com.ug.air.elisa.BuildConfig;
+import com.ug.air.elisa.Fragments.FarmerDetails;
+import com.ug.air.elisa.Fragments.PatientSignalement;
 import com.ug.air.elisa.R;
 
 import java.io.File;
@@ -50,11 +54,12 @@ public class FormMenuActivity extends AppCompatActivity {
     String animal, token;
     File[] contents;
     int count, count1 = 0;
-    TextView txtSend, txtEdit;
+    TextView txtSend, txtEdit, txtEdit2;
     List<String> imagesList;
     File fileX;
     ImageView imageViewBack;
     JsonPlaceHolder jsonPlaceHolder;
+    CardView cardView1, cardView2, cardView3, cardView4, cardView5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +68,13 @@ public class FormMenuActivity extends AppCompatActivity {
 
         txtSend = findViewById(R.id.sent);
         txtEdit = findViewById(R.id.editformtext);
+        txtEdit2 = findViewById(R.id.editformtext2);
         imageViewBack = findViewById(R.id.back);
+        cardView1 = findViewById(R.id.farmX);
+        cardView2 = findViewById(R.id.farmXX);
+        cardView3 = findViewById(R.id.animalX);
+        cardView4 = findViewById(R.id.animalXX);
+        cardView5 = findViewById(R.id.animalXXX);
 
         jsonPlaceHolder = ApiClient.getClient().create(JsonPlaceHolder.class);
 
@@ -80,15 +91,42 @@ public class FormMenuActivity extends AppCompatActivity {
 
         animal = sharedPreferences.getString(ANIMAL, "");
 
-        getSavedForms();
+        if (animal.equals("farm")){
+            cardView1.setVisibility(View.VISIBLE);
+            cardView2.setVisibility(View.VISIBLE);
+
+            cardView3.setVisibility(View.GONE);
+            cardView4.setVisibility(View.GONE);
+            cardView5.setVisibility(View.GONE);
+            getSavedForms2();
+        }else {
+            getSavedForms();
+        }
+
     }
 
     public void new_form(View view) {
-        startActivity(new Intent(FormMenuActivity.this, FormActivity.class));
+        Intent intent = new Intent(FormMenuActivity.this, FormActivity.class);
+        intent.putExtra("farm", "no");
+        startActivity(intent);
+    }
+
+    public void new_farm(View view) {
+        Intent intent = new Intent(FormMenuActivity.this, FormActivity.class);
+        intent.putExtra("farm", "yes");
+        startActivity(intent);
     }
 
     public void edit_form(View view) {
-        startActivity(new Intent(FormMenuActivity.this, ListActivity.class));
+        Intent intent = new Intent(FormMenuActivity.this, ListActivity.class);
+        intent.putExtra("farm", "no");
+        startActivity(intent);
+    }
+
+    public void edit_farm(View view) {
+        Intent intent = new Intent(FormMenuActivity.this, ListActivity.class);
+        intent.putExtra("farm", "yes");
+        startActivity(intent);
     }
 
     public void send_forms(View view) {
@@ -100,7 +138,7 @@ public class FormMenuActivity extends AppCompatActivity {
                 for (File f : contents) {
                     if (f.isFile()) {
                         String name = f.getName().toString();
-                        if (!name.equals("shared_prefs.xml") && !name.equals("identity.xml")){
+                        if (!name.equals("shared_prefs.xml") && !name.equals("identity.xml") && name.startsWith("farm_")){
                             String names = name.replace(".xml", "");
                             SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
                             String incomplete = sharedPreferences2.getString(INCOMPLETE, "");
@@ -171,7 +209,7 @@ public class FormMenuActivity extends AppCompatActivity {
                 for (File f : contents) {
                     if (f.isFile()) {
                         String name = f.getName().toString();
-                        if (!name.equals("shared_prefs.xml") && !name.equals("identity.xml")){
+                        if (!name.equals("shared_prefs.xml") && !name.equals("identity.xml") && !name.startsWith("farm_")){
                             String names = name.replace(".xml", "");
                             SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
                             String mammal = sharedPreferences2.getString(MAMMALS, "");
@@ -187,6 +225,26 @@ public class FormMenuActivity extends AppCompatActivity {
                 }
                 txtSend.setText("Send Forms ("+ count1 + ")");
                 txtEdit.setText("Edit Forms ("+ count + ")");
+            }
+        }
+    }
+
+    private void getSavedForms2() {
+        File src = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs");
+        if (src.exists()) {
+            File[] contents = src.listFiles();
+            if (contents.length != 0) {
+                for (File f : contents) {
+                    if (f.isFile()) {
+                        String name = f.getName().toString();
+                        if (name.startsWith("farm_")){
+                            String names = name.replace(".xml", "");
+//                            SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
+                            count1 += 1;
+                        }
+                    }
+                }
+                txtEdit2.setText("Edit Forms ("+ count1 + ")");
             }
         }
     }

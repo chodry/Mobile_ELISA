@@ -119,28 +119,22 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
         List<String> elephantList2 = Arrays.asList(da2.split(","));
         Log.d("ELISA", "" + elephantList2);
 
-        if (elephantList.isEmpty()){
+        if (elephantList2.isEmpty()){
             Log.d("ELISA3344", "empty--" + elephantList);
         }else{
-            Log.d("ELISA3344", "size--" + elephantList);
-            for (String r: elephantList){
-                int index = elephantList.indexOf(r);
-                String url = elephantList2.get(index);
-                imagesList.add(new Image(r, url));
-                Log.d("ELISA22", " " + r + "__" + url);
+            if (elephantList2.get(0).contains("Livestock")){
+                Log.d("ELISA3344", "its there " + elephantList2.get(0));
+                for (String r: elephantList){
+                    int index = elephantList.indexOf(r);
+                    String url = elephantList2.get(index);
+                    imagesList.add(new Image(r, url));
+                    Log.d("ELISA22", " " + r + "__" + url);
+                }
+            }else {
+                Log.d("ELISA3344", "its not there");
             }
+
         }
-
-
-//        if (elephantList.size() != 1){
-//            for (String r: elephantList){
-//                int index = elephantList.indexOf(r);
-//                String url = elephantList2.get(index);
-//                imagesList.add(new Image(r, url));
-//                Log.d("ELISA22", " " + r + "__" + url);
-//            }
-//
-//        }
 
         cameraAdapter = new CameraAdapter(imagesList, getActivity());
         recyclerView.setAdapter(cameraAdapter);

@@ -1,10 +1,8 @@
 package com.ug.air.elisa.Fragments;
 
-import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
-import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
+import static com.ug.air.elisa.Fragments.Survey.DISEASE;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -14,8 +12,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -24,7 +20,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ug.air.elisa.Activities.FormMenuActivity;
 import com.ug.air.elisa.R;
 
 public class FarmHistory extends Fragment {
@@ -74,14 +69,14 @@ public class FarmHistory extends Fragment {
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
 
-        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
-        animal = sharedPreferences.getString(ANIMAL, "");
-
-        if (animal.equals("cattle")){
-            cattle.setVisibility(View.GONE);
-        }else{
-            pigs.setVisibility(View.GONE);
-        }
+//        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
+//        animal = sharedPreferences.getString(ANIMAL, "");
+//
+//        if (animal.equals("cattle")){
+//            cattle.setVisibility(View.GONE);
+//        }else{
+//            pigs.setVisibility(View.GONE);
+//        }
 
         loadData();
         updateViews();
@@ -201,8 +196,13 @@ public class FarmHistory extends Fragment {
         editor2.putString(OTHERS, other);
         editor2.apply();
 
+        String disease = sharedPreferences2.getString(DISEASE, "");
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        fr.replace(R.id.fragment_container, new FarmAnimals());
+        if (disease.equals("Foot and Mouth Disease") || disease.equals("Both")){
+            fr.replace(R.id.fragment_container, new Cattle());
+        }else{
+            fr.replace(R.id.fragment_container, new Piggery());
+        }
         fr.addToBackStack(null);
         fr.commit();
     }
