@@ -1,7 +1,6 @@
 package com.ug.air.elisa.Fragments;
 
 import static com.ug.air.elisa.Fragments.FarmerDetails.START_DATE;
-import static com.ug.air.elisa.Fragments.GPS.DURATION;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.content.Context;
@@ -119,7 +118,7 @@ public class Feeding extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Stocking());
+                fr.replace(R.id.fragment_container, new Stocking_piggery());
                 fr.commit();
             }
         });

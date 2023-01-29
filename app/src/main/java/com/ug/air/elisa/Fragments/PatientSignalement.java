@@ -162,7 +162,7 @@ public class PatientSignalement extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Cattle());
+                fr.replace(R.id.fragment_container, new FarmerList());
                 fr.commit();
             }
         });

@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.ug.air.elisa.R;
 
-public class Stocking extends Fragment {
+public class Stocking_cattle extends Fragment {
 
     View view;
     Button backBtn, nextBtn;
@@ -38,14 +38,14 @@ public class Stocking extends Fragment {
     String stocking, stock, animal;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
-    public static final String STOCKING = "stock_from";
-    public static final String STOCK = "new_stock";
+    public static final String CATTLE_STOCKING = "cattle_stock_from";
+    public static final String CATTLE_STOCK = "cattle_new_stock";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_stocking, container, false);
+        view = inflater.inflate(R.layout.fragment_stocking_cattle, container, false);
 
         nextBtn = view.findViewById(R.id.next);
         backBtn = view.findViewById(R.id.back);
@@ -66,16 +66,16 @@ public class Stocking extends Fragment {
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
 
-        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
-        animal = sharedPreferences.getString(ANIMAL, "");
-
-        if (animal.equals("cattle")){
-            textView2.setText("Stocking (Brought in new cattle)");
-            textView3.setText("Where did you buy the cattle from");
-        }else{
-            textView2.setText("Stocking (Brought in new pigs)");
-            textView3.setText("Where did you buy the pigs from");
-        }
+//        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
+//        animal = sharedPreferences.getString(ANIMAL, "");
+//
+//        if (animal.equals("cattle")){
+//            textView2.setText("Stocking (Brought in new cattle)");
+//            textView3.setText("Where did you buy the cattle from");
+//        }else{
+//            textView2.setText("Stocking (Brought in new pigs)");
+//            textView3.setText("Where did you buy the pigs from");
+//        }
 
         loadData();
         updateViews();
@@ -150,19 +150,19 @@ public class Stocking extends Fragment {
 
     private void saveData() {
 
-        editor2.putString(STOCKING, stocking);
-        editor2.putString(STOCK, stock);
+        editor2.putString(CATTLE_STOCKING, stocking);
+        editor2.putString(CATTLE_STOCK, stock);
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        fr.replace(R.id.fragment_container, new Feeding());
+        fr.replace(R.id.fragment_container, new Stocking_piggery());
         fr.addToBackStack(null);
         fr.commit();
     }
 
     public void loadData(){
-        stock = sharedPreferences2.getString(STOCK, "");
-        stocking = sharedPreferences2.getString(STOCKING, "");
+        stock = sharedPreferences2.getString(CATTLE_STOCK, "");
+        stocking = sharedPreferences2.getString(CATTLE_STOCKING, "");
     }
 
     public void updateViews(){

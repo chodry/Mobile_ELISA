@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 
 public class FarmerDetails extends Fragment {
@@ -36,7 +37,7 @@ public class FarmerDetails extends Fragment {
     Button backBtn, nextBtn;
     TextView textView;
     EditText etName, etVillage, etParish, etSubCounty, etDistrict;
-    String name, village, parish, subCounty, district, start, animal, filename;
+    String name, village, parish, subCounty, district, start, animal, filename, uuid;
     SharedPreferences sharedPreferences2, sharedPreferences, sharedPreferences3;
     SharedPreferences.Editor editor2, editor3;
     public static final String NAME = "name";
@@ -45,6 +46,7 @@ public class FarmerDetails extends Fragment {
     public static final String PARISH = "parish";
     public static final String SUB_COUNTY = "sub_county";
     public static final String DISTRICT = "district";
+    public static final String SPECIAL_UUID = "special_uuid";
     public static final String START_DATE = "start_date";
 
     @Override
@@ -137,6 +139,11 @@ public class FarmerDetails extends Fragment {
             editor2.putString(START_DATE, formattedDate);
         }
 
+        uuid = sharedPreferences2.getString(SPECIAL_UUID, "");
+        if (uuid.isEmpty()){
+            uuid = UUID.randomUUID().toString();
+            editor2.putString(SPECIAL_UUID, uuid);
+        }
 
         editor2.putString(NAME, name);
         editor2.putString(VILLAGE, village);
@@ -149,6 +156,8 @@ public class FarmerDetails extends Fragment {
         fr.replace(R.id.fragment_container, new Survey());
         fr.addToBackStack(null);
         fr.commit();
+
+        Toast.makeText(getActivity(), uuid, Toast.LENGTH_SHORT).show();
     }
 
     private void loadData() {

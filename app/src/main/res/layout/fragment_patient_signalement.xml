@@ -161,8 +161,8 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_button_2"
             android:text="Back"
-            android:visibility="gone"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/next"
@@ -172,7 +172,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/bg_button"
             android:text="next"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 

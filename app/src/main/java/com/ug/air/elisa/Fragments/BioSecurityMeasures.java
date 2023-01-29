@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -177,7 +176,7 @@ public class BioSecurityMeasures extends Fragment {
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        fr.replace(R.id.fragment_container, new Stocking());
+        fr.replace(R.id.fragment_container, new Stocking_cattle());
         fr.addToBackStack(null);
         fr.commit();
     }

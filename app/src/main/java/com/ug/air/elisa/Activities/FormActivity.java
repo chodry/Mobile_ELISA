@@ -33,6 +33,7 @@ import android.widget.Button;
 import com.ug.air.elisa.BuildConfig;
 import com.ug.air.elisa.Fragments.Camera;
 import com.ug.air.elisa.Fragments.FarmerDetails;
+import com.ug.air.elisa.Fragments.FarmerList;
 import com.ug.air.elisa.Fragments.PatientSignalement;
 import com.ug.air.elisa.Fragments.Survey;
 import com.ug.air.elisa.R;
@@ -78,7 +79,8 @@ public class FormActivity extends AppCompatActivity {
             if (farm.equals("yes")){
                 fragmentTransaction.add(R.id.fragment_container, new FarmerDetails());
             }else if (farm.equals("no")){
-                fragmentTransaction.add(R.id.fragment_container, new PatientSignalement());
+//                fragmentTransaction.add(R.id.fragment_container, new PatientSignalement());
+                fragmentTransaction.add(R.id.fragment_container, new FarmerList());
             }
             fragmentTransaction.commit();
         }
