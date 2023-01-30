@@ -18,6 +18,7 @@ import static com.ug.air.elisa.Fragments.PatientSignalement.MAMMALS;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -31,6 +32,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +48,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 
 public class FarmerList extends Fragment {
@@ -53,15 +57,16 @@ public class FarmerList extends Fragment {
     RecyclerView recyclerView;
     FarmAdapter farmAdapter;
     List<Farm> farmList;
-    ArrayList<String> files;
+    ArrayList<String> files, items, special;
     SharedPreferences.Editor editor;
     Button next;
     TextView textView;
-    String option;
-    SharedPreferences sharedPreferences2, sharedPreferences;
+    RadioGroup radioGroup;
+    String option, filename;
+    SharedPreferences sharedPreferences2, sharedPreferences, sharedPreferences3;
     SharedPreferences.Editor editor2;
     public static final String FARM = "farm";
-    public static final String UUID_SPECIAL = "special_uuid";
+    public static final String UUID_SPECIAL = "uuid_special";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,18 +74,68 @@ public class FarmerList extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_farmer_list, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerview);
         next = view.findViewById(R.id.next);
         textView = view.findViewById(R.id.heading);
+        radioGroup = view.findViewById(R.id.radioGroup);
 
-        textView.setText("Select Farm");
+        textView.setText("Select Livestock Farmer");
 
         sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
 
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
 
+        files = new ArrayList<String>();
+        items = new ArrayList<String>();
+        special = new ArrayList<String>();
+        accessSharedFile();
+
+        for (int i = 0; i < items.size(); i++) {
+            RadioButton rb = new RadioButton(getActivity());
+            rb.setText(items.get(i));
+            rb.setPadding(20, 20, 20, 20);
+            radioGroup.addView(rb);
+        }
+
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                View radioButton = radioGroup.findViewById(i);
+                int index = radioGroup.indexOfChild(radioButton);
+
+                option = special.get(index);
+
+            }
+        });
+
+        Intent intent = getActivity().getIntent();
+        if (intent.hasExtra("filename")) {
+            filename = intent.getExtras().getString("filename");
+            sharedPreferences3 = requireActivity().getSharedPreferences(filename, Context.MODE_PRIVATE);
+            sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, Context.MODE_PRIVATE);
+
+            editor2 = sharedPreferences2.edit();
+            Map<String, ?> all = sharedPreferences3.getAll();
+            for (Map.Entry<String, ?> x : all.entrySet()) {
+                if (x.getValue().getClass().equals(String.class))  editor2.putString(x.getKey(),  (String)x.getValue());
+                if (x.getValue().getClass().equals(Boolean.class))  editor2.putBoolean(x.getKey(),  (Boolean) x.getValue());
+            }
+            editor2.commit();
+            editor2.apply();
+
+            filename = filename + ".xml";
+            File src = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs/" + filename);
+            if (src.exists()){
+                src.delete();
+            }
+
+        }else {
+            sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
+            editor2 = sharedPreferences2.edit();
+        }
+
         loadData();
+        updateViews();
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,35 +144,11 @@ public class FarmerList extends Fragment {
                 if (option.isEmpty()){
                     Toast.makeText(getActivity(), "Please select a farm before you continue", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(getActivity(), option, Toast.LENGTH_SHORT).show();
+                    saveData();
                 }
-
-//                FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-//                fr.replace(R.id.fragment_container, new PatientSignalement());
-//                fr.addToBackStack(null);
-//                fr.commit();
 
             }
         });
-
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-
-        farmList = new ArrayList<>();
-        files = new ArrayList<String>();
-        accessSharedFile();
-
-        farmAdapter = new FarmAdapter(farmList, getActivity());
-        recyclerView.setAdapter(farmAdapter);
-
-//        farmAdapter.setOnItemClickListener(new FarmAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-////                Farm farm = farmList.get(position);
-////                String uuid = farm.getAnimal();
-//                Toast.makeText(getActivity(), "uuid", Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
         return view;
     }
@@ -151,8 +182,10 @@ public class FarmerList extends Fragment {
                         String dat = sharedPreferences2.getString(DATE_2, "");
                         String uuid = sharedPreferences2.getString(SPECIAL_UUID, "");
                         String location = district + "-" + subCounty + "-" + parish + "-" + village;
-                        Farm farm = new Farm(farmer, location, dat, uuid, filename, option);
-                        farmList.add(farm);
+                        items.add(farmer + " from " + location);
+                        special.add(uuid);
+//                        Farm farm = new Farm(farmer, location, dat, uuid, filename, option);
+//                        farmList.add(farm);
                     }
                 }
 
@@ -160,7 +193,33 @@ public class FarmerList extends Fragment {
         }
     }
 
+    private void saveData() {
+
+        editor2.putString(UUID_SPECIAL, option);
+        editor2.apply();
+
+        FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
+        fr.replace(R.id.fragment_container, new PatientSignalement());
+        fr.addToBackStack(null);
+        fr.commit();
+    }
+
     private void loadData(){
         option = sharedPreferences2.getString(UUID_SPECIAL, "");
+//        Toast.makeText(getActivity(), option, Toast.LENGTH_SHORT).show();
     }
+
+    private void updateViews(){
+
+        int rb_index = special.indexOf(option);
+        if (rb_index < 0) {
+//            Toast.makeText(getActivity(), ""+ rb_index, Toast.LENGTH_SHORT).show();
+        }else {
+            radioGroup.check(((RadioButton)radioGroup.getChildAt(rb_index)).getId());
+        }
+//        Toast.makeText(getActivity(), ""+ rb_index, Toast.LENGTH_SHORT).show();
+//        radioGroup.check(((RadioButton)radioGroup.getChildAt(rb_index)).getId());
+
+    }
+
 }

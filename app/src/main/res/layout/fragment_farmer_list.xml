@@ -20,18 +20,33 @@
         android:padding="10dp"
         android:scrollbars="none">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/recyclerview"
-                tools:listitem="@layout/form"/>
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="Please first select the farmer with the infected animal"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
-        </RelativeLayout>
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/recyclerview"-->
+<!--                tools:listitem="@layout/form"/>-->
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioGroup"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
 
     </ScrollView>
 

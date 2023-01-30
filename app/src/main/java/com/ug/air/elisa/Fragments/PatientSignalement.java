@@ -112,32 +112,6 @@ public class PatientSignalement extends Fragment {
         spinner2.setAdapter(adapter2);
         spinner2.setOnItemSelectedListener(new BreedSpinnerClass());
 
-        Intent intent = getActivity().getIntent();
-        if (intent.hasExtra("filename")) {
-            filename = intent.getExtras().getString("filename");
-            sharedPreferences3 = requireActivity().getSharedPreferences(filename, Context.MODE_PRIVATE);
-            sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, Context.MODE_PRIVATE);
-
-            editor2 = sharedPreferences2.edit();
-            Map<String, ?> all = sharedPreferences3.getAll();
-            for (Map.Entry<String, ?> x : all.entrySet()) {
-                if (x.getValue().getClass().equals(String.class))  editor2.putString(x.getKey(),  (String)x.getValue());
-                if (x.getValue().getClass().equals(Boolean.class))  editor2.putBoolean(x.getKey(),  (Boolean) x.getValue());
-            }
-            editor2.commit();
-            editor2.apply();
-
-            filename = filename + ".xml";
-            File src = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs/" + filename);
-            if (src.exists()){
-                src.delete();
-            }
-
-        }else {
-            sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
-            editor2 = sharedPreferences2.edit();
-        }
-
         loadData();
         updateViews();
 //        spinner2.setSelection(2);

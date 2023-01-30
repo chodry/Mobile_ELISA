@@ -157,7 +157,7 @@ public class FarmerDetails extends Fragment {
         fr.addToBackStack(null);
         fr.commit();
 
-        Toast.makeText(getActivity(), uuid, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), uuid, Toast.LENGTH_SHORT).show();
     }
 
     private void loadData() {

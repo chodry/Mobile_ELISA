@@ -22,6 +22,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ import com.ug.air.elisa.R;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,13 +56,14 @@ public class FormMenuActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     String animal, token;
     File[] contents;
-    int count, count1 = 0;
+    int count, count1, count2 = 0;
     TextView txtSend, txtEdit, txtEdit2;
-    List<String> imagesList;
+    List<String> imagesList, items;
     File fileX;
     ImageView imageViewBack;
     JsonPlaceHolder jsonPlaceHolder;
     CardView cardView1, cardView2, cardView3, cardView4, cardView5;
+    RadioGroup radioGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +79,8 @@ public class FormMenuActivity extends AppCompatActivity {
         cardView3 = findViewById(R.id.animalX);
         cardView4 = findViewById(R.id.animalXX);
         cardView5 = findViewById(R.id.animalXXX);
+
+        radioGroup = findViewById(R.id.radioGroup);
 
         jsonPlaceHolder = ApiClient.getClient().create(JsonPlaceHolder.class);
 
@@ -98,17 +104,24 @@ public class FormMenuActivity extends AppCompatActivity {
             cardView3.setVisibility(View.GONE);
             cardView4.setVisibility(View.GONE);
             cardView5.setVisibility(View.GONE);
-            getSavedForms2();
-        }else {
-            getSavedForms();
+//            getSavedForms2();
         }
+//        else {
+//            getSavedForms();
+//        }
+        getSavedForms();
 
     }
 
     public void new_form(View view) {
-        Intent intent = new Intent(FormMenuActivity.this, FormActivity.class);
-        intent.putExtra("farm", "no");
-        startActivity(intent);
+        if (count2==0){
+            Toast.makeText(this, "Please first fill in a form about the farm", Toast.LENGTH_SHORT).show();
+        }else {
+            Intent intent = new Intent(FormMenuActivity.this, FormActivity.class);
+            intent.putExtra("farm", "no");
+            startActivity(intent);
+        }
+
     }
 
     public void new_farm(View view) {
@@ -220,32 +233,37 @@ public class FormMenuActivity extends AppCompatActivity {
                             if(incomplete.equals("complete") && mammal.equals(animal)){
                                 count1 += 1;
                             }
+                        }else if (name.startsWith("farm_")){
+//                            String names = name.replace(".xml", "");
+//                            SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
+                            count2 += 1;
                         }
                     }
                 }
                 txtSend.setText("Send Forms ("+ count1 + ")");
                 txtEdit.setText("Edit Forms ("+ count + ")");
+                txtEdit2.setText("Edit Forms ("+ count2 + ")");
             }
         }
     }
 
-    private void getSavedForms2() {
-        File src = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs");
-        if (src.exists()) {
-            File[] contents = src.listFiles();
-            if (contents.length != 0) {
-                for (File f : contents) {
-                    if (f.isFile()) {
-                        String name = f.getName().toString();
-                        if (name.startsWith("farm_")){
-                            String names = name.replace(".xml", "");
-//                            SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
-                            count1 += 1;
-                        }
-                    }
-                }
-                txtEdit2.setText("Edit Forms ("+ count1 + ")");
-            }
-        }
-    }
+//    private void getSavedForms2() {
+//        File src = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs");
+//        if (src.exists()) {
+//            File[] contents = src.listFiles();
+//            if (contents.length != 0) {
+//                for (File f : contents) {
+//                    if (f.isFile()) {
+//                        String name = f.getName().toString();
+//                        if (name.startsWith("farm_")){
+//                            String names = name.replace(".xml", "");
+////                            SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
+//                            count2 += 1;
+//                        }
+//                    }
+//                }
+//                txtEdit2.setText("Edit Forms ("+ count2 + ")");
+//            }
+//        }
+//    }
 }

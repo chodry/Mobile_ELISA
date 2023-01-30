@@ -66,29 +66,29 @@ public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.FarmHolder> {
         holder.name.setText(farm.getName());
         holder.location.setText(farm.getLocation());
         holder.date.setText(farm.getDate());
-
+        String uuid = farm.getAnimal();
         String special_uuid = farm.getOption();
 
 //        if (special_uuid.equals(uuid)){
 //            holder.imageView.setVisibility(View.VISIBLE);
 //        }
 
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                row_index = position;
-                notifyDataSetChanged();
-            }
-        });
-
-        if (row_index==position){
-            String uuid = farm.getAnimal();
-            holder.imageView.setVisibility(View.VISIBLE);
-            editor2.putString(UUID_SPECIAL, uuid);
-            editor2.apply();
-        }else {
-            holder.imageView.setVisibility(View.GONE);
-        }
+//        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                row_index = position;
+//                notifyDataSetChanged();
+//            }
+//        });
+//
+//        if (row_index==position){
+//            String uuid = farm.getAnimal();
+//            holder.imageView.setVisibility(View.VISIBLE);
+//            editor2.putString(UUID_SPECIAL, uuid);
+//            editor2.apply();
+//        }else {
+//            holder.imageView.setVisibility(View.GONE);
+//        }
 
     }
 
@@ -118,6 +118,11 @@ public class FarmAdapter extends RecyclerView.Adapter<FarmAdapter.FarmHolder> {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION){
                         listener.onItemClick(position);
+                        if (imageView.getVisibility() == View.VISIBLE){
+                            imageView.setVisibility(View.GONE);
+                        }else{
+                            imageView.setVisibility(View.VISIBLE);
+                        }
                     }
                 }
             });

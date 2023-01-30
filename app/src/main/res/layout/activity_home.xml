@@ -39,7 +39,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-black"
                         android:gravity="center_horizontal"
-                        android:text="Welcome to M-ELISA"
+                        android:text="Welcome to M-VET"
                         android:textColor="@color/baby_blue"
                         android:textSize="20sp" />
 

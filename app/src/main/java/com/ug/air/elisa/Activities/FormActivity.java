@@ -5,6 +5,7 @@ import static com.ug.air.elisa.Activities.LoginActivity.USERNAME;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.FarmerDetails.NAME;
 import static com.ug.air.elisa.Fragments.FarmerDetails.START_DATE;
+import static com.ug.air.elisa.Fragments.FarmerList.UUID_SPECIAL;
 import static com.ug.air.elisa.Fragments.Feeding.DATE_2;
 import static com.ug.air.elisa.Fragments.Feeding.DURATION_2;
 import static com.ug.air.elisa.Fragments.Feeding.FILENAME_2;
@@ -29,6 +30,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.ug.air.elisa.BuildConfig;
 import com.ug.air.elisa.Fragments.Camera;
@@ -90,6 +92,7 @@ public class FormActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         String name = sharedPreferences2.getString(NAME, "");
+        String farmer = sharedPreferences2.getString(UUID_SPECIAL, "");
 
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.exit);
@@ -108,45 +111,85 @@ public class FormActivity extends AppCompatActivity {
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (name.isEmpty()){
+
+                Date currentTime = Calendar.getInstance().getTime();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
+                String formattedDate = df.format(currentTime);
+
+                getDuration(currentTime);
+
+                String uniqueID = UUID.randomUUID().toString();
+
+                if (name.isEmpty() && !farmer.isEmpty()){
+                    filename = formattedDate + "_" + uniqueID;
+
+                    editor2.putString(DATE, formattedDate);
+                    editor2.putString(UNIQUE, uniqueID);
+                    editor2.putString(FILENAME, filename);
+                    editor2.putString(INCOMPLETE, "incomplete");
+
+                    editor2.apply();
+                    doLogic(filename);
+                    dialog.dismiss();
+
+                }else if (farmer.isEmpty() && !name.isEmpty()){
+                    filename = "farm_" + formattedDate + "_" + uniqueID;
+
+                    editor2.putString(DATE_2, formattedDate);
+                    editor2.putString(UNIQUE_2, uniqueID);
+                    editor2.putString(FILENAME_2, filename);
+                    editor2.putString(INCOMPLETE_2, "incomplete");
+
+                    editor2.apply();
+                    doLogic(filename);
+                    dialog.dismiss();
+
+                }else if (farmer.isEmpty() && name.isEmpty()){
                     dialog.dismiss();
                     startActivity(new Intent(FormActivity.this, FormMenuActivity.class));
                     finish();
-                }else{
-                    Date currentTime = Calendar.getInstance().getTime();
-                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
-                    String formattedDate = df.format(currentTime);
-
-                    getDuration(currentTime);
-
-                    String uniqueID = UUID.randomUUID().toString();
-
-
-                    if (animal.equals("farm")) {
-                        filename = "farm_" + formattedDate + "_" + uniqueID;
-
-                        editor2.putString(DATE_2, formattedDate);
-                        editor2.putString(UNIQUE_2, uniqueID);
-                        editor2.putString(FILENAME_2, filename);
-                        editor2.putString(INCOMPLETE_2, "incomplete");
-
-                    }else {
-                        filename = formattedDate + "_" + uniqueID;
-
-                        editor2.putString(DATE, formattedDate);
-                        editor2.putString(UNIQUE, uniqueID);
-                        editor2.putString(FILENAME, filename);
-                        editor2.putString(INCOMPLETE, "incomplete");
-
-                    }
-
-                    editor2.apply();
-
-                    doLogic(filename);
-
-                    dialog.dismiss();
-
                 }
+
+//                if (name.isEmpty() ){
+//                    dialog.dismiss();
+//                    startActivity(new Intent(FormActivity.this, FormMenuActivity.class));
+//                    finish();
+//                }
+//                else{
+//                    Date currentTime = Calendar.getInstance().getTime();
+//                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
+//                    String formattedDate = df.format(currentTime);
+//
+//                    getDuration(currentTime);
+//
+//                    String uniqueID = UUID.randomUUID().toString();
+//
+//
+//                    if (animal.equals("farm")) {
+//                        filename = "farm_" + formattedDate + "_" + uniqueID;
+//
+//                        editor2.putString(DATE_2, formattedDate);
+//                        editor2.putString(UNIQUE_2, uniqueID);
+//                        editor2.putString(FILENAME_2, filename);
+//                        editor2.putString(INCOMPLETE_2, "incomplete");
+////
+//                    }else {
+//                        filename = formattedDate + "_" + uniqueID;
+//
+//                        editor2.putString(DATE, formattedDate);
+//                        editor2.putString(UNIQUE, uniqueID);
+//                        editor2.putString(FILENAME, filename);
+//                        editor2.putString(INCOMPLETE, "incomplete");
+//
+//                    }
+//
+//                    editor2.apply();
+//
+//                    doLogic(filename);
+//
+//                    dialog.dismiss();
+//
+//                }
             }
         });
 
