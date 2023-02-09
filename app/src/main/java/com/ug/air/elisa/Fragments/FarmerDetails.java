@@ -111,7 +111,7 @@ public class FarmerDetails extends Fragment {
                 district = etDistrict.getText().toString();
                 farm = etFarmName.getText().toString();
 
-                if (name.isEmpty() || village.isEmpty() || parish.isEmpty() || subCounty.isEmpty() || district.isEmpty() || farm.isEmpty()){
+                if (name.isEmpty() || village.isEmpty() || parish.isEmpty() || subCounty.isEmpty() || district.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }
                 else {

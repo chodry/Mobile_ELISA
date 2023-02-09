@@ -62,6 +62,7 @@
                 android:inputType="textCapSentences"
                 android:padding="15dp"
                 android:textSize="14sp"
+                android:hint="This is optional"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray"
                 android:background="@drawable/et_button"/>
