@@ -40,20 +40,23 @@ public class PatientSignalement extends Fragment {
     View view;
     Button backBtn, nextBtn;
     TextView textView;
-    EditText etBreed, etWeight, etAge;
-    RadioGroup radioGroup;
-    RadioButton radioButton1, radioButton2;
+    EditText etTag, etName;
+    RadioGroup radioGroup, radioGroup2;
+    RadioButton radioButton1, radioButton2, radioButton3, radioButton4, radioButton5;
     Spinner spinner, spinner2;
-    String time, gender, breed, age, age_2, animal, start, filename;
+    String name, gender, breed, age, tag, animal, start, filename;
     SharedPreferences sharedPreferences2, sharedPreferences, sharedPreferences3;
     SharedPreferences.Editor editor2;
     private static final int YES = 0;
     private static final int NO = 1;
+    private static final int YES2 = 0;
+    private static final int NO2 = 1;
+    private static final int NOT2 = 2;
     public static final String BREED = "breed";
     public static final String GENDER = "gender";
     public static final String AGE = "age";
-    public static final String PERIOD_3 = "period_3";
-    public static final String TIME_1 = "time_1";
+    public static final String ANIMAL_NAME = "animal_name";
+    public static final String ANIMAL_TAG = "animal_tag";
     ArrayAdapter<CharSequence> adapter, adapter2;
     public static final String START_DATE_2 = "start_date";
     public static final String MAMMALS = "mammal";
@@ -67,12 +70,17 @@ public class PatientSignalement extends Fragment {
         nextBtn = view.findViewById(R.id.next);
         backBtn = view.findViewById(R.id.back);
         textView = view.findViewById(R.id.heading);
-        etAge = view.findViewById(R.id.age);
+        etTag = view.findViewById(R.id.tag);
+        etName = view.findViewById(R.id.name);
         spinner2 = view.findViewById(R.id.breed);
         radioGroup = view.findViewById(R.id.radioGroup);
         radioButton1 = view.findViewById(R.id.male);
         radioButton2 = view.findViewById(R.id.female);
-        spinner = view.findViewById(R.id.time);
+        radioGroup2 = view.findViewById(R.id.radioGroup2);
+        radioButton3 = view.findViewById(R.id.adult);
+        radioButton4 = view.findViewById(R.id.heifer);
+        radioButton5 = view.findViewById(R.id.calf);
+//        spinner = view.findViewById(R.id.time);
 
         textView.setText("Patient Signalement");
 
@@ -102,10 +110,32 @@ public class PatientSignalement extends Fragment {
             }
         });
 
-        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.time, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new TimeSpinnerClass());
+        radioGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                View radioButton = radioGroup.findViewById(i);
+                int index = radioGroup.indexOfChild(radioButton);
+
+                switch (index) {
+                    case YES2:
+                        age = "Adult";
+                        break;
+                    case NO2:
+                        age = "Heifer";
+                        break;
+                    case NOT2:
+                        age = "Calf";
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
+//        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.time, android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(adapter);
+//        spinner.setOnItemSelectedListener(new TimeSpinnerClass());
 
         adapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.breed, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -120,13 +150,12 @@ public class PatientSignalement extends Fragment {
             @Override
             public void onClick(View view) {
 
-//                breed = etBreed.getText().toString();
-                age = etAge.getText().toString();
+                tag = etTag.getText().toString();
+                name = etName.getText().toString();
 
-                if (breed.equals("Select one") || breed.isEmpty() || age.isEmpty() || gender.isEmpty() || time.equals("Select one")){
+                if (breed.equals("Select one") || breed.isEmpty() || age.isEmpty() || gender.isEmpty() || tag.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }else {
-                    age_2 = age + " " + time;
                     saveData();
                 }
             }
@@ -142,19 +171,6 @@ public class PatientSignalement extends Fragment {
         });
 
         return view;
-    }
-
-    public class TimeSpinnerClass implements AdapterView.OnItemSelectedListener {
-
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            time = adapterView.getItemAtPosition(i).toString();
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
     }
 
     public class BreedSpinnerClass implements AdapterView.OnItemSelectedListener {
@@ -181,10 +197,10 @@ public class PatientSignalement extends Fragment {
         }
 
         editor2.putString(BREED, breed);
-        editor2.putString(AGE, age_2);
+        editor2.putString(AGE, age);
+        editor2.putString(ANIMAL_NAME, name);
+        editor2.putString(ANIMAL_TAG, tag);
         editor2.putString(GENDER, gender);
-        editor2.putString(PERIOD_3, age);
-        editor2.putString(TIME_1, time);
         editor2.putString(MAMMALS, animal);
         editor2.apply();
 
@@ -196,15 +212,14 @@ public class PatientSignalement extends Fragment {
 
     private void loadData() {
         breed = sharedPreferences2.getString(BREED, "");
-        age = sharedPreferences2.getString(PERIOD_3, "");
+        age = sharedPreferences2.getString(AGE, "");
+        tag = sharedPreferences2.getString(ANIMAL_TAG, "");
+        name = sharedPreferences2.getString(ANIMAL_NAME, "");
         gender = sharedPreferences2.getString(GENDER, "");
-        time = sharedPreferences2.getString(TIME_1, "");
         start = sharedPreferences2.getString(START_DATE_2, "");
     }
 
     private void updateViews() {
-//        etBreed.setText(breed);
-        etAge.setText(age);
 
         if (gender.equals("Male")){
             radioButton1.setChecked(true);
@@ -220,10 +235,20 @@ public class PatientSignalement extends Fragment {
             spinner2.setSelection(position);
         }
 
-        if (!time.isEmpty()){
-            int position = adapter.getPosition(time);
-            spinner.setSelection(position);
+        if (age.equals("Adult")){
+            radioButton3.setChecked(true);
+        }else if (age.equals("Heifer")){
+            radioButton4.setChecked(true);
+        }else if (age.equals("Calf")){
+            radioButton5.setChecked(true);
+        }else {
+            radioButton3.setChecked(false);
+            radioButton4.setChecked(false);
+            radioButton5.setChecked(false);
         }
+
+        etName.setText(name);
+        etTag.setText(tag);
 
     }
 }

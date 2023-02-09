@@ -12,13 +12,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/buttons"
+        android:layout_below="@id/toolbar"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="10dp"
         android:fadeScrollbars="true"
         android:padding="10dp"
-        android:scrollbars="none"
-        android:layout_below="@id/toolbar"
-        android:layout_above="@id/buttons">
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,71 +29,95 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="Samples taken"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:textSize="16sp" />
 
             <CheckBox
                 android:id="@+id/blood"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Blood serum" />
+                android:text="Blood serum"
+                android:textSize="14sp" />
+
+            <CheckBox
+                android:id="@+id/whole"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Whole blood"
+                android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/swabs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Swabs" />
+                android:text="Swabs"
+                android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/fluid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Fluid from vesicle" />
+                android:text="Fluid from vesicle"
+                android:textSize="14sp" />
+
+            <CheckBox
+                android:id="@+id/none"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No sample taken"
+                android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/others"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Others" />
+                android:text="Others"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/othersText"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/et_button"
                 android:gravity="top"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
-                android:visibility="gone"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:visibility="gone" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sample Name"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:orientation="vertical"
+                android:id="@+id/linear"
+                android:visibility="gone">
 
-            <EditText
-                android:id="@+id/sample_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:padding="15dp"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/gray"
-                android:background="@drawable/et_button"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="Sample Name"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/sample_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/et_button"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

@@ -27,12 +27,13 @@ public class Diagnosis extends Fragment {
     TextView textView;
     EditText etTreatment, etDiagnosis, etDiagnosis2;
     RadioGroup radioGroup;
-    RadioButton radioButton1, radioButton2;
+    RadioButton radioButton1, radioButton2, radioButton3;
     String treatment, diagnosis, prognosis, diagnosis2;
     SharedPreferences sharedPreferences2;
     SharedPreferences.Editor editor2;
     private static final int YES = 0;
     private static final int NO = 1;
+    private static final int NOT = 2;
     public static final String PROGNOSIS = "prognosis";
     public static final String DIAGNOSIS = "diagnosis";
     public static final String TREAT = "supportive_treatment";
@@ -52,7 +53,8 @@ public class Diagnosis extends Fragment {
         etDiagnosis = view.findViewById(R.id.disease);
         radioGroup = view.findViewById(R.id.radioGroup);
         radioButton1 = view.findViewById(R.id.good);
-        radioButton2 = view.findViewById(R.id.bad);
+        radioButton2 = view.findViewById(R.id.guarded);
+        radioButton3 = view.findViewById(R.id.graver);
 
         textView.setText("Diagnosis");
 
@@ -73,9 +75,11 @@ public class Diagnosis extends Fragment {
                         prognosis = "Good";
                         break;
                     case NO:
-                        prognosis = "Bad";
+                        prognosis = "Guarded";
                         break;
-
+                    case NOT:
+                        prognosis = "Graver";
+                        break;
                     default:
                         break;
                 }
@@ -136,13 +140,21 @@ public class Diagnosis extends Fragment {
         etDiagnosis2.setText(diagnosis2);
         etTreatment.setText(treatment);
 
-        if (prognosis.equals("Good")){
-            radioButton1.setChecked(true);
-        }else if (prognosis.equals("Bad")){
-            radioButton2.setChecked(true);
-        }else {
-            radioButton1.setChecked(false);
-            radioButton2.setChecked(false);
+        switch (prognosis) {
+            case "Good":
+                radioButton1.setChecked(true);
+                break;
+            case "Guarded":
+                radioButton2.setChecked(true);
+                break;
+            case "Graver":
+                radioButton3.setChecked(true);
+                break;
+            default:
+                radioButton1.setChecked(false);
+                radioButton2.setChecked(false);
+                radioButton3.setChecked(false);
+                break;
         }
     }
 }

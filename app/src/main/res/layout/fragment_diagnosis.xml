@@ -12,13 +12,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/buttons"
+        android:layout_below="@id/toolbar"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="10dp"
         android:fadeScrollbars="true"
         android:padding="10dp"
-        android:scrollbars="none"
-        android:layout_below="@id/toolbar"
-        android:layout_above="@id/buttons">
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,53 +29,53 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="Tentative diagnosis/ Primary suspected disease"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/disease"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/et_button"
                 android:gravity="top"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="Any other suspected disease (this is optional)"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/other_disease"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/et_button"
                 android:gravity="top"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:text="Prognosis"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"/>
+                android:textSize="16sp" />
 
             <RadioGroup
                 android:id="@+id/radioGroup"
@@ -91,12 +91,21 @@
                     android:textSize="18sp" />
 
                 <RadioButton
-                    android:id="@+id/bad"
+                    android:id="@+id/guarded"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:buttonTint="@color/navy_blue"
-                    android:text="Bad"
+                    android:text="Guarded"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/graver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:buttonTint="@color/navy_blue"
+                    android:text="Graver"
                     android:textSize="18sp" />
 
             </RadioGroup>
@@ -104,22 +113,22 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:text="Supportive treatment"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"/>
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/treatment"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/et_button"
                 android:gravity="top"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp"/>
+                android:textSize="14sp" />
 
         </LinearLayout>
 
