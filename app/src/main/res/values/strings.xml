@@ -25,12 +25,14 @@
         <item>Vesicles or wounds inside the mouth</item>
         <item>Vesicles or wounds on Hooves</item>
         <item>Vesicles or wounds around the Udder</item>
+        <item>No Symptom</item>
         <item>Other</item>
     </string-array>
 
     <string-array name="pig">
         <item>Select one</item>
         <item>Body Redness</item>
+        <item>No Symptom</item>
         <item>Other</item>
     </string-array>
 
