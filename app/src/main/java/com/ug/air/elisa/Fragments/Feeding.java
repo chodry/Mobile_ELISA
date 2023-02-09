@@ -1,6 +1,7 @@
 package com.ug.air.elisa.Fragments;
 
 import static com.ug.air.elisa.Fragments.FarmerDetails.START_DATE;
+import static com.ug.air.elisa.Fragments.Survey.DISEASE;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.content.Context;
@@ -117,8 +118,17 @@ public class Feeding extends Fragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
+//                fr.replace(R.id.fragment_container, new Stocking_piggery());
+//                fr.commit();
+
+                String disease = sharedPreferences2.getString(DISEASE, "");
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Stocking_piggery());
+                if (disease.equals("Both") || disease.equals("African Swine Fever")){
+                    fr.replace(R.id.fragment_container, new Stocking_piggery());
+                }else {
+                    fr.replace(R.id.fragment_container, new Stocking_cattle());
+                }
                 fr.commit();
             }
         });
@@ -130,10 +140,10 @@ public class Feeding extends Fragment {
         s = "";
 
         if(same.isChecked()){
-            s += "Grass on the same farm, ";
+            s += "Silage/ Grass on the same farm, ";
         }
         if(outside.isChecked()){
-            s += "Grass from outside the farm, ";
+            s += "Silage/ Grass from outside the farm, ";
         }
         if(personal.isChecked()){
             s += "Personal Leftovers, ";

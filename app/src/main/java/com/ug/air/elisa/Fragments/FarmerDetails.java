@@ -36,11 +36,12 @@ public class FarmerDetails extends Fragment {
     View view;
     Button backBtn, nextBtn;
     TextView textView;
-    EditText etName, etVillage, etParish, etSubCounty, etDistrict;
-    String name, village, parish, subCounty, district, start, animal, filename, uuid;
+    EditText etName, etVillage, etParish, etSubCounty, etDistrict, etFarmName;
+    String name, village, parish, subCounty, district, start, animal, filename, uuid, farm;
     SharedPreferences sharedPreferences2, sharedPreferences, sharedPreferences3;
     SharedPreferences.Editor editor2, editor3;
     public static final String NAME = "name";
+    public static final String FARM_NAME = "farm_name";
     public static final String SECOND = "second_filename";
     public static final String VILLAGE = "village";
     public static final String PARISH = "parish";
@@ -63,6 +64,7 @@ public class FarmerDetails extends Fragment {
         etParish = view.findViewById(R.id.parish);
         etSubCounty = view.findViewById(R.id.sub_county);
         etDistrict = view.findViewById(R.id.district);
+        etFarmName = view.findViewById(R.id.farm_name);
 
 //        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
 //        animal = sharedPreferences.getString(ANIMAL, "");
@@ -107,8 +109,9 @@ public class FarmerDetails extends Fragment {
                 parish = etParish.getText().toString();
                 subCounty = etSubCounty.getText().toString();
                 district = etDistrict.getText().toString();
+                farm = etFarmName.getText().toString();
 
-                if (name.isEmpty() || village.isEmpty() || parish.isEmpty() || subCounty.isEmpty() || district.isEmpty()){
+                if (name.isEmpty() || village.isEmpty() || parish.isEmpty() || subCounty.isEmpty() || district.isEmpty() || farm.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -150,6 +153,7 @@ public class FarmerDetails extends Fragment {
         editor2.putString(PARISH, parish);
         editor2.putString(SUB_COUNTY, subCounty);
         editor2.putString(DISTRICT, district);
+        editor2.putString(FARM_NAME, farm);
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -167,6 +171,7 @@ public class FarmerDetails extends Fragment {
         subCounty = sharedPreferences2.getString(SUB_COUNTY, "");
         parish = sharedPreferences2.getString(PARISH, "");
         district = sharedPreferences2.getString(DISTRICT, "");
+        farm = sharedPreferences2.getString(FARM_NAME, "");
     }
 
     private void updateViews() {
@@ -175,5 +180,6 @@ public class FarmerDetails extends Fragment {
         etSubCounty.setText(subCounty);
         etVillage.setText(village);
         etDistrict.setText(district);
+        etFarmName.setText(farm);
     }
 }

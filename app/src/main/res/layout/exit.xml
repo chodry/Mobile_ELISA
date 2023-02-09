@@ -16,7 +16,7 @@
         android:id="@+id/head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Exit Assessment"
+        android:text="Exit Form"
         android:textColor="@color/navy_blue"
         android:textSize="16sp"
         android:gravity="center"/>
@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Are you sure you want to exit this assessment"
+        android:text="Are you sure you want to exit this form"
         android:textColor="@color/black"
         android:gravity="center"
         android:textSize="14sp"/>

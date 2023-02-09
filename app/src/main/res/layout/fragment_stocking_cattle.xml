@@ -32,40 +32,82 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:text="Where did you buy the cattle from"
+                android:text="When did you last bring in new cattle?"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"/>
 
-            <RadioGroup
-                android:id="@+id/radioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="10">
 
-                <RadioButton
-                    android:id="@+id/yes"
-                    android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/date"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/navy_blue"
-                    android:text="Yes"
+                    android:layout_weight="4"
+                    android:background="@drawable/et_button"
+                    android:inputType="number"
+                    android:padding="15dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray"
                     android:textSize="18sp" />
 
-                <RadioButton
-                    android:id="@+id/no"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:buttonTint="@color/navy_blue"
-                    android:text="No"
-                    android:textSize="18sp" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="5"
+                    android:background="@drawable/style_spinner"
+                    android:orientation="vertical">
 
-            </RadioGroup>
+                    <Spinner
+                        android:id="@+id/time"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_weight="1"
+                    android:text="Ago"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+<!--            <RadioGroup-->
+<!--                android:id="@+id/radioGroup"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content">-->
+
+<!--                <RadioButton-->
+<!--                    android:id="@+id/yes"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:buttonTint="@color/navy_blue"-->
+<!--                    android:text="Yes"-->
+<!--                    android:textSize="18sp" />-->
+
+<!--                <RadioButton-->
+<!--                    android:id="@+id/no"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:buttonTint="@color/navy_blue"-->
+<!--                    android:text="No"-->
+<!--                    android:textSize="18sp" />-->
+
+<!--            </RadioGroup>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/stock_from"
-                android:visibility="gone">
+                android:id="@+id/stock_from">
 
                 <TextView
                     android:id="@+id/text2"
@@ -73,6 +115,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:textSize="16sp"
+                    android:text="Where did you get the cattle from"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"/>
 
@@ -110,7 +153,6 @@
                 </RadioGroup>
 
             </LinearLayout>
-
 
         </LinearLayout>
 

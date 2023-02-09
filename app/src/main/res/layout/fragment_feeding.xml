@@ -40,14 +40,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="Grass on the same farm" />
+                android:text="Silage/ Grass on the same farm" />
 
             <CheckBox
                 android:id="@+id/outside"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="Grass from outside the farm" />
+                android:text="Silage/ Grass from outside the farm" />
 
             <CheckBox
                 android:id="@+id/personal"

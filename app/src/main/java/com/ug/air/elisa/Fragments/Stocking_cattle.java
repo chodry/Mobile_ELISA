@@ -2,6 +2,7 @@ package com.ug.air.elisa.Fragments;
 
 import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
+import static com.ug.air.elisa.Fragments.Survey.DISEASE;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.content.SharedPreferences;
@@ -13,19 +14,24 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ug.air.elisa.R;
 
-public class Stocking_cattle extends Fragment {
+public class Stocking_cattle extends Fragment implements AdapterView.OnItemSelectedListener {
 
     View view;
     Button backBtn, nextBtn;
+    EditText etDate;
     LinearLayout linearLayout;
     TextView textView, textView2, textView3;
     RadioGroup radioGroup1, radioGroup2;
@@ -35,11 +41,15 @@ public class Stocking_cattle extends Fragment {
     private static final int YES2 = 0;
     private static final int NO2 = 1;
     private static final int NOT2 = 2;
-    String stocking, stock, animal;
+    String stocking, stock, animal, time, date, date_2;
+    Spinner spinner;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
     public static final String CATTLE_STOCKING = "cattle_stock_from";
     public static final String CATTLE_STOCK = "cattle_new_stock";
+    public static final String PERIOD_C = "period_c";
+    public static final String TIME_C = "time_c";
+    ArrayAdapter<CharSequence> adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,15 +61,17 @@ public class Stocking_cattle extends Fragment {
         backBtn = view.findViewById(R.id.back);
         textView = view.findViewById(R.id.heading);
         textView2 = view.findViewById(R.id.stocking);
-        radioGroup1 = view.findViewById(R.id.radioGroup);
+//        radioGroup1 = view.findViewById(R.id.radioGroup);
         radioGroup2 = view.findViewById(R.id.radioGroup2);
-        radioButton1 = view.findViewById(R.id.yes);
-        radioButton2 = view.findViewById(R.id.no);
+//        radioButton1 = view.findViewById(R.id.yes);
+//        radioButton2 = view.findViewById(R.id.no);
         radioButton4 = view.findViewById(R.id.farm);
         radioButton5 = view.findViewById(R.id.both);
         radioButton3 = view.findViewById(R.id.market);
-        linearLayout = view.findViewById(R.id.stock_from);
+//        linearLayout = view.findViewById(R.id.stock_from);
         textView3 = view.findViewById(R.id.text2);
+        spinner = view.findViewById(R.id.time);
+        etDate = view.findViewById(R.id.date);
 
         textView.setText("Stocking");
 
@@ -78,29 +90,6 @@ public class Stocking_cattle extends Fragment {
 //        }
 
         loadData();
-        updateViews();
-
-        radioGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                View radioButton = radioGroup.findViewById(i);
-                int index = radioGroup.indexOfChild(radioButton);
-
-                switch (index) {
-                    case YES:
-                        stock = "Yes";
-                        linearLayout.setVisibility(View.VISIBLE);
-                        break;
-                    case NO:
-                        stock = "No";
-                        linearLayout.setVisibility(View.GONE);
-                        stocking = "";
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
 
         radioGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -124,13 +113,45 @@ public class Stocking_cattle extends Fragment {
             }
         });
 
+        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.time, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
+        updateViews();
+
+//        radioGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+//                View radioButton = radioGroup.findViewById(i);
+//                int index = radioGroup.indexOfChild(radioButton);
+//
+//                switch (index) {
+//                    case YES:
+//                        stock = "Yes";
+//                        linearLayout.setVisibility(View.VISIBLE);
+//                        break;
+//                    case NO:
+//                        stock = "No";
+//                        linearLayout.setVisibility(View.GONE);
+//                        stocking = "";
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        });
+
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (stock.isEmpty() || (stock.equals("Yes") && stocking.isEmpty())){
+                date = etDate.getText().toString();
+
+                if (date.isEmpty() || time.equals("Select one") || stocking.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }else  {
+                    date_2 = date + " " + time + " ago";
                     saveData();
                 }
             }
@@ -151,17 +172,30 @@ public class Stocking_cattle extends Fragment {
     private void saveData() {
 
         editor2.putString(CATTLE_STOCKING, stocking);
-        editor2.putString(CATTLE_STOCK, stock);
+        editor2.putString(CATTLE_STOCK, date_2);
+        editor2.putString(PERIOD_C, date);
+        editor2.putString(TIME_C, time);
         editor2.apply();
 
+//        FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
+//        fr.replace(R.id.fragment_container, new Stocking_piggery());
+//        fr.addToBackStack(null);
+//        fr.commit();
+
+        String disease = sharedPreferences2.getString(DISEASE, "");
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        fr.replace(R.id.fragment_container, new Stocking_piggery());
+        if (disease.equals("Both")){
+            fr.replace(R.id.fragment_container, new Stocking_piggery());
+        }else{
+            fr.replace(R.id.fragment_container, new Feeding());
+        }
         fr.addToBackStack(null);
         fr.commit();
     }
 
     public void loadData(){
-        stock = sharedPreferences2.getString(CATTLE_STOCK, "");
+        date = sharedPreferences2.getString(PERIOD_C, "");
+        time = sharedPreferences2.getString(TIME_C, "");
         stocking = sharedPreferences2.getString(CATTLE_STOCKING, "");
     }
 
@@ -178,14 +212,21 @@ public class Stocking_cattle extends Fragment {
             radioButton5.setChecked(false);
         }
 
-        if (stock.equals("Yes")){
-            radioButton1.setChecked(true);
-            linearLayout.setVisibility(View.VISIBLE);
-        }else if (stock.equals("No")){
-            radioButton2.setChecked(true);
-        }else {
-            radioButton1.setChecked(false);
-            radioButton2.setChecked(false);
+        etDate.setText(date);
+
+        if (!time.isEmpty()){
+            int position = adapter.getPosition(time);
+            spinner.setSelection(position);
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        time = adapterView.getItemAtPosition(i).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

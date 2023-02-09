@@ -117,7 +117,7 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
                         if (date.isEmpty()){
                             date_2 = "";
                         }else{
-                            date_2 = date + " " + time;
+                            date_2 = date + " " + time + " ago";
                         }
                         saveData();
                     }

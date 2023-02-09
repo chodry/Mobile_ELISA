@@ -1,5 +1,6 @@
 package com.ug.air.elisa.Fragments;
 
+import static com.ug.air.elisa.Fragments.Survey.DISEASE;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.content.SharedPreferences;
@@ -175,8 +176,18 @@ public class BioSecurityMeasures extends Fragment {
         editor2.putBoolean(CHECK6X, others.isChecked());
         editor2.apply();
 
+//        FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
+//        fr.replace(R.id.fragment_container, new Stocking_cattle());
+//        fr.addToBackStack(null);
+//        fr.commit();
+
+        String disease = sharedPreferences2.getString(DISEASE, "");
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        fr.replace(R.id.fragment_container, new Stocking_cattle());
+        if (disease.equals("Foot and Mouth Disease") || disease.equals("Both")){
+            fr.replace(R.id.fragment_container, new Stocking_cattle());
+        }else{
+            fr.replace(R.id.fragment_container, new Stocking_piggery());
+        }
         fr.addToBackStack(null);
         fr.commit();
     }
