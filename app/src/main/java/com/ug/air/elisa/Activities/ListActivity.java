@@ -13,9 +13,9 @@ import static com.ug.air.elisa.Fragments.FarmerDetails.NAME;
 import static com.ug.air.elisa.Fragments.FarmerDetails.PARISH;
 import static com.ug.air.elisa.Fragments.FarmerDetails.SUB_COUNTY;
 import static com.ug.air.elisa.Fragments.FarmerDetails.VILLAGE;
-import static com.ug.air.elisa.Fragments.GPS.DATE;
-import static com.ug.air.elisa.Fragments.GPS.FILENAME;
-import static com.ug.air.elisa.Fragments.GPS.INCOMPLETE;
+import static com.ug.air.elisa.Fragments.Sample.DATE;
+import static com.ug.air.elisa.Fragments.Sample.FILENAME;
+import static com.ug.air.elisa.Fragments.Sample.INCOMPLETE;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;

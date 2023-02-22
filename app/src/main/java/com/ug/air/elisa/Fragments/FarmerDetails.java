@@ -69,7 +69,7 @@ public class FarmerDetails extends Fragment {
 //        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
 //        animal = sharedPreferences.getString(ANIMAL, "");
 
-        textView.setText("Farmer Details");
+        textView.setText("Farm Details");
 
         Intent intent = getActivity().getIntent();
         if (intent.hasExtra("filename")) {

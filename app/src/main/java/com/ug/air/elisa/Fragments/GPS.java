@@ -72,11 +72,17 @@ public class GPS extends Fragment implements LocationListener {
     SharedPreferences.Editor editor2, editor3;
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
-    public static final String UNIQUE = "unique_id";
-    public static final String FILENAME = "filename";
-    public static final String DATE = "created_on";
-    public static final String DURATION = "duration";
-    public static final String INCOMPLETE = "incomplete";
+//    public static final String UNIQUE = "unique_id";
+//    public static final String FILENAME = "filename";
+//    public static final String DATE = "created_on";
+//    public static final String DURATION = "duration";
+//    public static final String INCOMPLETE = "incomplete";
+
+    public static final String UNIQUE_2 = "unique_id_2";
+    public static final String FILENAME_2 = "filename_2";
+    public static final String DATE_2 = "created_on_2";
+    public static final String DURATION_2 = "duration_2";
+    public static final String INCOMPLETE_2 = "incomplete_2";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -371,8 +377,59 @@ public class GPS extends Fragment implements LocationListener {
         txtLocation2.setText(lon);
     }
 
-    public void saveForm(){
+//    public void saveForm(){
+//
+//        Date currentTime = Calendar.getInstance().getTime();
+//        SimpleDateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+//        String formattedDate = df.format(currentTime);
+//
+//        getDuration(currentTime);
+//
+//        String uniqueID = UUID.randomUUID().toString();
+//        String filename = formattedDate + "_" + uniqueID;
+//
+////        editor2.putString(MAMMALS, animal);
+//        editor2.putString(UNIQUE, uniqueID);
+//        editor2.putString(DATE, formattedDate);
+//        editor2.putString(FILENAME, filename);
+//        editor2.putString(INCOMPLETE, "complete");
+//        editor2.apply();
+//
+//        sharedPreferences3 = requireActivity().getSharedPreferences(filename, Context.MODE_PRIVATE);
+//        editor3 = sharedPreferences3.edit();
+//
+//        Map<String, ?> all = sharedPreferences2.getAll();
+//        for (Map.Entry<String, ?> x : all.entrySet()) {
+//            if (x.getValue().getClass().equals(String.class))  editor3.putString(x.getKey(),  (String)x.getValue());
+//            if (x.getValue().getClass().equals(Boolean.class))  editor3.putBoolean(x.getKey(),  (Boolean) x.getValue());
+//        }
+//
+//        editor3.commit();
+//        editor2.clear();
+//        editor2.commit();
+//        startActivity(new Intent(getActivity(), FormMenuActivity.class));
+//    }
+//
+//    private void getDuration(Date currentTime) {
+//        String initial_date = sharedPreferences2.getString(START_DATE_2, "");
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
+//        try {
+//            Date d1 = format.parse(initial_date);
+//
+//            long diff = currentTime.getTime() - d1.getTime();//as given
+//
+//            long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
+//            String duration = String.valueOf(minutes);
+//            editor2.putString(DURATION, duration);
+//            editor2.apply();
+//            Log.d("Difference in time", "getTimeDifference: " + minutes);
+//
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
+    private void saveForm() {
         Date currentTime = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
         String formattedDate = df.format(currentTime);
@@ -380,13 +437,12 @@ public class GPS extends Fragment implements LocationListener {
         getDuration(currentTime);
 
         String uniqueID = UUID.randomUUID().toString();
-        String filename = formattedDate + "_" + uniqueID;
+        String filename = "farm_" + formattedDate + "_" + uniqueID;
 
-//        editor2.putString(MAMMALS, animal);
-        editor2.putString(UNIQUE, uniqueID);
-        editor2.putString(DATE, formattedDate);
-        editor2.putString(FILENAME, filename);
-        editor2.putString(INCOMPLETE, "complete");
+        editor2.putString(UNIQUE_2, uniqueID);
+        editor2.putString(DATE_2, formattedDate);
+        editor2.putString(FILENAME_2, filename);
+        editor2.putString(INCOMPLETE_2, "complete");
         editor2.apply();
 
         sharedPreferences3 = requireActivity().getSharedPreferences(filename, Context.MODE_PRIVATE);
@@ -405,7 +461,7 @@ public class GPS extends Fragment implements LocationListener {
     }
 
     private void getDuration(Date currentTime) {
-        String initial_date = sharedPreferences2.getString(START_DATE_2, "");
+        String initial_date = sharedPreferences2.getString(START_DATE, "");
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
         try {
             Date d1 = format.parse(initial_date);
@@ -414,7 +470,7 @@ public class GPS extends Fragment implements LocationListener {
 
             long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
             String duration = String.valueOf(minutes);
-            editor2.putString(DURATION, duration);
+            editor2.putString(DURATION_2, duration);
             editor2.apply();
             Log.d("Difference in time", "getTimeDifference: " + minutes);
 

@@ -11,11 +11,11 @@ import static com.ug.air.elisa.Fragments.Feeding.DURATION_2;
 import static com.ug.air.elisa.Fragments.Feeding.FILENAME_2;
 import static com.ug.air.elisa.Fragments.Feeding.INCOMPLETE_2;
 import static com.ug.air.elisa.Fragments.Feeding.UNIQUE_2;
-import static com.ug.air.elisa.Fragments.GPS.DATE;
-import static com.ug.air.elisa.Fragments.GPS.DURATION;
-import static com.ug.air.elisa.Fragments.GPS.FILENAME;
-import static com.ug.air.elisa.Fragments.GPS.INCOMPLETE;
-import static com.ug.air.elisa.Fragments.GPS.UNIQUE;
+import static com.ug.air.elisa.Fragments.Sample.DATE;
+import static com.ug.air.elisa.Fragments.Sample.DURATION;
+import static com.ug.air.elisa.Fragments.Sample.FILENAME;
+import static com.ug.air.elisa.Fragments.Sample.INCOMPLETE;
+import static com.ug.air.elisa.Fragments.Sample.UNIQUE;
 import static com.ug.air.elisa.Fragments.PatientSignalement.START_DATE_2;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 

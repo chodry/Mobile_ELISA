@@ -179,12 +179,12 @@ public class Feeding extends Fragment {
         editor2.putBoolean(CHECK6XX, others.isChecked());
         editor2.apply();
 
-//        FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-//        fr.replace(R.id.fragment_container, new Illness());
-//        fr.addToBackStack(null);
-//        fr.commit();
+        FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
+        fr.replace(R.id.fragment_container, new GPS());
+        fr.addToBackStack(null);
+        fr.commit();
 
-        saveForm();
+//        saveForm();
     }
 
     private void loadData() {

@@ -6,9 +6,9 @@ import static com.ug.air.elisa.Activities.LoginActivity.TOKEN;
 import static com.ug.air.elisa.Activities.WelcomeActivity.PERSON;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Camera.IMAGE_URL;
-import static com.ug.air.elisa.Fragments.GPS.DATE;
+import static com.ug.air.elisa.Fragments.Sample.DATE;
 import static com.ug.air.elisa.Fragments.PatientSignalement.MAMMALS;
-import static com.ug.air.elisa.Fragments.GPS.INCOMPLETE;
+import static com.ug.air.elisa.Fragments.Sample.INCOMPLETE;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;

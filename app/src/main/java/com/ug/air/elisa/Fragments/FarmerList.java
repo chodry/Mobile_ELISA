@@ -9,8 +9,9 @@ import static com.ug.air.elisa.Fragments.FarmerDetails.SUB_COUNTY;
 import static com.ug.air.elisa.Fragments.FarmerDetails.VILLAGE;
 import static com.ug.air.elisa.Fragments.Feeding.DATE_2;
 import static com.ug.air.elisa.Fragments.Feeding.FILENAME_2;
-import static com.ug.air.elisa.Fragments.GPS.DATE;
-import static com.ug.air.elisa.Fragments.GPS.FILENAME;
+import static com.ug.air.elisa.Fragments.Feeding.INCOMPLETE_2;
+import static com.ug.air.elisa.Fragments.Sample.DATE;
+import static com.ug.air.elisa.Fragments.Sample.FILENAME;
 import static com.ug.air.elisa.Fragments.PatientSignalement.AGE;
 import static com.ug.air.elisa.Fragments.PatientSignalement.BREED;
 import static com.ug.air.elisa.Fragments.PatientSignalement.GENDER;
@@ -180,10 +181,13 @@ public class FarmerList extends Fragment {
                         String parish = sharedPreferences2.getString(PARISH, "");
                         String district = sharedPreferences2.getString(DISTRICT, "");
                         String dat = sharedPreferences2.getString(DATE_2, "");
+                        String incomplete = sharedPreferences2.getString(INCOMPLETE_2, "");
                         String uuid = sharedPreferences2.getString(SPECIAL_UUID, "");
                         String location = district + "-" + subCounty + "-" + parish + "-" + village;
-                        items.add(farmer + " from " + location);
-                        special.add(uuid);
+                        if (incomplete.equals("complete")){
+                            items.add(farmer + " from " + location);
+                            special.add(uuid);
+                        }
 //                        Farm farm = new Farm(farmer, location, dat, uuid, filename, option);
 //                        farmList.add(farm);
                     }
