@@ -12,13 +12,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/buttons"
+        android:layout_below="@id/toolbar"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="10dp"
         android:fadeScrollbars="true"
         android:padding="10dp"
-        android:scrollbars="none"
-        android:layout_below="@id/toolbar"
-        android:layout_above="@id/buttons">
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,66 +29,101 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="What are the Bio-Security measures on the farm?"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:textSize="16sp" />
 
             <CheckBox
-                android:id="@+id/fencing"
+                android:id="@+id/workers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Fencing" />
+                android:text="Farm-workers are bio-security aware"
+                android:textSize="14sp" />
 
             <CheckBox
-                android:id="@+id/disinfection"
+                android:id="@+id/fencing1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Disinfection" />
+                android:text="Double Fencing"
+                android:textSize="14sp" />
+
+            <CheckBox
+                android:id="@+id/fencing2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Single Fencing"
+                android:textSize="14sp" />
+
+            <CheckBox
+                android:id="@+id/footwear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Protective footwear"
+                android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/foot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Foot Bath" />
+                android:text="Foot Bath"
+                android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/isolation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Isolation of new incoming animals" />
+                android:text="Isolation of incoming animals"
+                android:textSize="14sp" />
+
+            <CheckBox
+                android:id="@+id/artificial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Artificial insemination"
+                android:textSize="14sp" />
+
+            <CheckBox
+                android:id="@+id/bull"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="On-farm bull"
+                android:textSize="14sp" />
+
+            <CheckBox
+                android:id="@+id/separate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Separate entry and exit points"
+                android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/none"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="None" />
+                android:text="None"
+                android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/others"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Others" />
+                android:text="Others"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/othersText"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/et_button"
                 android:gravity="top"
                 android:hint="Please provide any other bio-security measures"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
-                android:visibility="gone"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:visibility="gone" />
 
         </LinearLayout>
 

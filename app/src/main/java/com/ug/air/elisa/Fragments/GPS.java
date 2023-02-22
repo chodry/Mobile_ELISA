@@ -31,6 +31,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,9 +54,11 @@ import java.util.concurrent.TimeUnit;
 public class GPS extends Fragment implements LocationListener {
 
     View view;
-    Button backBtn, nextBtn, gpsBtn;
+    Button backBtn, nextBtn, gpsBtn, manualBtn;
     TextView textView, txtLocation1, txtLocation2;
     ProgressBar progressBar;
+    EditText etNorth, etEast;
+    LinearLayout linearLayoutGPS, linearLayoutManually;
     private final static int ALL_PERMISSIONS_RESULT = 101;
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 10;
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
@@ -67,16 +71,14 @@ public class GPS extends Fragment implements LocationListener {
     boolean isNetwork = false;
     boolean canGetLocation = true;
     final String TAG = "GPS";
-    String lat, lon, animal;
+    String lat, lon, animal, clicked, north, east;
     SharedPreferences sharedPreferences2, sharedPreferences, sharedPreferences3;
     SharedPreferences.Editor editor2, editor3;
     public static final String LATITUDE = "latitude";
     public static final String LONGITUDE = "longitude";
-//    public static final String UNIQUE = "unique_id";
-//    public static final String FILENAME = "filename";
-//    public static final String DATE = "created_on";
-//    public static final String DURATION = "duration";
-//    public static final String INCOMPLETE = "incomplete";
+    public static final String CLICKED = "manually_or_gps";
+    public static final String NORTHINGS = "northings";
+    public static final String EASTINGS = "eastings";
 
     public static final String UNIQUE_2 = "unique_id_2";
     public static final String FILENAME_2 = "filename_2";
@@ -98,6 +100,14 @@ public class GPS extends Fragment implements LocationListener {
         gpsBtn = view.findViewById(R.id.gps);
         progressBar = view.findViewById(R.id.progress_bar);
 
+        etEast = view.findViewById(R.id.east);
+        etNorth = view.findViewById(R.id.north);
+
+        linearLayoutGPS = view.findViewById(R.id.get_gps);
+        linearLayoutManually = view.findViewById(R.id.manually);
+
+        manualBtn = view.findViewById(R.id.manual);
+
         textView.setText("GPS Location");
 
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
@@ -109,9 +119,21 @@ public class GPS extends Fragment implements LocationListener {
         gpsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clicked = "gps";
+                linearLayoutManually.setVisibility(View.GONE);
+                linearLayoutGPS.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
                 gpsBtn.setEnabled(false);
                 getGeoLocation();
+            }
+        });
+
+        manualBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clicked = "manually";
+                linearLayoutManually.setVisibility(View.VISIBLE);
+                linearLayoutGPS.setVisibility(View.GONE);
             }
         });
 
@@ -119,12 +141,24 @@ public class GPS extends Fragment implements LocationListener {
             @Override
             public void onClick(View view) {
 
-                if (lon.isEmpty() || lat.isEmpty()){
-                    Toast.makeText(getActivity(), "Please provide information about other animals", Toast.LENGTH_SHORT).show();
-                }else {
-                    saveForm();
-                }
+                north = etNorth.getText().toString();
+                east = etEast.getText().toString();
 
+                if (clicked.equals("gps")) {
+                    if (lon.isEmpty() || lat.isEmpty()){
+                        Toast.makeText(getActivity(), "Please provide the location of the farm", Toast.LENGTH_SHORT).show();
+                    }else {
+                        saveForm();
+                    }
+                }else if (clicked.equals("manually")) {
+                    if (north.isEmpty() || east.isEmpty()){
+                        Toast.makeText(getActivity(), "Please provide the location of the farm", Toast.LENGTH_SHORT).show();
+                    }else {
+                        saveData2();
+                    }
+                }else {
+                    Toast.makeText(getActivity(), "Please provide the location of the farm", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -132,7 +166,7 @@ public class GPS extends Fragment implements LocationListener {
             @Override
             public void onClick(View view) {
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Sample());
+                fr.replace(R.id.fragment_container, new Feeding());
                 fr.commit();
             }
         });
@@ -364,17 +398,43 @@ public class GPS extends Fragment implements LocationListener {
         lon = ""+loc.getLongitude();
         editor2.putString(LATITUDE, lat);
         editor2.putString(LONGITUDE, lon);
+        editor2.putString(CLICKED, clicked);
         editor2.apply();
+    }
+
+    private void saveData2() {
+        editor2.putString(NORTHINGS, north);
+        editor2.putString(EASTINGS, east);
+        editor2.putString(CLICKED, clicked);
+        editor2.apply();
+
+        saveForm();
     }
 
     private void loadData(){
         lat = sharedPreferences2.getString(LATITUDE, "");
         lon = sharedPreferences2.getString(LONGITUDE, "");
+        north = sharedPreferences2.getString(NORTHINGS, "");
+        east = sharedPreferences2.getString(EASTINGS, "");
+        clicked = sharedPreferences2.getString(CLICKED, "");
     }
 
     private void updateViews(){
-        txtLocation1.setText(lat);
-        txtLocation2.setText(lon);
+        if (clicked.equals("gps")){
+            linearLayoutManually.setVisibility(View.GONE);
+            linearLayoutGPS.setVisibility(View.VISIBLE);
+            txtLocation1.setText(lat);
+            txtLocation2.setText(lon);
+        }else if (clicked.equals("manually")) {
+            linearLayoutManually.setVisibility(View.VISIBLE);
+            linearLayoutGPS.setVisibility(View.GONE);
+            etNorth.setText(north);
+            etEast.setText(east);
+        }else {
+            linearLayoutManually.setVisibility(View.GONE);
+            linearLayoutGPS.setVisibility(View.GONE);
+        }
+
     }
 
 //    public void saveForm(){

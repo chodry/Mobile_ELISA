@@ -93,6 +93,24 @@
                     android:text="Tethering"
                     android:textSize="18sp" />
 
+                <RadioButton
+                    android:id="@+id/free"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:buttonTint="@color/navy_blue"
+                    android:text="Free-range"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/seasonal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:buttonTint="@color/navy_blue"
+                    android:text="Seasonal grazing"
+                    android:textSize="18sp" />
+
             </RadioGroup>
 
         </LinearLayout>

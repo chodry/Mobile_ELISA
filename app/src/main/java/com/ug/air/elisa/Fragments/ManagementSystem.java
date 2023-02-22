@@ -27,7 +27,7 @@ public class ManagementSystem extends Fragment {
     Button backBtn, nextBtn;
     TextView textView;
     RadioGroup radioGroup;
-    RadioButton radioButton1, radioButton2, radioButton3, radioButton4, radioButton5, radioButton6;
+    RadioButton radioButton1, radioButton2, radioButton3, radioButton4, radioButton5, radioButton6, radioButton7, radioButton8;
     String management;
     SharedPreferences sharedPreferences2;
     SharedPreferences.Editor editor2;
@@ -37,6 +37,8 @@ public class ManagementSystem extends Fragment {
     private static final int NO2 = 3;
     private static final int YES3 = 4;
     private static final int NO3 = 5;
+    private static final int YES3X = 6;
+    private static final int NO3X = 7;
     public static final String MANAGEMENT = "management_system";
 
     @Override
@@ -55,6 +57,8 @@ public class ManagementSystem extends Fragment {
         radioButton5 = view.findViewById(R.id.paddock);
         radioButton6 = view.findViewById(R.id.tethering);
         radioButton3 = view.findViewById(R.id.semi);
+        radioButton7 = view.findViewById(R.id.free);
+        radioButton8 = view.findViewById(R.id.seasonal);
 
         textView.setText("Management System");
 
@@ -89,6 +93,12 @@ public class ManagementSystem extends Fragment {
                     case NO3:
                         management = "Tethering";
                         break;
+                    case YES3X:
+                        management = "Free-range";
+                        break;
+                    case NO3X:
+                        management = "Seasonal grazing";
+                        break;
                     default:
                         break;
                 }
@@ -115,13 +125,14 @@ public class ManagementSystem extends Fragment {
 //                FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
 //                fr.replace(R.id.fragment_container, new Deworming());
 //                fr.commit();
-                String disease = sharedPreferences2.getString(DISEASE, "");
+//                String disease = sharedPreferences2.getString(DISEASE, "");
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                if (disease.equals("Both") || disease.equals("African Swine Fever")){
-                    fr.replace(R.id.fragment_container, new Piggery());
-                }else {
-                    fr.replace(R.id.fragment_container, new Cattle());
-                }
+                fr.replace(R.id.fragment_container, new FarmHistory());
+//                if (disease.equals("Both") || disease.equals("African Swine Fever")){
+//                    fr.replace(R.id.fragment_container, new Piggery());
+//                }else {
+//                    fr.replace(R.id.fragment_container, new Cattle());
+//                }
                 fr.commit();
             }
         });
@@ -157,6 +168,10 @@ public class ManagementSystem extends Fragment {
             radioButton5.setChecked(true);
         }else if (management.equals("Tethering")){
             radioButton6.setChecked(true);
+        }else if (management.equals("Free-range")){
+            radioButton7.setChecked(true);
+        }else if (management.equals("Seasonal grazing")){
+            radioButton8.setChecked(true);
         }else {
             radioButton1.setChecked(false);
             radioButton2.setChecked(false);
@@ -164,6 +179,8 @@ public class ManagementSystem extends Fragment {
             radioButton4.setChecked(false);
             radioButton5.setChecked(false);
             radioButton6.setChecked(false);
+            radioButton7.setChecked(false);
+            radioButton8.setChecked(false);
         }
     }
 }

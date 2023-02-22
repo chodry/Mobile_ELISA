@@ -42,8 +42,8 @@ public class Feeding extends Fragment {
     Button backBtn, nextBtn;
     TextView textView;
     EditText etOthers;
-    CheckBox others, same, left, outside, personal, drink;
-    Boolean check1, check2, check3, check4, check5, check6;
+    CheckBox others, same, left, outside, personal, drink, point, communal;
+    Boolean check1, check2, check3, check4, check5, check6, check7, check8;
     String other, s;
     SharedPreferences sharedPreferences2, sharedPreferences, sharedPreferences3;
     SharedPreferences.Editor editor2, editor3;
@@ -53,6 +53,8 @@ public class Feeding extends Fragment {
     public static final String CHECK4XX = "check4xx";
     public static final String CHECK5XX = "check5xx";
     public static final String CHECK6XX = "check6xx";
+    public static final String CHECK7XX = "check7xx";
+    public static final String CHECK8XX = "check8xx";
     public static final String FEEDING = "feeding_mechanism";
     public static final String OTHERSXX = "othersxx";
 
@@ -77,9 +79,11 @@ public class Feeding extends Fragment {
         personal = view.findViewById(R.id.personal);
         left = view.findViewById(R.id.left);
         others = view.findViewById(R.id.others);
+        point = view.findViewById(R.id.point);
+        communal = view.findViewById(R.id.communal);
         drink = view.findViewById(R.id.drink);
 
-        textView.setText("Animal Fedding");
+        textView.setText("Animal Feeding");
 
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
@@ -122,13 +126,14 @@ public class Feeding extends Fragment {
 //                fr.replace(R.id.fragment_container, new Stocking_piggery());
 //                fr.commit();
 
-                String disease = sharedPreferences2.getString(DISEASE, "");
+//                String disease = sharedPreferences2.getString(DISEASE, "");
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                if (disease.equals("Both") || disease.equals("African Swine Fever")){
-                    fr.replace(R.id.fragment_container, new Stocking_piggery());
-                }else {
-                    fr.replace(R.id.fragment_container, new Stocking_cattle());
-                }
+                fr.replace(R.id.fragment_container, new BioSecurityMeasures());
+//                if (disease.equals("Both") || disease.equals("African Swine Fever")){
+//                    fr.replace(R.id.fragment_container, new Stocking_piggery());
+//                }else {
+//                    fr.replace(R.id.fragment_container, new Stocking_cattle());
+//                }
                 fr.commit();
             }
         });
@@ -140,10 +145,10 @@ public class Feeding extends Fragment {
         s = "";
 
         if(same.isChecked()){
-            s += "Silage/ Grass on the same farm, ";
+            s += "Fodder on farm, ";
         }
         if(outside.isChecked()){
-            s += "Silage/ Grass from outside the farm, ";
+            s += "Fodder from outside the farm, ";
         }
         if(personal.isChecked()){
             s += "Personal Leftovers, ";
@@ -153,6 +158,12 @@ public class Feeding extends Fragment {
         }
         if(drink.isChecked()){
             s = "Same drinking point with other animals, ";
+        }
+        if(point.isChecked()){
+            s += "On-farm drinking point, ";
+        }
+        if(communal.isChecked()){
+            s += "Communal grazing, ";
         }
         if (!other.isEmpty()){
             s += other + ", ";
@@ -177,6 +188,8 @@ public class Feeding extends Fragment {
         editor2.putBoolean(CHECK4XX, left.isChecked());
         editor2.putBoolean(CHECK5XX, drink.isChecked());
         editor2.putBoolean(CHECK6XX, others.isChecked());
+        editor2.putBoolean(CHECK7XX, point.isChecked());
+        editor2.putBoolean(CHECK8XX, communal.isChecked());
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -194,6 +207,8 @@ public class Feeding extends Fragment {
         check4 = sharedPreferences2.getBoolean(CHECK4XX, false);
         check5 = sharedPreferences2.getBoolean(CHECK5XX, false);
         check6 = sharedPreferences2.getBoolean(CHECK6XX, false);
+        check7 = sharedPreferences2.getBoolean(CHECK7XX, false);
+        check8 = sharedPreferences2.getBoolean(CHECK8XX, false);
         other = sharedPreferences2.getString(OTHERSXX, "");
     }
 
@@ -203,6 +218,8 @@ public class Feeding extends Fragment {
         personal.setChecked(check3);
         left.setChecked(check4);
         drink.setChecked(check5);
+        point.setChecked(check7);
+        communal.setChecked(check8);
         others.setChecked(check6);
 
         if (!other.isEmpty()){

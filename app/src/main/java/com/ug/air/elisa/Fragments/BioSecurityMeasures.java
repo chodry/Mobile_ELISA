@@ -28,8 +28,8 @@ public class BioSecurityMeasures extends Fragment {
     Button backBtn, nextBtn;
     TextView textView;
     EditText etOthers;
-    CheckBox fence, isolation, disinfection, foot, others, none;
-    Boolean check1, check2, check3, check4, check5, check6;
+    CheckBox fence1, isolation, footwear, foot, others, none, fence2, workers, artificial, bull, separate;
+    Boolean check1, check2, check3, check4, check5, check6, check7, check8, check9, check10, check11;
     String other, s;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
@@ -39,6 +39,11 @@ public class BioSecurityMeasures extends Fragment {
     public static final String CHECK4X = "check4x";
     public static final String CHECK5X = "check5x";
     public static final String CHECK6X = "check6x";
+    public static final String CHECK7X = "check7x";
+    public static final String CHECK8X = "check8x";
+    public static final String CHECK9X = "check9x";
+    public static final String CHECK10X = "check10x";
+    public static final String CHECK11X = "check11x";
     public static final String SECURITY = "security_measures";
     public static final String OTHERSX = "othersx";
 
@@ -53,9 +58,16 @@ public class BioSecurityMeasures extends Fragment {
         textView = view.findViewById(R.id.heading);
         etOthers = view.findViewById(R.id.othersText);
         isolation = view.findViewById(R.id.isolation);
-        disinfection = view.findViewById(R.id.disinfection);
+        footwear = view.findViewById(R.id.footwear);
         foot = view.findViewById(R.id.foot);
-        fence = view.findViewById(R.id.fencing);
+        fence1 = view.findViewById(R.id.fencing1);
+        fence2 = view.findViewById(R.id.fencing2);
+
+        bull = view.findViewById(R.id.bull);
+        workers = view.findViewById(R.id.workers);
+        separate = view.findViewById(R.id.separate);
+        artificial = view.findViewById(R.id.artificial);
+
         others = view.findViewById(R.id.others);
         none = view.findViewById(R.id.none);
 
@@ -84,17 +96,27 @@ public class BioSecurityMeasures extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (none.isChecked()){
                     checked(foot);
-                    checked(fence);
+                    checked(fence1);
+                    checked(fence2);
                     checked(isolation);
-                    checked(disinfection);
+                    checked(footwear);
                     checked(others);
+                    checked(bull);
+                    checked(separate);
+                    checked(artificial);
+                    checked(workers);
 
                 }else {
                     foot.setEnabled(true);
-                    fence.setEnabled(true);
-                    disinfection.setEnabled(true);
+                    fence1.setEnabled(true);
+                    footwear.setEnabled(true);
                     isolation.setEnabled(true);
                     others.setEnabled(true);
+                    fence2.setEnabled(true);
+                    separate.setEnabled(true);
+                    artificial.setEnabled(true);
+                    workers.setEnabled(true);
+                    bull.setEnabled(true);
                 }
             }
         });
@@ -139,14 +161,29 @@ public class BioSecurityMeasures extends Fragment {
         if(foot.isChecked()){
             s += "Foot Bath, ";
         }
-        if(disinfection.isChecked()){
-            s += "Disinfection, ";
+        if(footwear.isChecked()){
+            s += "Protective footwear, ";
         }
         if(isolation.isChecked()){
-            s += "Isolation of new incoming animals, ";
+            s += "Isolation of incoming animals, ";
         }
-        if(fence.isChecked()){
-            s += "Fencing, ";
+        if(fence1.isChecked()){
+            s += "Double Fencing, ";
+        }
+        if(fence2.isChecked()){
+            s += "Single Fencing, ";
+        }
+        if(workers.isChecked()){
+            s += "Farm-workers are bio-security aware, ";
+        }
+        if(separate.isChecked()){
+            s += "Separate entry and exit points, ";
+        }
+        if(artificial.isChecked()){
+            s += "Artificial insemination, ";
+        }
+        if(bull.isChecked()){
+            s += "On-farm bull, ";
         }
         if(none.isChecked()){
             s = "None, ";
@@ -168,12 +205,17 @@ public class BioSecurityMeasures extends Fragment {
 
         editor2.putString(SECURITY, s);
         editor2.putString(OTHERSX, other);
-        editor2.putBoolean(CHECK1X, fence.isChecked());
-        editor2.putBoolean(CHECK2X, disinfection.isChecked());
+        editor2.putBoolean(CHECK1X, fence1.isChecked());
+        editor2.putBoolean(CHECK2X, footwear.isChecked());
         editor2.putBoolean(CHECK3X, foot.isChecked());
         editor2.putBoolean(CHECK4X, isolation.isChecked());
         editor2.putBoolean(CHECK5X, none.isChecked());
         editor2.putBoolean(CHECK6X, others.isChecked());
+        editor2.putBoolean(CHECK7X, workers.isChecked());
+        editor2.putBoolean(CHECK8X, fence2.isChecked());
+        editor2.putBoolean(CHECK9X, separate.isChecked());
+        editor2.putBoolean(CHECK10X, artificial.isChecked());
+        editor2.putBoolean(CHECK11X, bull.isChecked());
         editor2.apply();
 
 //        FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -181,13 +223,14 @@ public class BioSecurityMeasures extends Fragment {
 //        fr.addToBackStack(null);
 //        fr.commit();
 
-        String disease = sharedPreferences2.getString(DISEASE, "");
+//        String disease = sharedPreferences2.getString(DISEASE, "");
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        if (disease.equals("Foot and Mouth Disease") || disease.equals("Both")){
-            fr.replace(R.id.fragment_container, new Stocking_cattle());
-        }else{
-            fr.replace(R.id.fragment_container, new Stocking_piggery());
-        }
+        fr.replace(R.id.fragment_container, new Feeding());
+//        if (disease.equals("Foot and Mouth Disease") || disease.equals("Both")){
+//            fr.replace(R.id.fragment_container, new Stocking_cattle());
+//        }else{
+//            fr.replace(R.id.fragment_container, new Stocking_piggery());
+//        }
         fr.addToBackStack(null);
         fr.commit();
     }
@@ -199,23 +242,39 @@ public class BioSecurityMeasures extends Fragment {
         check4 = sharedPreferences2.getBoolean(CHECK4X, false);
         check5 = sharedPreferences2.getBoolean(CHECK5X, false);
         check6 = sharedPreferences2.getBoolean(CHECK6X, false);
+        check7 = sharedPreferences2.getBoolean(CHECK7X, false);
+        check8 = sharedPreferences2.getBoolean(CHECK8X, false);
+        check9 = sharedPreferences2.getBoolean(CHECK9X, false);
+        check10 = sharedPreferences2.getBoolean(CHECK10X, false);
+        check11 = sharedPreferences2.getBoolean(CHECK11X, false);
         other = sharedPreferences2.getString(OTHERSX, "");
     }
 
     private void updateViews() {
-        fence.setChecked(check1);
-        disinfection.setChecked(check2);
+        fence1.setChecked(check1);
+        footwear.setChecked(check2);
         foot.setChecked(check3);
         isolation.setChecked(check4);
         none.setChecked(check5);
         others.setChecked(check6);
 
+        fence2.setChecked(check8);
+        bull.setChecked(check11);
+        separate.setChecked(check9);
+        workers.setChecked(check7);
+        artificial.setChecked(check10);
+
         if (none.isChecked()){
             checked(foot);
-            checked(fence);
+            checked(fence1);
+            checked(fence2);
             checked(isolation);
-            checked(disinfection);
+            checked(footwear);
             checked(others);
+            checked(bull);
+            checked(separate);
+            checked(artificial);
+            checked(workers);
         }
 
         if (!other.isEmpty()){

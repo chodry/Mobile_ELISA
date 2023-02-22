@@ -25,14 +25,15 @@ import com.ug.air.elisa.R;
 public class FarmHistory extends Fragment {
 
     View view;
-    Button backBtn, nextBtn;
-    TextView textView;
-    EditText etPeriod, etOthers;
+    Button backBtn, nextBtn, saveBtn, cancelBtn;
+    TextView textView, txtAnimal;
+    EditText etPeriod, etOthers, etAnimal, atAnimalTotal, etTotal;
     Spinner spinner;
     CheckBox cattle, pigs, birds, goats, sheep, others, none;
     Boolean check1, check2, check3, check4, check5, check6, check7;
     String time, period, period_2, other, nothing, animal;
     String s = "";
+
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
     public static final String CHECK1 = "check1";
@@ -196,13 +197,14 @@ public class FarmHistory extends Fragment {
         editor2.putString(OTHERS, other);
         editor2.apply();
 
-        String disease = sharedPreferences2.getString(DISEASE, "");
+//        String disease = sharedPreferences2.getString(DISEASE, "");
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        if (disease.equals("Foot and Mouth Disease") || disease.equals("Both")){
-            fr.replace(R.id.fragment_container, new Cattle());
-        }else{
-            fr.replace(R.id.fragment_container, new Piggery());
-        }
+        fr.replace(R.id.fragment_container, new ManagementSystem());
+//        if (disease.equals("Foot and Mouth Disease") || disease.equals("Both")){
+//            fr.replace(R.id.fragment_container, new Cattle());
+//        }else{
+//            fr.replace(R.id.fragment_container, new Piggery());
+//        }
         fr.addToBackStack(null);
         fr.commit();
     }

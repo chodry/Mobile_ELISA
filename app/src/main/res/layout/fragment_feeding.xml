@@ -40,14 +40,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="Silage/ Grass on the same farm" />
+                android:text="Fodder on farm" />
 
             <CheckBox
                 android:id="@+id/outside"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="Silage/ Grass from outside the farm" />
+                android:text="Fodder from outside the farm" />
 
             <CheckBox
                 android:id="@+id/personal"
@@ -69,6 +69,20 @@
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
                 android:text="Same drinking point with other animals" />
+
+            <CheckBox
+                android:id="@+id/point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="On-farm drinking point" />
+
+            <CheckBox
+                android:id="@+id/communal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Communal grazing" />
 
             <CheckBox
                 android:id="@+id/others"
@@ -114,7 +128,7 @@
 
         <Button
             android:id="@+id/next"
-            android:layout_width="140dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginStart="10dp"
@@ -122,7 +136,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/bg_button"
-            android:text="save form"
+            android:text="next"
             android:textColor="@color/white" />
 
     </RelativeLayout>
