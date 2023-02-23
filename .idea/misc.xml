@@ -8,9 +8,11 @@
         <entry key="app/src/main/res/drawable/bg_button_2.xml" value="0.145" />
         <entry key="app/src/main/res/drawable/et_button.xml" value="0.145" />
         <entry key="app/src/main/res/drawable/homebackground.xml" value="0.145" />
+        <entry key="app/src/main/res/drawable/ic_add.xml" value="0.147" />
         <entry key="app/src/main/res/drawable/ic_back.xml" value="0.145" />
         <entry key="app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.145" />
         <entry key="app/src/main/res/drawable/ic_check.xml" value="0.145" />
+        <entry key="app/src/main/res/drawable/ic_close.xml" value="0.147" />
         <entry key="app/src/main/res/layout/activity_animals.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_farm.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/activity_form.xml" value="0.22604166666666667" />

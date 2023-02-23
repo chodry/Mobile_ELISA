@@ -35,67 +35,26 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
 
-            <CheckBox
-                android:id="@+id/pigs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Pigs" />
-
-            <CheckBox
-                android:id="@+id/cattle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Cattle" />
-
-            <CheckBox
-                android:id="@+id/goats"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Goats" />
-
-            <CheckBox
-                android:id="@+id/sheep"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Sheep" />
-
-            <CheckBox
-                android:id="@+id/birds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Birds" />
-
-            <CheckBox
-                android:id="@+id/none"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="None" />
-
-            <CheckBox
-                android:id="@+id/others"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="others" />
-
-            <EditText
-                android:id="@+id/otherText"
+            <LinearLayout
+                android:id="@+id/layout_list"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/et_button"
-                android:gravity="top"
-                android:hint="Please provide other animals on the farm"
-                android:inputType="textMultiLine"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/add"
+                android:background="@drawable/bg_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Animal"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
                 android:padding="10dp"
-                android:textSize="14sp"
-                android:visibility="gone"/>
+                android:textAllCaps="false"
+                android:drawableEnd="@drawable/ic_add"/>
 
         </LinearLayout>
 

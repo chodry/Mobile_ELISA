@@ -2,118 +2,46 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="20dp">
+    android:orientation="horizontal"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:weightSum="10">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/animal"
+        android:layout_width="0dp"
+        android:layout_weight="6"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/linear_other"
-        android:visibility="gone">
+        android:inputType="textCapSentences"
+        android:padding="15dp"
+        android:textSize="14sp"
+        android:hint="Animal"
+        android:layout_marginEnd="5dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:background="@drawable/et_button"/>
 
-        <TextView
-            android:id="@+id/other"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Fill in animal type"
-            android:layout_marginBottom="10dp"
-            android:textSize="14sp"/>
-
-        <EditText
-            android:id="@+id/animal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:padding="15dp"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            android:background="@drawable/et_button"/>
-
-        <TextView
-            android:id="@+id/other_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Total"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:textSize="14sp"/>
-
-        <EditText
-            android:id="@+id/animal_total"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:padding="15dp"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            android:background="@drawable/et_button"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/total"
+        android:layout_width="0dp"
+        android:layout_weight="4"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/linear_total">
+        android:inputType="number"
+        android:padding="15dp"
+        android:textSize="14sp"
+        android:hint="Total"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:background="@drawable/et_button"/>
 
-        <TextView
-            android:id="@+id/total_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Total number of cattle"
-            android:layout_marginBottom="10dp"
-            android:textSize="14sp"/>
-
-        <EditText
-            android:id="@+id/total"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number"
-            android:padding="15dp"
-            android:textSize="14sp"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            android:background="@drawable/et_button"/>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="Cancel"
-            android:layout_marginRight="20dp"
-            android:textAllCaps="false"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/white"
-            android:background="@drawable/bg_button_2"/>
-
-        <Button
-            android:id="@+id/save"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:text="Save"
-            android:textAllCaps="false"
-            android:layout_marginLeft="20dp"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="center_horizontal"
-            android:textColor="@color/white"
-            android:background="@drawable/bg_button"/>
-
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_close"
+        android:layout_marginStart="5dp"
+        android:layout_gravity="center_vertical"/>
 
 </LinearLayout>
