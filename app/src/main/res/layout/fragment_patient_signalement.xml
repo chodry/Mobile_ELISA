@@ -31,70 +31,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Tag Number"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/tag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/et_button"
-                android:inputType="text"
-                android:padding="15dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/gray"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="Animal name"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/et_button"
-                android:inputType="text"
-                android:hint="This is optional"
-                android:padding="15dp"
-                android:textColor="@color/black"
-                android:textColorHint="@color/gray"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="Breed"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/style_spinner"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <Spinner
-                    android:id="@+id/breed"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
                 android:text="Sex"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -128,42 +64,119 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
+                android:text="Tag Number"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/tag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_button"
+                android:inputType="text"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="Animal name"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/et_button"
+                android:hint="This is optional"
+                android:inputType="text"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
                 android:text="Age"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
-            <RadioGroup
-                android:id="@+id/radioGroup2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/pig_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
 
-                <RadioButton
-                    android:id="@+id/adult"
+                <RadioGroup
+                    android:id="@+id/radioGroup2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/piglet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:buttonTint="@color/navy_blue"
+                        android:text="Piglet"
+                        android:textSize="18sp" />
+
+                    <RadioButton
+                        android:id="@+id/weaner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:buttonTint="@color/navy_blue"
+                        android:text="Weaner"
+                        android:textSize="18sp" />
+
+                    <RadioButton
+                        android:id="@+id/sow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:buttonTint="@color/navy_blue"
+                        android:text="Sow"
+                        android:textSize="18sp" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cattle_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <EditText
+                    android:id="@+id/age"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/et_button"
+                    android:gravity="top"
+                    android:inputType="number"
+                    android:padding="15dp"
+                    android:textSize="14sp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"/>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:buttonTint="@color/navy_blue"
-                    android:text="Adult"
-                    android:textSize="18sp" />
+                    android:text="Months"
+                    android:textColor="@color/black"/>
 
-                <RadioButton
-                    android:id="@+id/heifer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:buttonTint="@color/navy_blue"
-                    android:text="Heifer"
-                    android:textSize="18sp" />
-
-                <RadioButton
-                    android:id="@+id/calf"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:buttonTint="@color/navy_blue"
-                    android:text="Calf"
-                    android:textSize="18sp" />
-
-            </RadioGroup>
+            </LinearLayout>
 
         </LinearLayout>
 

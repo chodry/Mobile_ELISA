@@ -1,5 +1,7 @@
 package com.ug.air.elisa.Fragments;
 
+import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
+import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.content.SharedPreferences;
@@ -34,10 +36,10 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
     RadioGroup radioGroup;
     RadioButton radioButton1, radioButton2;
     Spinner spinner;
-    String time, date, medication, vaccine, date_2;
+    String time, date, medication, vaccine, date_2, animal;
     LinearLayout linearLayout;
-    SharedPreferences sharedPreferences2;
-    SharedPreferences.Editor editor2;
+    SharedPreferences sharedPreferences2, sharedPreferences;
+    SharedPreferences.Editor editor2, editor;
     private static final int YES = 0;
     private static final int NO = 1;
     public static final String DEWORMING = "deworming";
@@ -65,6 +67,9 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
         linearLayout = view.findViewById(R.id.info);
 
         textView.setText("De-worming Status");
+
+        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
+        animal = sharedPreferences.getString(ANIMAL, "");
 
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
@@ -129,7 +134,12 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
             @Override
             public void onClick(View view) {
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Vaccination());
+                if (animal.equals("piggery")){
+                    fr.replace(R.id.fragment_container, new Breed());
+                }else{
+                    fr.replace(R.id.fragment_container, new Vaccination());
+                }
+
                 fr.commit();
             }
         });

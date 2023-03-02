@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.Breed">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/buttons"
+        android:layout_below="@id/toolbar"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="10dp"
+        android:fadeScrollbars="true"
+        android:padding="10dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="Breed"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:id="@+id/pig_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <CheckBox
+                    android:id="@+id/duroc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Duroc"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/hampshire"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hampshire"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/landrace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Landrace"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/large_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Large White"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/large_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Large Black"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/camborough"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Camborough"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cattle_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <CheckBox
+                    android:id="@+id/ankole"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ankole"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/ganda"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ganda"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/nyoro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nyoro"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/zebu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Zebu"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/boran"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Boran"
+                    android:textSize="14sp" />
+
+                <CheckBox
+                    android:id="@+id/nsoga"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nsoga"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/others"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Others"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/othersText"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/et_button"
+                android:gravity="top"
+                android:hint="Please provide name of breed"
+                android:inputType="textMultiLine"
+                android:padding="10dp"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_button_2"
+            android:text="Back"
+            android:textColor="@color/white"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/bg_button"
+            android:text="next"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

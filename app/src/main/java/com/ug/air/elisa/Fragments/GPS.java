@@ -283,67 +283,9 @@ public class GPS extends Fragment implements LocationListener {
         }
     }
 
-//    private ArrayList findUnAskedPermissions(ArrayList<String> wanted) {
-//        ArrayList result = new ArrayList();
-//
-//        for (String perm : wanted) {
-//            if (!hasPermission(perm)) {
-//                result.add(perm);
-//            }
-//        }
-//
-//        return result;
-//    }
-
-//    private boolean hasPermission(String permission) {
-//        if (canAskPermission()) {
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                return (checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
-//            }
-//        }
-//        return true;
-//    }
-
     private boolean canAskPermission() {
         return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
     }
-
-//    @TargetApi(Build.VERSION_CODES.M)
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-//        switch (requestCode) {
-//            case ALL_PERMISSIONS_RESULT:
-//                Log.d(TAG, "onRequestPermissionsResult");
-//                for (String perms : permissionsToRequest) {
-//                    if (!hasPermission(perms)) {
-//                        permissionsRejected.add(perms);
-//                    }
-//                }
-//
-//                if (permissionsRejected.size() > 0) {
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                        if (shouldShowRequestPermissionRationale(permissionsRejected.get(0))) {
-//                            showMessageOKCancel("These permissions are mandatory for the application. Please allow access.",
-//                                    new DialogInterface.OnClickListener() {
-//                                        @Override
-//                                        public void onClick(DialogInterface dialog, int which) {
-//                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                                                requestPermissions(permissionsRejected.toArray(
-//                                                        new String[permissionsRejected.size()]), ALL_PERMISSIONS_RESULT);
-//                                            }
-//                                        }
-//                                    });
-//                            return;
-//                        }
-//                    }
-//                } else {
-//                    Log.d(TAG, "No rejected permissions.");
-//                    canGetLocation = true;
-//                    getLocation();
-//                }
-//                break;
-//        }
-//    }
 
     public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
@@ -436,58 +378,6 @@ public class GPS extends Fragment implements LocationListener {
         }
 
     }
-
-//    public void saveForm(){
-//
-//        Date currentTime = Calendar.getInstance().getTime();
-//        SimpleDateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
-//        String formattedDate = df.format(currentTime);
-//
-//        getDuration(currentTime);
-//
-//        String uniqueID = UUID.randomUUID().toString();
-//        String filename = formattedDate + "_" + uniqueID;
-//
-////        editor2.putString(MAMMALS, animal);
-//        editor2.putString(UNIQUE, uniqueID);
-//        editor2.putString(DATE, formattedDate);
-//        editor2.putString(FILENAME, filename);
-//        editor2.putString(INCOMPLETE, "complete");
-//        editor2.apply();
-//
-//        sharedPreferences3 = requireActivity().getSharedPreferences(filename, Context.MODE_PRIVATE);
-//        editor3 = sharedPreferences3.edit();
-//
-//        Map<String, ?> all = sharedPreferences2.getAll();
-//        for (Map.Entry<String, ?> x : all.entrySet()) {
-//            if (x.getValue().getClass().equals(String.class))  editor3.putString(x.getKey(),  (String)x.getValue());
-//            if (x.getValue().getClass().equals(Boolean.class))  editor3.putBoolean(x.getKey(),  (Boolean) x.getValue());
-//        }
-//
-//        editor3.commit();
-//        editor2.clear();
-//        editor2.commit();
-//        startActivity(new Intent(getActivity(), FormMenuActivity.class));
-//    }
-//
-//    private void getDuration(Date currentTime) {
-//        String initial_date = sharedPreferences2.getString(START_DATE_2, "");
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
-//        try {
-//            Date d1 = format.parse(initial_date);
-//
-//            long diff = currentTime.getTime() - d1.getTime();//as given
-//
-//            long minutes = TimeUnit.MILLISECONDS.toMinutes(diff);
-//            String duration = String.valueOf(minutes);
-//            editor2.putString(DURATION, duration);
-//            editor2.apply();
-//            Log.d("Difference in time", "getTimeDifference: " + minutes);
-//
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void saveForm() {
         Date currentTime = Calendar.getInstance().getTime();

@@ -79,7 +79,7 @@ public class FarmerList extends Fragment {
         textView = view.findViewById(R.id.heading);
         radioGroup = view.findViewById(R.id.radioGroup);
 
-        textView.setText("Select Livestock Farmer");
+        textView.setText("Select Farm");
 
         sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
 
@@ -185,7 +185,7 @@ public class FarmerList extends Fragment {
                         String uuid = sharedPreferences2.getString(SPECIAL_UUID, "");
                         String location = district + "-" + subCounty + "-" + parish + "-" + village;
                         if (incomplete.equals("complete")){
-                            items.add(farmer + " from " + location);
+                            items.add(farmer + "'s farm in " + location);
                             special.add(uuid);
                         }
 //                        Farm farm = new Farm(farmer, location, dat, uuid, filename, option);

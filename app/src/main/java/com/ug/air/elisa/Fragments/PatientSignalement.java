@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -40,11 +41,11 @@ public class PatientSignalement extends Fragment {
     View view;
     Button backBtn, nextBtn;
     TextView textView;
-    EditText etTag, etName;
+    EditText etTag, etName, etAge;
+    LinearLayout linearLayout1, linearLayout2;
     RadioGroup radioGroup, radioGroup2;
     RadioButton radioButton1, radioButton2, radioButton3, radioButton4, radioButton5;
-    Spinner spinner, spinner2;
-    String name, gender, breed, age, tag, animal, start, filename;
+    String name, gender, age, tag, animal, start, filename;
     SharedPreferences sharedPreferences2, sharedPreferences, sharedPreferences3;
     SharedPreferences.Editor editor2;
     private static final int YES = 0;
@@ -52,12 +53,11 @@ public class PatientSignalement extends Fragment {
     private static final int YES2 = 0;
     private static final int NO2 = 1;
     private static final int NOT2 = 2;
-    public static final String BREED = "breed";
     public static final String GENDER = "gender";
     public static final String AGE = "age";
+    public static final String BREED = "breed";
     public static final String ANIMAL_NAME = "animal_name";
     public static final String ANIMAL_TAG = "animal_tag";
-    ArrayAdapter<CharSequence> adapter, adapter2;
     public static final String START_DATE_2 = "start_date";
     public static final String MAMMALS = "mammal";
 
@@ -72,23 +72,30 @@ public class PatientSignalement extends Fragment {
         textView = view.findViewById(R.id.heading);
         etTag = view.findViewById(R.id.tag);
         etName = view.findViewById(R.id.name);
-        spinner2 = view.findViewById(R.id.breed);
+        etAge = view.findViewById(R.id.age);
         radioGroup = view.findViewById(R.id.radioGroup);
         radioButton1 = view.findViewById(R.id.male);
         radioButton2 = view.findViewById(R.id.female);
         radioGroup2 = view.findViewById(R.id.radioGroup2);
-        radioButton3 = view.findViewById(R.id.adult);
-        radioButton4 = view.findViewById(R.id.heifer);
-        radioButton5 = view.findViewById(R.id.calf);
-//        spinner = view.findViewById(R.id.time);
+        radioButton3 = view.findViewById(R.id.piglet);
+        radioButton4 = view.findViewById(R.id.weaner);
+        radioButton5 = view.findViewById(R.id.sow);
+        linearLayout1 = view.findViewById(R.id.pig_layout);
+        linearLayout2 = view.findViewById(R.id.cattle_layout);
 
-        textView.setText("Patient Signalement");
+        textView.setText("Animal details");
 
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
 
         sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
         animal = sharedPreferences.getString(ANIMAL, "");
+
+        if (animal.equals("piggery")){
+            linearLayout1.setVisibility(View.VISIBLE);
+        }else{
+            linearLayout2.setVisibility(View.VISIBLE);
+        }
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -118,13 +125,13 @@ public class PatientSignalement extends Fragment {
 
                 switch (index) {
                     case YES2:
-                        age = "Adult";
+                        age = "Piglet";
                         break;
                     case NO2:
-                        age = "Heifer";
+                        age = "Weaner";
                         break;
                     case NOT2:
-                        age = "Calf";
+                        age = "Sow";
                         break;
                     default:
                         break;
@@ -132,19 +139,8 @@ public class PatientSignalement extends Fragment {
             }
         });
 
-//        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.time, android.R.layout.simple_spinner_item);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        spinner.setAdapter(adapter);
-//        spinner.setOnItemSelectedListener(new TimeSpinnerClass());
-
-        adapter2 = ArrayAdapter.createFromResource(getActivity(), R.array.breed, android.R.layout.simple_spinner_item);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner2.setAdapter(adapter2);
-        spinner2.setOnItemSelectedListener(new BreedSpinnerClass());
-
         loadData();
         updateViews();
-//        spinner2.setSelection(2);
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,7 +149,11 @@ public class PatientSignalement extends Fragment {
                 tag = etTag.getText().toString();
                 name = etName.getText().toString();
 
-                if (breed.equals("Select one") || breed.isEmpty() || age.isEmpty() || gender.isEmpty() || tag.isEmpty()){
+                if (animal.equals("cattle")){
+                    age = etAge.getText().toString();
+                }
+
+                if (age.isEmpty() || gender.isEmpty() || tag.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }else {
                     saveData();
@@ -173,20 +173,6 @@ public class PatientSignalement extends Fragment {
         return view;
     }
 
-    public class BreedSpinnerClass implements AdapterView.OnItemSelectedListener {
-
-
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-            breed = adapterView.getItemAtPosition(i).toString();
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    }
-
     private void saveData() {
 
         if (start.isEmpty()){
@@ -196,7 +182,6 @@ public class PatientSignalement extends Fragment {
             editor2.putString(START_DATE_2, formattedDate);
         }
 
-        editor2.putString(BREED, breed);
         editor2.putString(AGE, age);
         editor2.putString(ANIMAL_NAME, name);
         editor2.putString(ANIMAL_TAG, tag);
@@ -205,13 +190,12 @@ public class PatientSignalement extends Fragment {
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        fr.replace(R.id.fragment_container, new Vaccination());
+        fr.replace(R.id.fragment_container, new Breed());
         fr.addToBackStack(null);
         fr.commit();
     }
 
     private void loadData() {
-        breed = sharedPreferences2.getString(BREED, "");
         age = sharedPreferences2.getString(AGE, "");
         tag = sharedPreferences2.getString(ANIMAL_TAG, "");
         name = sharedPreferences2.getString(ANIMAL_NAME, "");
@@ -230,21 +214,20 @@ public class PatientSignalement extends Fragment {
             radioButton2.setChecked(false);
         }
 
-        if (!breed.isEmpty()){
-            int position = adapter2.getPosition(breed);
-            spinner2.setSelection(position);
-        }
-
-        if (age.equals("Adult")){
-            radioButton3.setChecked(true);
-        }else if (age.equals("Heifer")){
-            radioButton4.setChecked(true);
-        }else if (age.equals("Calf")){
-            radioButton5.setChecked(true);
-        }else {
-            radioButton3.setChecked(false);
-            radioButton4.setChecked(false);
-            radioButton5.setChecked(false);
+        if (linearLayout1.getVisibility() == View.VISIBLE){
+            if (age.equals("Piglet")){
+                radioButton3.setChecked(true);
+            }else if (age.equals("Weaner")){
+                radioButton4.setChecked(true);
+            }else if (age.equals("Sow")){
+                radioButton5.setChecked(true);
+            }else {
+                radioButton3.setChecked(false);
+                radioButton4.setChecked(false);
+                radioButton5.setChecked(false);
+            }
+        }else if (linearLayout2.getVisibility() == View.VISIBLE){
+            etAge.setText(age);
         }
 
         etName.setText(name);

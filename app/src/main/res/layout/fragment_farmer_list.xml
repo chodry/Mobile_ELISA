@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
-                android:text="Please first select the farmer with the infected animal"
+                android:text="Please first select the farm"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
