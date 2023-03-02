@@ -4,6 +4,7 @@ import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
+import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -26,16 +28,20 @@ import android.widget.Toast;
 
 import com.ug.air.elisa.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-public class Deworming extends Fragment implements AdapterView.OnItemSelectedListener {
+
+public class Deworming extends Fragment {
 
     View view;
-    Button backBtn, nextBtn;
-    TextView textView;
-    EditText etMedication, etDate;
+    Button backBtn, nextBtn, datePickerBtn;
+    TextView textView, txtDate;
+    EditText etMedication;
     RadioGroup radioGroup;
     RadioButton radioButton1, radioButton2;
-    Spinner spinner;
     String time, date, medication, vaccine, date_2, animal;
     LinearLayout linearLayout;
     SharedPreferences sharedPreferences2, sharedPreferences;
@@ -43,11 +49,11 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
     private static final int YES = 0;
     private static final int NO = 1;
     public static final String DEWORMING = "deworming";
-    public static final String DEWORMING_PERIOD = "deworming_period";
-    public static final String MEDICATION_2 = "medication_2";
-    public static final String PERIOD_5 = "period_5";
-    public static final String TIME_3 = "time_3";
-    ArrayAdapter<CharSequence> adapter;
+    public static final String DATE_D = "date_d";
+    public static final String DEWORMING_DATE = "deworming_date";
+    public static final String DEWORMER = "dewormer";
+    DatePickerDialog datePickerDialog;
+    int year, month, day;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,16 +63,16 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
 
         nextBtn = view.findViewById(R.id.next);
         backBtn = view.findViewById(R.id.back);
+        datePickerBtn = view.findViewById(R.id.datepicker);
         textView = view.findViewById(R.id.heading);
-        etDate = view.findViewById(R.id.date);
+        txtDate = view.findViewById(R.id.date);
         etMedication = view.findViewById(R.id.medication);
         radioGroup = view.findViewById(R.id.radioGroup);
         radioButton1 = view.findViewById(R.id.vaccinated);
         radioButton2 = view.findViewById(R.id.not_vaccinated);
-        spinner = view.findViewById(R.id.time);
         linearLayout = view.findViewById(R.id.info);
 
-        textView.setText("De-worming Status");
+        textView.setText("Deworming Status");
 
         sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
         animal = sharedPreferences.getString(ANIMAL, "");
@@ -84,13 +90,13 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
 
                 switch (index) {
                     case YES:
-                        vaccine = "De-wormed";
+                        vaccine = "Dewormed";
                         linearLayout.setVisibility(View.VISIBLE);
                         break;
                     case NO:
-                        vaccine = "Not De-wormed";
+                        vaccine = "Not Dewormed";
                         linearLayout.setVisibility(View.GONE);
-                        etDate.setText("");
+                        txtDate.setText("");
                         etMedication.setText("");
                         break;
 
@@ -100,30 +106,22 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
             }
         });
 
-        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.time, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-
         updateViews();
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 medication = etMedication.getText().toString();
-                date = etDate.getText().toString();
+                date = txtDate.getText().toString();
 
                 if (vaccine.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide the required information", Toast.LENGTH_SHORT).show();
-                }else {
-                    if (vaccine.equals("De-wormed") && (date.isEmpty() || medication.isEmpty() || time.equals("Select one"))){
+                }
+                else {
+                    if (vaccine.equals("Dewormed") && (date.isEmpty() || medication.isEmpty())){
                         Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                     }else{
-                        if (date.isEmpty()){
-                            date_2 = "";
-                        }else{
-                            date_2 = date + " " + time + " ago";
-                        }
+                        convertDate(date);
                         saveData();
                     }
                 }
@@ -144,25 +142,34 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
             }
         });
 
+        datePickerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                year = c.get(Calendar.YEAR); // current year
+                month = c.get(Calendar.MONTH); // current month
+                day = c.get(Calendar.DAY_OF_MONTH); // current day
+                // date picker dialog
+                datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                        txtDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                    }
+                }, year, month, day);
+                datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
+                datePickerDialog.show();
+            }
+        });
+
         return view;
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        time = adapterView.getItemAtPosition(i).toString();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
     }
 
     private void saveData() {
         editor2.putString(DEWORMING, vaccine);
-        editor2.putString(DEWORMING_PERIOD, date_2);
-        editor2.putString(PERIOD_5, date);
-        editor2.putString(MEDICATION_2, medication);
-        editor2.putString(TIME_3, time);
+        editor2.putString(DEWORMING_DATE, date_2);
+        editor2.putString(DATE_D, date);
+        editor2.putString(DEWORMER, medication);
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -173,28 +180,33 @@ public class Deworming extends Fragment implements AdapterView.OnItemSelectedLis
 
     private void loadData() {
         vaccine = sharedPreferences2.getString(DEWORMING, "");
-        date = sharedPreferences2.getString(PERIOD_5, "");
-        medication = sharedPreferences2.getString(MEDICATION_2, "");
-        time = sharedPreferences2.getString(TIME_3, "");
+        date = sharedPreferences2.getString(DATE_D, "");
+        medication = sharedPreferences2.getString(DEWORMER, "");
     }
 
     private void updateViews() {
-        if (vaccine.equals("De-wormed")){
+        if (vaccine.equals("Dewormed")){
             radioButton1.setChecked(true);
             linearLayout.setVisibility(View.VISIBLE);
-            etDate.setText(date);
+            txtDate.setText(date);
             etMedication.setText(medication);
-        }else if (vaccine.equals("Not De-wormed")){
+        }else if (vaccine.equals("Not Dewormed")){
             radioButton2.setChecked(true);
         }else {
             radioButton1.setChecked(false);
             radioButton2.setChecked(false);
         }
 
-        if (!time.isEmpty()){
-            int position = adapter.getPosition(time);
-            spinner.setSelection(position);
-        }
     }
 
+    private void convertDate(String calDate){
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date date = format.parse(calDate);
+            SimpleDateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+            date_2 = df.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 }

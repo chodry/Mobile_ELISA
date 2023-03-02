@@ -4,6 +4,7 @@ import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
+import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -26,16 +28,14 @@ import android.widget.Toast;
 
 import com.ug.air.elisa.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-public class Vaccination extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    View view;
-    Button backBtn, nextBtn;
-    TextView textView;
-    EditText etMedication, etDate;
-    RadioGroup radioGroup;
-    RadioButton radioButton1, radioButton2;
-    Spinner spinner;
+public class Vaccination extends Fragment {
+
     String time, date, medication, vaccine, date_2, animal;
     LinearLayout linearLayout;
     SharedPreferences sharedPreferences2, sharedPreferences;
@@ -43,11 +43,17 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
     private static final int YES = 0;
     private static final int NO = 1;
     public static final String VACCINATION = "vaccination";
-    public static final String VACCINATION_PERIOD = "vaccination_period";
-    public static final String MEDICATION = "medication_1";
-    public static final String PERIOD_4 = "period_4";
-    public static final String TIME_2 = "time_2";
-    ArrayAdapter<CharSequence> adapter;
+    public static final String VACCINATION_DATE = "vaccination_date";
+    public static final String VACCINE = "vaccine";
+    public static final String DATE_V = "date_v";
+    View view;
+    Button backBtn, nextBtn, datePickerBtn;
+    TextView textView, txtDate;
+    EditText etMedication;
+    RadioGroup radioGroup;
+    RadioButton radioButton1, radioButton2;
+    DatePickerDialog datePickerDialog;
+    int year, month, day;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,13 +64,13 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
         nextBtn = view.findViewById(R.id.next);
         backBtn = view.findViewById(R.id.back);
         textView = view.findViewById(R.id.heading);
-        etDate = view.findViewById(R.id.date);
+        txtDate = view.findViewById(R.id.date);
         etMedication = view.findViewById(R.id.medication);
         radioGroup = view.findViewById(R.id.radioGroup);
         radioButton1 = view.findViewById(R.id.vaccinated);
         radioButton2 = view.findViewById(R.id.not_vaccinated);
-        spinner = view.findViewById(R.id.time);
         linearLayout = view.findViewById(R.id.info);
+        datePickerBtn = view.findViewById(R.id.datepicker);
 
         textView.setText("Vaccination Status");
 
@@ -87,7 +93,7 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
                     case NO:
                         vaccine = "Not Vaccinated";
                         linearLayout.setVisibility(View.GONE);
-                        etDate.setText("");
+                        txtDate.setText("");
                         etMedication.setText("");
                         break;
 
@@ -97,11 +103,6 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
             }
         });
 
-        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.time, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-
         updateViews();
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
@@ -109,19 +110,15 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
             public void onClick(View view) {
 
                 medication = etMedication.getText().toString();
-                date = etDate.getText().toString();
+                date = txtDate.getText().toString();
 
                 if (vaccine.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }else {
-                    if (vaccine.equals("Vaccinated") && (date.isEmpty() || medication.isEmpty() || time.equals("Select one"))){
+                    if (vaccine.equals("Vaccinated") && (date.isEmpty() || medication.isEmpty())){
                         Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                     }else{
-                        if (date.isEmpty()){
-                            date_2 = "";
-                        }else{
-                            date_2 = date + " " + time + " ago";
-                        }
+                        convertDate(date);
                         saveData();
                     }
                 }
@@ -137,26 +134,38 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
             }
         });
 
+        datePickerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                year = c.get(Calendar.YEAR); // current year
+                month = c.get(Calendar.MONTH); // current month
+                day = c.get(Calendar.DAY_OF_MONTH); // current day
+                // date picker dialog
+                datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                        txtDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                    }
+                }, year, month, day);
+                datePickerDialog.getDatePicker().setMaxDate(new Date().getTime());
+                datePickerDialog.show();
+            }
+        });
+
+
         return view;
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        time = adapterView.getItemAtPosition(i).toString();
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 
     private void saveData() {
 
         editor2.putString(VACCINATION, vaccine);
-        editor2.putString(VACCINATION_PERIOD, date_2);
-        editor2.putString(PERIOD_4, date);
-        editor2.putString(MEDICATION, medication);
-        editor2.putString(TIME_2, time);
+        editor2.putString(VACCINATION_DATE, date_2);
+        editor2.putString(DATE_V, date);
+        editor2.putString(VACCINE, medication);
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -167,16 +176,15 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
 
     private void loadData() {
         vaccine = sharedPreferences2.getString(VACCINATION, "");
-        date = sharedPreferences2.getString(PERIOD_4, "");
-        medication = sharedPreferences2.getString(MEDICATION, "");
-        time = sharedPreferences2.getString(TIME_2, "");
+        date = sharedPreferences2.getString(DATE_V, "");
+        medication = sharedPreferences2.getString(VACCINE, "");
     }
 
     private void updateViews() {
         if (vaccine.equals("Vaccinated")){
             radioButton1.setChecked(true);
             linearLayout.setVisibility(View.VISIBLE);
-            etDate.setText(date);
+            txtDate.setText(date);
             etMedication.setText(medication);
         }else if (vaccine.equals("Not Vaccinated")){
             radioButton2.setChecked(true);
@@ -185,9 +193,16 @@ public class Vaccination extends Fragment implements AdapterView.OnItemSelectedL
             radioButton2.setChecked(false);
         }
 
-        if (!time.isEmpty()){
-            int position = adapter.getPosition(time);
-            spinner.setSelection(position);
+    }
+
+    private void convertDate(String calDate){
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date date = format.parse(calDate);
+            SimpleDateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+            date_2 = df.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
     }
 

@@ -81,41 +81,24 @@
                     android:orientation="horizontal"
                     android:weightSum="10">
 
-                    <EditText
+                    <Button
+                        android:id="@+id/datepicker"
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bg_button"
+                        android:text="select date"
+                        android:textColor="@color/white" />
+
+                    <TextView
                         android:id="@+id/date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        android:background="@drawable/et_button"
-                        android:inputType="number"
-                        android:padding="15dp"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/gray"
-                        android:textSize="18sp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
                         android:layout_weight="5"
-                        android:background="@drawable/style_spinner"
-                        android:orientation="vertical"
-                        android:layout_marginStart="10dp"
-                        android:padding="10dp">
-
-                        <Spinner
-                            android:id="@+id/time"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Ago"
-                        android:layout_weight="1"
-                        android:textStyle="bold"
-                        android:layout_marginStart="20dp"/>
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_gravity="center_vertical"/>
 
                 </LinearLayout>
 
@@ -124,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Medication Used"
+                    android:text="Vaccine Used"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 

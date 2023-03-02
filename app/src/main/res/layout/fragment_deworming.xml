@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="What's the De-worming status for the animal"
+                android:text="What's the Deworming status for the animal"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/navy_blue"
-                    android:text="De-wormed"
+                    android:text="Dewormed"
                     android:textSize="18sp" />
 
                 <RadioButton
@@ -54,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:buttonTint="@color/navy_blue"
-                    android:text="Not De-wormed"
+                    android:text="Not Dewormed"
                     android:textSize="18sp" />
 
             </RadioGroup>
@@ -81,40 +81,24 @@
                     android:orientation="horizontal"
                     android:weightSum="10">
 
-                    <EditText
+                    <Button
+                        android:id="@+id/datepicker"
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/bg_button"
+                        android:text="select date"
+                        android:textColor="@color/white" />
+
+                    <TextView
                         android:id="@+id/date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        android:background="@drawable/et_button"
-                        android:inputType="number"
-                        android:padding="15dp"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/gray"
-                        android:textSize="18sp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
                         android:layout_weight="5"
-                        android:background="@drawable/style_spinner"
-                        android:orientation="vertical">
-
-                        <Spinner
-                            android:id="@+id/time"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="1"
-                        android:text="Ago"
-                        android:textStyle="bold" />
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_gravity="center_vertical"/>
 
                 </LinearLayout>
 
@@ -123,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="10dp"
-                    android:text="Medication Used"
+                    android:text="Dewormer Used"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -167,10 +151,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/bg_button"
             android:text="next"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 
