@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +31,11 @@ public class BodyPosture extends Fragment {
     Button backBtn, nextBtn;
     TextView textView;
     EditText etOthers, etScore;
-    CheckBox leap, stand, loss, others, none;
+    RadioGroup radioGroup;
+    RadioButton radioButton1, radioButton2, radioButton3, radioButton4;
+    CheckBox leap, stand, recumbent, others, none;
     Boolean check1, check2, check3, check4, check5, check6;
-    String other, s, score;
+    String other, s, score, temperament;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
     public static final String CHECK11X = "check11x";
@@ -41,7 +45,12 @@ public class BodyPosture extends Fragment {
     public static final String CHECK15X = "check15x";
     public static final String POSTURE = "body_posture";
     public static final String OTHERS2 = "others2";
+    public static final String TEMPERAMENT = "temperament";
     public static final String SCORE = "body_condition_score";
+    private static final int YES = 0;
+    private static final int NO = 1;
+    private static final int YESP = 2;
+    private static final int NOP = 3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,12 +62,17 @@ public class BodyPosture extends Fragment {
         backBtn = view.findViewById(R.id.back);
         textView = view.findViewById(R.id.heading);
         etOthers = view.findViewById(R.id.othersText);
-        etScore = view.findViewById(R.id.score);
+//        etScore = view.findViewById(R.id.score);
         stand = view.findViewById(R.id.stand);
-        leap = view.findViewById(R.id.leap);
-        loss = view.findViewById(R.id.loss);
+        leap = view.findViewById(R.id.limp);
+        recumbent = view.findViewById(R.id.recumbent);
         others = view.findViewById(R.id.others);
         none = view.findViewById(R.id.none);
+        radioGroup = view.findViewById(R.id.radioGroup);
+        radioButton1 = view.findViewById(R.id.alert);
+        radioButton2 = view.findViewById(R.id.docile);
+        radioButton3 = view.findViewById(R.id.aggressive);
+        radioButton4 = view.findViewById(R.id.other);
 
         textView.setText("Body Posture");
 
@@ -68,7 +82,7 @@ public class BodyPosture extends Fragment {
         loadData();
         updateViews();
 
-        etScore.addTextChangedListener(textWatcher);
+//        etScore.addTextChangedListener(textWatcher);
 
         others.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -88,13 +102,13 @@ public class BodyPosture extends Fragment {
                 if (none.isChecked()){
                     checked(stand);
                     checked(leap);
-                    checked(loss);
+                    checked(recumbent);
                     checked(others);
 
                 }else {
                     stand.setEnabled(true);
                     leap.setEnabled(true);
-                    loss.setEnabled(true);
+                    recumbent.setEnabled(true);
                     others.setEnabled(true);
                 }
             }
@@ -104,7 +118,7 @@ public class BodyPosture extends Fragment {
             @Override
             public void onClick(View view) {
                 other = etOthers.getText().toString();
-                score = etScore.getText().toString();
+//                score = etScore.getText().toString();
 
                 if (etOthers.getVisibility()==View.VISIBLE && other.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
@@ -124,6 +138,31 @@ public class BodyPosture extends Fragment {
             }
         });
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                View radioButton = radioGroup.findViewById(checkedId);
+                int index = radioGroup.indexOfChild(radioButton);
+
+                switch (index) {
+                    case YES:
+                        temperament = "Alert";
+                        break;
+                    case NO:
+                        temperament = "Docile";
+                        break;
+                    case YESP:
+                        temperament = "Aggressive";
+                        break;
+                    case NOP:
+                        temperament = "Other";
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
         return view;
     }
 
@@ -140,10 +179,10 @@ public class BodyPosture extends Fragment {
             s += "Unable to stand, ";
         }
         if(leap.isChecked()){
-            s += "Leaping, ";
+            s += "Limping, ";
         }
-        if(loss.isChecked()){
-            s += "Loss of weight, ";
+        if(recumbent.isChecked()){
+            s += "Recumbent, ";
         }
         if(none.isChecked()){
             s = "None, ";
@@ -153,7 +192,7 @@ public class BodyPosture extends Fragment {
         }
         s = s.replaceAll(", $", "");
 
-        if (s.equals("") || score.isEmpty()){
+        if (s.equals("") || temperament.isEmpty()){
             Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -165,10 +204,11 @@ public class BodyPosture extends Fragment {
 
         editor2.putString(POSTURE, s);
         editor2.putString(OTHERS2, other);
-        editor2.putString(SCORE, score);
+        editor2.putString(TEMPERAMENT, temperament);
+//        editor2.putString(SCORE, score);
         editor2.putBoolean(CHECK11X, stand.isChecked());
         editor2.putBoolean(CHECK12X, leap.isChecked());
-        editor2.putBoolean(CHECK13X, loss.isChecked());
+        editor2.putBoolean(CHECK13X, recumbent.isChecked());
         editor2.putBoolean(CHECK14X, none.isChecked());
         editor2.putBoolean(CHECK15X, others.isChecked());
         editor2.apply();
@@ -187,18 +227,19 @@ public class BodyPosture extends Fragment {
         check5 = sharedPreferences2.getBoolean(CHECK15X, false);
         other = sharedPreferences2.getString(OTHERS2, "");
         score = sharedPreferences2.getString(SCORE, "");
+        temperament = sharedPreferences2.getString(TEMPERAMENT, "");
     }
 
     private void updateViews() {
         stand.setChecked(check1);
         leap.setChecked(check2);
-        loss.setChecked(check3);
+        recumbent.setChecked(check3);
         none.setChecked(check4);
         others.setChecked(check5);
 
         if (none.isChecked()){
             checked(leap);
-            checked(loss);
+            checked(recumbent);
             checked(stand);
             checked(others);
         }
@@ -208,7 +249,22 @@ public class BodyPosture extends Fragment {
             etOthers.setVisibility(View.VISIBLE);
         }
 
-        etScore.setText(score);
+//        etScore.setText(score);
+
+        if (temperament.equals("Alert")){
+            radioButton1.setChecked(true);
+        }else if (temperament.equals("Docile")){
+            radioButton2.setChecked(true);
+        }else if (temperament.equals("Aggressive")){
+            radioButton3.setChecked(true);
+        }else if (temperament.equals("Other")){
+            radioButton4.setChecked(true);
+        }else {
+            radioButton1.setChecked(false);
+            radioButton2.setChecked(false);
+            radioButton3.setChecked(false);
+            radioButton4.setChecked(false);
+        }
     }
 
     public TextWatcher textWatcher = new TextWatcher() {

@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Tentative diagnosis/ Primary suspected disease"
+                android:text="Tentative diagnosis"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -60,6 +60,26 @@
                 android:id="@+id/other_disease"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/et_button"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:padding="10dp"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="Supportive treatment"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/treatment"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/et_button"
                 android:gravity="top"
@@ -110,25 +130,6 @@
 
             </RadioGroup>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
-                android:text="Supportive treatment"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/treatment"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/et_button"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:padding="10dp"
-                android:textSize="14sp" />
 
         </LinearLayout>
 

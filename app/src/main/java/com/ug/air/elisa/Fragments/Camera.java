@@ -3,6 +3,7 @@ package com.ug.air.elisa.Fragments;
 import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
+import static com.ug.air.elisa.Fragments.Symptoms.SYMPTOMS;
 
 import android.Manifest;
 import android.app.Activity;
@@ -34,6 +35,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -70,7 +72,6 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
     String time, animal, other, currentPhotoPath, imagex, imagex2, da1, da2;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
-    ArrayAdapter<CharSequence> adapter;
     public static final int CAMERA_PERM_CODE = 101;
     public static final int CAMERA_REQUEST_CODE = 102;
     public static final int GALLERY_REQUEST_CODE = 105;
@@ -81,6 +82,7 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
     List<Image> imagesList;
     CameraAdapter cameraAdapter;
     RecyclerView recyclerView;
+    List<String> cameraList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -121,7 +123,8 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
 
         if (elephantList2.isEmpty()){
             Log.d("ELISA3344", "empty--" + elephantList);
-        }else{
+        }
+        else{
             if (elephantList2.get(0).contains("Livestock")){
                 Log.d("ELISA3344", "its there " + elephantList2.get(0));
                 for (String r: elephantList){
@@ -202,12 +205,33 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
 
         currentPhotoPath = "";
 
-        if (animal.equals("cattle")){
-            adapter = ArrayAdapter.createFromResource(getActivity(), R.array.cattle, android.R.layout.simple_spinner_item);
+        cameraList.add("Select one...");
+        cameraList.add("Front");
+        cameraList.add("Right");
+        cameraList.add("Left");
+        cameraList.add("Rare");
+        checking("Wounds");
+        checking("Red belly");
+        checking("Red shoulders");
+        checking("Red ears");
+        checking("Red shunks");
+        checking("Vesicles on the hooves");
+        checking("Vesicles on the mouth");
+        checking("Vesicles on inside the mouth");
+        checking("Vesicles on the udder");
+        checking("Skin Lesions");
 
-        }else{
-            adapter = ArrayAdapter.createFromResource(getActivity(), R.array.pig, android.R.layout.simple_spinner_item);
-        }
+
+        String[] camList = cameraList.toArray(new String[0]);
+        ArrayAdapter adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, camList);
+
+
+//        if (animal.equals("cattle")){
+//            adapter = ArrayAdapter.createFromResource(getActivity(), R.array.cattle, android.R.layout.simple_spinner_item);
+//
+//        }else{
+//            adapter = ArrayAdapter.createFromResource(getActivity(), R.array.pig, android.R.layout.simple_spinner_item);
+//        }
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
@@ -218,7 +242,7 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
 
                 other = etOther.getText().toString();
 
-                if (time.equals("Select one") || (etOther.getVisibility() == View.VISIBLE && other.isEmpty())){
+                if (time.equals("Select one...") || (etOther.getVisibility() == View.VISIBLE && other.isEmpty())){
                     Toast.makeText(getActivity(), "Please provide information about other animals", Toast.LENGTH_SHORT).show();
                 }else {
                     if (!other.isEmpty()){
@@ -272,6 +296,13 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
         });
 
         dialog.show();
+    }
+
+    private void checking(String str_val){
+       String s = sharedPreferences2.getString(SYMPTOMS, "");
+       if (s.contains(str_val)){
+           cameraList.add(str_val);
+       }
     }
 
     @Override

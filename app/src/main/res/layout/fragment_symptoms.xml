@@ -31,57 +31,53 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:text="Clinical signs"
+                android:text="Select the signs and symptoms"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
             <CheckBox
-                android:id="@+id/diarrhea"
+                android:id="@+id/diarrhea1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Diarrhea"
+                android:text="Bloody Diarrhea"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <CheckBox
+                android:id="@+id/diarrhea2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Watery Diarrhea"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <CheckBox
+                android:id="@+id/frothing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Frothing"
                 android:textSize="14sp" />
 
             <CheckBox
-                android:id="@+id/vomit"
+                android:id="@+id/crowding"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vomiting"
+                android:text="Crowding"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <CheckBox
+                android:id="@+id/ulcerations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ulcerations"
                 android:textSize="14sp" />
 
             <CheckBox
-                android:id="@+id/loss"
+                android:id="@+id/wounds"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Loss of appetite"
-                android:textSize="14sp" />
-
-            <CheckBox
-                android:id="@+id/body"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="General body weakness"
-                android:textSize="14sp" />
-
-            <CheckBox
-                android:id="@+id/death"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sudden death"
-                android:textSize="14sp" />
-
-            <!--            <CheckBox-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:textSize="14sp"-->
-            <!--                android:text="Redness of the skin" />-->
-
-
-            <CheckBox
-                android:id="@+id/saliver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Excessive salivation"
+                android:text="Wounds"
                 android:textSize="14sp"
                 android:visibility="gone"/>
 
@@ -90,23 +86,100 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="Shivering/ crowding"
+                android:text="Shivering"/>
+
+            <CheckBox
+                android:id="@+id/red_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Red belly"
+                android:visibility="gone"/>
+
+            <CheckBox
+                android:id="@+id/red_s"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Red shoulders"
+                android:visibility="gone"/>
+
+            <CheckBox
+                android:id="@+id/red_e"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Red ears"
+                android:visibility="gone"/>
+
+            <CheckBox
+                android:id="@+id/red_h"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Red shunks"
                 android:visibility="gone"/>
 
             <CheckBox
                 android:id="@+id/abortion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Abortion"
                 android:textSize="14sp"
-                android:text="Abortions"
                 android:visibility="gone"/>
 
             <CheckBox
-                android:id="@+id/fever"
+                android:id="@+id/vesicle1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fever"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:text="Vesicles on the hooves"
+                android:visibility="gone"/>
+
+            <CheckBox
+                android:id="@+id/vesicle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Vesicles on the mouth"
+                android:visibility="gone"/>
+
+            <CheckBox
+                android:id="@+id/vesicle3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Vesicles on inside the mouth"
+                android:visibility="gone"/>
+
+            <CheckBox
+                android:id="@+id/vesicle4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Vesicles on the udder"
+                android:visibility="gone"/>
+
+            <CheckBox
+                android:id="@+id/skin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Skin Lesions"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/lesion"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/et_button"
+                android:gravity="top"
+                android:hint="Please provide a description of the lesion"
+                android:inputType="textMultiLine"
+                android:padding="10dp"
+                android:textSize="14sp"
+                android:visibility="gone" />
 
             <CheckBox
                 android:id="@+id/none"
@@ -114,18 +187,6 @@
                 android:layout_height="wrap_content"
                 android:text="None of these"
                 android:textSize="14sp" />
-
-            <!--            <CheckBox-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:textSize="14sp"-->
-            <!--                android:text="Vesicles/ blister/ Wounds on the hooves" />-->
-
-            <!--            <CheckBox-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:textSize="14sp"-->
-            <!--                android:text="Vesicles/ blister/ Wounds on the udder" />-->
 
             <CheckBox
                 android:id="@+id/others"

@@ -43,18 +43,18 @@
                 android:text="Unable to stand" />
 
             <CheckBox
-                android:id="@+id/leap"
+                android:id="@+id/limp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="Leaping" />
+                android:text="Limping" />
 
             <CheckBox
-                android:id="@+id/loss"
+                android:id="@+id/recumbent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="Loss of weight" />
+                android:text="Recumbent" />
 
             <CheckBox
                 android:id="@+id/none"
@@ -82,26 +82,77 @@
                 android:layout_marginTop="10dp"
                 android:textSize="14sp"/>
 
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Body condition score (from 1 to 5)"
-                android:textColor="@color/black"
-                android:textSize="16sp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"/>
-
-            <EditText
-                android:id="@+id/score"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:padding="15dp"
-                android:textSize="18sp"
+                android:layout_marginBottom="10dp"
+                android:text="Body Temperament"
                 android:textColor="@color/black"
-                android:textColorHint="@color/gray"
-                android:background="@drawable/et_button"/>
+                android:textSize="16sp" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <RadioButton
+                    android:id="@+id/alert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/navy_blue"
+                    android:text="Alert"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/docile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:buttonTint="@color/navy_blue"
+                    android:text="Docile"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/aggressive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/navy_blue"
+                    android:text="Aggressive"
+                    android:layout_marginTop="10dp"
+                    android:textSize="18sp" />
+
+                <RadioButton
+                    android:id="@+id/other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:buttonTint="@color/navy_blue"
+                    android:text="Other"
+                    android:textSize="18sp" />
+
+            </RadioGroup>
+
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Body condition score (from 1 to 5)"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="16sp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_marginBottom="10dp"/>-->
+
+<!--            <EditText-->
+<!--                android:id="@+id/score"-->
+<!--                android:layout_width="150dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:inputType="numberDecimal"-->
+<!--                android:padding="15dp"-->
+<!--                android:textSize="18sp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textColorHint="@color/gray"-->
+<!--                android:background="@drawable/et_button"/>-->
 
         </LinearLayout>
 

@@ -28,7 +28,7 @@ public class Temperature extends Fragment {
     View view;
     Button backBtn, nextBtn;
     TextView textView;
-    EditText etTemp;
+    EditText etTemp, etResp, etHeart;
     RadioGroup radioGroup1, radioGroup2;
     RadioButton radioButton1, radioButton2, radioButton3, radioButton4, radioButton5, radioButton6;
     private static final int YES = 0;
@@ -37,12 +37,14 @@ public class Temperature extends Fragment {
     private static final int NO2 = 1;
     private static final int NO3 = 2;
     private static final int NO4 = 3;
-    String lung, heart, temperature, animal;
+    String lung, heart, temperature, animal, resp, beat;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
     public static final String TEMPERATURE = "body_temperature";
     public static final String HEART = "heart_sounds";
     public static final String LUNG = "lung_sounds";
+    public static final String BEAT = "heart_beats";
+    public static final String RESP = "respiratory_rate";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +64,8 @@ public class Temperature extends Fragment {
         radioButton5 = view.findViewById(R.id.wheez);
         radioButton6 = view.findViewById(R.id.muffled);
         etTemp = view.findViewById(R.id.temp);
+        etHeart = view.findViewById(R.id.heart);
+        etResp = view.findViewById(R.id.resp);
 
         textView.setText("Auscultation");
 
@@ -129,8 +133,10 @@ public class Temperature extends Fragment {
             public void onClick(View view) {
 
                 temperature = etTemp.getText().toString();
+                resp = etResp.getText().toString();
+                beat = etHeart.getText().toString();
 
-                if (temperature.isEmpty() || heart.isEmpty() || lung.isEmpty()){
+                if (temperature.isEmpty() || heart.isEmpty() || lung.isEmpty() || resp.isEmpty() || beat.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }else {
                     saveData();
@@ -155,6 +161,8 @@ public class Temperature extends Fragment {
         editor2.putString(TEMPERATURE, temperature);
         editor2.putString(HEART, heart);
         editor2.putString(LUNG, lung);
+        editor2.putString(BEAT, beat);
+        editor2.putString(RESP, resp);
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -167,6 +175,8 @@ public class Temperature extends Fragment {
         heart = sharedPreferences2.getString(HEART, "");
         lung = sharedPreferences2.getString(LUNG, "");
         temperature = sharedPreferences2.getString(TEMPERATURE, "");
+        resp = sharedPreferences2.getString(RESP, "");
+        beat = sharedPreferences2.getString(BEAT, "");
     }
 
     private void updateViews() {
@@ -195,5 +205,7 @@ public class Temperature extends Fragment {
         }
 
         etTemp.setText(temperature);
+        etResp.setText(resp);
+        etHeart.setText(beat);
     }
 }
