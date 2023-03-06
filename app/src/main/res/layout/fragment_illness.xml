@@ -64,98 +64,29 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:id="@+id/info"
+                android:layout_marginTop="10dp"
                 android:visibility="gone">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="What was the animal suffering from?"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/suffering"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@drawable/et_button"
-                    android:gravity="top"
-                    android:inputType="textMultiLine"
-                    android:padding="10dp"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="When did the animal suffer from that illness?"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
                 <LinearLayout
+                    android:id="@+id/layout_list"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/date"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="4"
-                        android:background="@drawable/et_button"
-                        android:inputType="number"
-                        android:padding="15dp"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/gray"
-                        android:textSize="18sp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="5"
-                        android:background="@drawable/style_spinner"
-                        android:orientation="vertical">
-
-                        <Spinner
-                            android:id="@+id/time"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="1"
-                        android:text="Ago"
-                        android:textStyle="bold" />
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/add"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="What was the treatment given?"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/treatment"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@drawable/et_button"
-                    android:gravity="top"
-                    android:inputType="textMultiLine"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_button"
+                    android:drawableEnd="@drawable/ic_add"
                     android:padding="10dp"
-                    android:textSize="14sp" />
-
+                    android:text="Add illness"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 

@@ -59,6 +59,7 @@
         <entry key="app/src/main/res/layout/fragment_temperature.xml" value="0.21197916666666666" />
         <entry key="app/src/main/res/layout/fragment_vacciantion.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/fragment_visit.xml" value="0.22604166666666667" />
+        <entry key="app/src/main/res/layout/illness.xml" value="0.225" />
         <entry key="app/src/main/res/layout/picture.xml" value="0.225" />
         <entry key="app/src/main/res/layout/picture_area.xml" value="0.22604166666666667" />
         <entry key="app/src/main/res/layout/snack_bar.xml" value="0.22604166666666667" />

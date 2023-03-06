@@ -4,6 +4,7 @@ import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
+import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -16,7 +17,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -24,17 +27,26 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.ug.air.elisa.Models.Dewormer;
+import com.ug.air.elisa.Models.Ill;
 import com.ug.air.elisa.R;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
-public class Illness extends Fragment implements AdapterView.OnItemSelectedListener {
+
+public class Illness extends Fragment {
 
     View view;
-    Button backBtn, nextBtn;
+    Button backBtn, nextBtn, addBtn;
     TextView textView;
     EditText etSuffer, etTreat, etDate;
     RadioGroup radioGroup;
-    LinearLayout linearLayout;
+    LinearLayout linearLayout, linearLayout2;
     RadioButton radioButton1, radioButton2;
     private static final int YES = 0;
     private static final int NO = 1;
@@ -42,13 +54,9 @@ public class Illness extends Fragment implements AdapterView.OnItemSelectedListe
     Spinner spinner;
     SharedPreferences sharedPreferences2;
     SharedPreferences.Editor editor2;
-    public static final String SUFFERING = "animal_suffering_from";
-    public static final String TREATMENT = "treatment_given";
+    public static final String SUFFERING = "suffering_from";
     public static final String ILLNESS = "previous_illness";
-    public static final String ILLNESS_DATE = "previous_illness_date";
-    public static final String PERIOD_I = "period_i";
-    public static final String TIME_I = "time_i";
-    ArrayAdapter<CharSequence> adapter;
+    ArrayList<Ill> dewomerList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,15 +66,17 @@ public class Illness extends Fragment implements AdapterView.OnItemSelectedListe
 
         nextBtn = view.findViewById(R.id.next);
         backBtn = view.findViewById(R.id.back);
+        addBtn = view.findViewById(R.id.add);
         textView = view.findViewById(R.id.heading);
         radioGroup = view.findViewById(R.id.radioGroup);
         radioButton1 = view.findViewById(R.id.yes);
         radioButton2 = view.findViewById(R.id.no);
-        etSuffer = view.findViewById(R.id.suffering);
-        etTreat = view.findViewById(R.id.treatment);
-        linearLayout = view.findViewById(R.id.info);
-        spinner = view.findViewById(R.id.time);
-        etDate = view.findViewById(R.id.date);
+//        etSuffer = view.findViewById(R.id.suffering);
+//        etTreat = view.findViewById(R.id.treatment);
+        linearLayout = view.findViewById(R.id.layout_list);
+        linearLayout2 = view.findViewById(R.id.info);
+//        spinner = view.findViewById(R.id.time);
+//        etDate = view.findViewById(R.id.date);
 
         textView.setText("Previous Illness");
 
@@ -74,11 +84,6 @@ public class Illness extends Fragment implements AdapterView.OnItemSelectedListe
         editor2 = sharedPreferences2.edit();
 
         loadData();
-
-        adapter = ArrayAdapter.createFromResource(getActivity(), R.array.time, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
 
         updateViews();
 
@@ -91,13 +96,11 @@ public class Illness extends Fragment implements AdapterView.OnItemSelectedListe
                 switch (index) {
                     case YES:
                         illness = "Yes";
-                        linearLayout.setVisibility(View.VISIBLE);
+                        linearLayout2.setVisibility(View.VISIBLE);
                         break;
                     case NO:
                         illness = "No";
-                        linearLayout.setVisibility(View.GONE);
-                        etSuffer.setText("");
-                        etTreat.setText("");
+                        linearLayout2.setVisibility(View.GONE);
                         break;
                     default:
                         break;
@@ -109,17 +112,13 @@ public class Illness extends Fragment implements AdapterView.OnItemSelectedListe
             @Override
             public void onClick(View view) {
 
-                treatment = etTreat.getText().toString();
-                suffering = etSuffer.getText().toString();
-                date = etDate.getText().toString();
-
                 if (illness.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
+                }
+                else if (illness.equals("No")){
+                    saveData();
                 }else {
-                    if (illness.equals("Yes") && (treatment.isEmpty() || suffering.isEmpty() || date.isEmpty() || time.equals("Select one"))){
-                        Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
-                    }else{
-                        date_2 = date + " " + time + " ago";
+                    if(checkIfValidAndRead()){
                         saveData();
                     }
                 }
@@ -136,17 +135,84 @@ public class Illness extends Fragment implements AdapterView.OnItemSelectedListe
             }
         });
 
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addView();
+            }
+        });
+
         return view;
     }
 
+    private void addView() {
+        View dewormerView = getLayoutInflater().inflate(R.layout.illness, null, false);
+        EditText etSuffering = dewormerView.findViewById(R.id.suffering);
+        EditText etTreatment = dewormerView.findViewById(R.id.treatment);
+        ImageView close = dewormerView.findViewById(R.id.close);
+
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeView(dewormerView);
+            }
+        });
+
+        linearLayout.addView(dewormerView);
+    }
+
+    private void removeView(View dewormerView) {
+        linearLayout.removeView(dewormerView);
+    }
+
+    private boolean checkIfValidAndRead() {
+        dewomerList.clear();
+        boolean result = true;
+
+        for (int i=0; i<linearLayout.getChildCount(); i++){
+            View dewormerView = linearLayout.getChildAt(i);
+            EditText etSuffering = dewormerView.findViewById(R.id.suffering);
+            EditText etTreatment = dewormerView.findViewById(R.id.treatment);
+
+            Ill dewormer = new Ill();
+
+            if(!etTreatment.getText().toString().isEmpty()){
+                dewormer.setTreatment(etTreatment.getText().toString());
+            }else {
+                result = false;
+                break;
+            }
+
+            if (!etSuffering.getText().toString().isEmpty()){
+                dewormer.setSuffer(etSuffering.getText().toString());
+            }else {
+                result = false;
+                break;
+            }
+
+            dewomerList.add(dewormer);
+        }
+
+        if (dewomerList.size() == 0) {
+            result = false;
+            Toast.makeText(getActivity(), "Add Illness first!", Toast.LENGTH_SHORT).show();
+        }else if(!result){
+            Toast.makeText(getActivity(), "Enter All details correctly", Toast.LENGTH_SHORT).show();
+        }else {
+            Gson gson = new Gson();
+
+            String json = gson.toJson(dewomerList);
+            editor2.putString(SUFFERING, json);
+            editor2.apply();
+        }
+
+        return result;
+    }
+
+
     private void saveData() {
 
-        editor2.putString(SUFFERING, suffering);
-        editor2.putString(TREATMENT, treatment);
         editor2.putString(ILLNESS, illness);
-        editor2.putString(ILLNESS_DATE, date_2);
-        editor2.putString(PERIOD_I, date);
-        editor2.putString(TIME_I, time);
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
@@ -156,25 +222,40 @@ public class Illness extends Fragment implements AdapterView.OnItemSelectedListe
     }
 
     private void loadData() {
-        suffering = sharedPreferences2.getString(SUFFERING, "");
-        treatment = sharedPreferences2.getString(TREATMENT, "");
         illness = sharedPreferences2.getString(ILLNESS, "");
 
-        date = sharedPreferences2.getString(PERIOD_I, "");
-        time = sharedPreferences2.getString(TIME_I, "");
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString(SUFFERING, null);
+        Type type = new TypeToken<ArrayList<Ill>>() {}.getType();
+        dewomerList = gson.fromJson(json, type);
+        if (dewomerList == null) {
+            dewomerList = new ArrayList<>();
+        }else {
+            for (Ill cri: dewomerList){
+                View dewormerView = getLayoutInflater().inflate(R.layout.illness, null, false);
+                EditText etSuffering = dewormerView.findViewById(R.id.suffering);
+                EditText etTreatment = dewormerView.findViewById(R.id.treatment);
+                ImageView close = dewormerView.findViewById(R.id.close);
+
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        removeView(dewormerView);
+                    }
+                });
+
+                etSuffering.setText(cri.getSuffer());
+                etTreatment.setText(cri.getTreatment());
+
+                linearLayout.addView(dewormerView);
+            }
+        }
     }
 
     private void updateViews() {
         if (illness.equals("Yes")){
             radioButton1.setChecked(true);
-            linearLayout.setVisibility(View.VISIBLE);
-            etTreat.setText(treatment);
-            etSuffer.setText(suffering);
-            etDate.setText(date);
-            if (!time.isEmpty()){
-                int position = adapter.getPosition(time);
-                spinner.setSelection(position);
-            }
+            linearLayout2.setVisibility(View.VISIBLE);
         }else if (illness.equals("No")){
             radioButton2.setChecked(true);
         }else {
@@ -182,16 +263,7 @@ public class Illness extends Fragment implements AdapterView.OnItemSelectedListe
             radioButton2.setChecked(false);
         }
 
-
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        time = adapterView.getItemAtPosition(i).toString();
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 }
