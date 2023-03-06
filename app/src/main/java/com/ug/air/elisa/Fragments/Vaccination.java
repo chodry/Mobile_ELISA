@@ -92,11 +92,11 @@ public class Vaccination extends Fragment {
                 switch (index) {
                     case YES:
                         vaccine = "Vaccinated";
-                        linearLayout.setVisibility(View.VISIBLE);
+                        linearLayout2.setVisibility(View.VISIBLE);
                         break;
                     case NO:
                         vaccine = "Not Vaccinated";
-                        linearLayout.setVisibility(View.GONE);
+                        linearLayout2.setVisibility(View.GONE);
                         break;
 
                     default:
@@ -317,10 +317,10 @@ public class Vaccination extends Fragment {
     }
 
     private void updateViews() {
-        if (vaccine.equals("Dewormed")){
+        if (vaccine.equals("Vaccinated")){
             radioButton1.setChecked(true);
             linearLayout2.setVisibility(View.VISIBLE);
-        }else if (vaccine.equals("Not Dewormed")){
+        }else if (vaccine.equals("Not Vaccinated")){
             radioButton2.setChecked(true);
         }else {
             radioButton1.setChecked(false);

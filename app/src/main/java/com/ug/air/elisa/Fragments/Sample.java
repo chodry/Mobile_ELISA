@@ -1,13 +1,17 @@
 package com.ug.air.elisa.Fragments;
 
+import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
+import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.PatientSignalement.START_DATE_2;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -15,21 +19,32 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.ug.air.elisa.Activities.FormMenuActivity;
+import com.ug.air.elisa.Models.Dewormer;
+import com.ug.air.elisa.Models.Name;
 import com.ug.air.elisa.R;
 
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
@@ -39,30 +54,22 @@ import java.util.concurrent.TimeUnit;
 public class Sample extends Fragment {
 
     View view;
-    Button backBtn, nextBtn;
+    Button backBtn, nextBtn, addBtn;
     TextView textView;
-    EditText etOthers, etSample;
-    CheckBox blood, swabs, fluid, others, none, whole;
-    Boolean check1, check2, check3, check4, check5, check6;
-    String other, s, sample_name;
+    String sample_name, animal;
     LinearLayout linearLayout;
     SharedPreferences sharedPreferences2, sharedPreferences, sharedPreferences3;
     SharedPreferences.Editor editor2, editor3;
-    public static final String CHEC1 = "chec1";
-    public static final String CHEC2= "chec2";
-    public static final String CHEC3 = "chec3";
-    public static final String CHEC4 = "chec4";
-    public static final String CHEC5 = "chec5";
-    public static final String CHEC6 = "chec6";
     public static final String SAMPLE = "sample";
-    public static final String OTHERS4 = "others4";
-    public static final String SAMPLE_NAME = "sample_name";
 
     public static final String UNIQUE = "unique_id";
     public static final String FILENAME = "filename";
     public static final String DATE = "created_on";
     public static final String DURATION = "duration";
     public static final String INCOMPLETE = "incomplete";
+
+    List<String> sampleList = new ArrayList<>();
+    ArrayList<Name> nameArrayList = new ArrayList<>();
 
 
     @Override
@@ -73,81 +80,39 @@ public class Sample extends Fragment {
 
         nextBtn = view.findViewById(R.id.next);
         backBtn = view.findViewById(R.id.back);
+        addBtn = view.findViewById(R.id.add);
         textView = view.findViewById(R.id.heading);
-        etOthers = view.findViewById(R.id.othersText);
-        blood = view.findViewById(R.id.blood);
-        swabs = view.findViewById(R.id.swabs);
-        fluid = view.findViewById(R.id.fluid);
-        others = view.findViewById(R.id.others);
-        none = view.findViewById(R.id.none);
-        whole = view.findViewById(R.id.whole);
-        etSample = view.findViewById(R.id.sample_name);
-        linearLayout = view.findViewById(R.id.linear);
+        linearLayout = view.findViewById(R.id.layout_list);
 
         textView.setText("Clinical Samples");
 
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
 
+        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
+        animal = sharedPreferences.getString(ANIMAL, "");
+
+        sampleList.add("Select sample type...");
+        sampleList.add("Whole Blood");
+        sampleList.add("Serum");
+        sampleList.add("Nasal Swab");
+
+        if (animal.equals("cattle")){
+            sampleList.add("Oral Swab");
+            sampleList.add("Probang");
+            sampleList.add("Hoof Sample");
+            sampleList.add("Fecal Sample");
+        }
+
         loadData();
         updateViews();
-
-        others.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (others.isChecked()){
-                    etOthers.setVisibility(View.VISIBLE);
-                }else {
-                    etOthers.setVisibility(View.GONE);
-                    etOthers.setText("");
-                }
-            }
-        });
-
-        none.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (none.isChecked()){
-                    checked(swabs);
-                    checked(fluid);
-                    checked(whole);
-                    checked(blood);
-                    checked(others);
-                    linearLayout.setVisibility(View.GONE);
-                    etOthers.setText("");
-                    etSample.setText("");
-
-                }else {
-                    swabs.setEnabled(true);
-                    fluid.setEnabled(true);
-                    whole.setEnabled(true);
-                    blood.setEnabled(true);
-                    others.setEnabled(true);
-                    linearLayout.setVisibility(View.VISIBLE);
-                }
-            }
-        });
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                other = etOthers.getText().toString();
-                sample_name = etSample.getText().toString();
-
-                if (etOthers.getVisibility()==View.VISIBLE && other.isEmpty()){
-                    Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    checkedList();
-//                    if (!none.isChecked()){
-//                        Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
-//                    }else if (sample_name.isEmpty()){
-//                        Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
-//                    }else {
-//                        checkedList();
-//                    }
-
+                if (checkIfValidAndRead()){
+                    saveForm();
                 }
             }
         });
@@ -161,102 +126,161 @@ public class Sample extends Fragment {
             }
         });
 
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addView();
+            }
+        });
+
         return view;
     }
 
-    private void checked(CheckBox checkBox){
-        checkBox.setChecked(false);
-        checkBox.setSelected(false);
-        checkBox.setEnabled(false);
+    private void addView() {
+        View sampleView = getLayoutInflater().inflate(R.layout.sample,null,false);
+
+        TextView textView1 = sampleView.findViewById(R.id.sample);
+        TextView textView2 = sampleView.findViewById(R.id.sample_name);
+        AppCompatSpinner spinner = sampleView.findViewById(R.id.spinner);
+        ImageView imageClose = sampleView.findViewById(R.id.close);
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, sampleList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String time = parent.getItemAtPosition(position).toString();
+                if (!time.equals("Select sample type...")){
+                    textView1.setText(time);
+                    generateSampleName(textView2, time);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                textView.setText("");
+            }
+        });
+
+        imageClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeView(sampleView);
+            }
+        });
+
+        linearLayout.addView(sampleView);
     }
 
-    private void checkedList() {
-        s = "";
-
-        if(blood.isChecked()){
-            s += "Blood serum, ";
-        }
-        if(swabs.isChecked()){
-            s += "Swabs, ";
-        }
-        if(fluid.isChecked()){
-            s += "Fluid from vesicle, ";
-        }
-        if(whole.isChecked()){
-            s += "Whole Blood, ";
-        }
-        if(none.isChecked()){
-            s = "No sample taken, ";
-        }
-        if (!other.isEmpty()){
-            s += other + ", ";
-        }
-        s = s.replaceAll(", $", "");
-
-        if (s.equals("") || (!s.contains("No sample taken") && sample_name.isEmpty())){
-            Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
-        }
-        else {
-            saveData();
-        }
+    private void removeView(View sampleView) {
+        linearLayout.removeView(sampleView);
     }
+
+    private boolean checkIfValidAndRead() {
+        nameArrayList.clear();
+        boolean result = true;
+
+        for (int i=0; i<linearLayout.getChildCount(); i++){
+            View sampleView = linearLayout.getChildAt(i);
+            TextView textView1 = sampleView.findViewById(R.id.sample);
+            TextView textView2 = sampleView.findViewById(R.id.sample_name);
+
+            Name name = new Name();
+
+            if(!textView1.getText().toString().isEmpty()){
+                name.setSample(textView1.getText().toString());
+            }else {
+                result = false;
+                break;
+            }
+
+            if (!textView2.getText().toString().isEmpty()){
+                name.setSample_name(textView2.getText().toString());
+            }else {
+                result = false;
+                break;
+            }
+
+            nameArrayList.add(name);
+        }
+
+        if (nameArrayList.size() == 0) {
+            result = false;
+            Toast.makeText(getActivity(), "Add sample first!", Toast.LENGTH_SHORT).show();
+        }else if(!result){
+            Toast.makeText(getActivity(), "Enter All details correctly", Toast.LENGTH_SHORT).show();
+        }else {
+            Gson gson = new Gson();
+
+            String json = gson.toJson(nameArrayList);
+            editor2.putString(SAMPLE, json);
+            editor2.apply();
+        }
+
+        return result;
+    }
+
 
     private void saveData() {
-
-        editor2.putString(SAMPLE, s);
-        editor2.putString(OTHERS4, other);
-        editor2.putString(SAMPLE_NAME, sample_name);
-        editor2.putBoolean(CHEC1, blood.isChecked());
-        editor2.putBoolean(CHEC2, swabs.isChecked());
-        editor2.putBoolean(CHEC3, fluid.isChecked());
-        editor2.putBoolean(CHEC4, others.isChecked());
-        editor2.putBoolean(CHEC5, whole.isChecked());
-        editor2.putBoolean(CHEC6, none.isChecked());
-        editor2.apply();
-
-//        FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-//        fr.replace(R.id.fragment_container, new GPS());
-//        fr.addToBackStack(null);
-//        fr.commit();
-        saveForm();
+//        saveForm();
     }
 
     private void loadData() {
-        check1 = sharedPreferences2.getBoolean(CHEC1, false);
-        check2 = sharedPreferences2.getBoolean(CHEC2, false);
-        check3 = sharedPreferences2.getBoolean(CHEC3, false);
-        check4 = sharedPreferences2.getBoolean(CHEC4, false);
-        check5 = sharedPreferences2.getBoolean(CHEC5, false);
-        check6 = sharedPreferences2.getBoolean(CHEC6, false);
-        other = sharedPreferences2.getString(OTHERS4, "");
-        sample_name = sharedPreferences2.getString(SAMPLE_NAME, "");
+
+        Gson gson = new Gson();
+        String json = sharedPreferences2.getString(SAMPLE, null);
+        Type type = new TypeToken<ArrayList<Name>>() {}.getType();
+        nameArrayList = gson.fromJson(json, type);
+        if (nameArrayList == null) {
+            nameArrayList = new ArrayList<>();
+        }else {
+            for (Name cri: nameArrayList){
+                View sampleView = getLayoutInflater().inflate(R.layout.sample,null,false);
+
+                TextView textView1 = sampleView.findViewById(R.id.sample);
+                TextView textView2 = sampleView.findViewById(R.id.sample_name);
+                AppCompatSpinner spinner = sampleView.findViewById(R.id.spinner);
+                ImageView imageClose = sampleView.findViewById(R.id.close);
+
+                textView1.setText(cri.getSample());
+                textView2.setText(cri.getSample_name());
+
+                ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_item, sampleList);
+                arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(arrayAdapter);
+//                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                    @Override
+//                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                        String time = parent.getItemAtPosition(position).toString();
+//                        if (!time.equals("Select sample type...")){
+//                            textView1.setText(time);
+//                            generateSampleName(textView2, time);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onNothingSelected(AdapterView<?> parent) {
+//                        textView.setText("");
+//                    }
+//                });
+                spinner.setSelection(arrayAdapter.getPosition(cri.getSample()));
+
+                imageClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        removeView(sampleView);
+                    }
+                });
+
+                linearLayout.addView(sampleView);
+            }
+        }
+
     }
 
     private void updateViews() {
-        blood.setChecked(check1);
-        swabs.setChecked(check2);
-        fluid.setChecked(check3);
-        others.setChecked(check4);
-        whole.setChecked(check5);
-        none.setChecked(check6);
 
-        if (none.isChecked()){
-            checked(blood);
-            checked(swabs);
-            checked(fluid);
-            checked(whole);
-            checked(others);
-            linearLayout.setVisibility(View.GONE);
-        }else{
-            linearLayout.setVisibility(View.VISIBLE);
-        }
-
-        if (!other.isEmpty()){
-            etOthers.setText(other);
-            etOthers.setVisibility(View.VISIBLE);
-        }
-
-        etSample.setText(sample_name);
     }
 
     public void saveForm(){
@@ -309,5 +333,42 @@ public class Sample extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    private void generateSampleName(TextView textView2, String time) {
+        String uuid = UUID.randomUUID().toString().substring(0,5);
+        String short_code = "";
+        String ani = "";
+        if (time.equals("Whole Blood")){
+            short_code = "wb";
+        }
+        else if (time.equals("Serum")){
+            short_code = "se";
+        }
+        else if (time.equals("Nasal Swab")){
+            short_code = "ns";
+        }
+        else if (time.equals("Oral Swab")){
+            short_code = "os";
+        }
+        else if (time.equals("Probang")){
+            short_code = "pb";
+        }
+        else if (time.equals("Hoof Sample")){
+            short_code = "hs";
+        }
+        else if (time.equals("Fecal Sample")){
+            short_code = "fs";
+        }
+
+        if (animal.equals("cattle")){
+            ani = "ca";
+        }else{
+            ani = "pi";
+        }
+
+        String sti_code = short_code + '-' + ani + '-' + uuid;
+        sti_code = sti_code.toUpperCase();
+        textView2.setText(sti_code);
     }
 }

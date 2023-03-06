@@ -35,89 +35,26 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
-            <CheckBox
-                android:id="@+id/blood"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Blood serum"
-                android:textSize="14sp" />
-
-            <CheckBox
-                android:id="@+id/whole"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Whole blood"
-                android:textSize="14sp" />
-
-            <CheckBox
-                android:id="@+id/swabs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Swabs"
-                android:textSize="14sp" />
-
-            <CheckBox
-                android:id="@+id/fluid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fluid from vesicle"
-                android:textSize="14sp" />
-
-            <CheckBox
-                android:id="@+id/none"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No sample taken"
-                android:textSize="14sp" />
-
-            <CheckBox
-                android:id="@+id/others"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Others"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/othersText"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/et_button"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:padding="10dp"
-                android:textSize="14sp"
-                android:visibility="gone" />
-
             <LinearLayout
+                android:id="@+id/layout_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/linear"
-                android:visibility="gone">
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Sample Name"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/sample_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/et_button"
-                    android:inputType="text"
-                    android:padding="15dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray"
-                    android:textSize="18sp" />
 
             </LinearLayout>
 
+            <Button
+                android:id="@+id/add"
+                android:background="@drawable/bg_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Sample"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                android:padding="10dp"
+                android:textAllCaps="false"
+                android:drawableEnd="@drawable/ic_add"/>
 
         </LinearLayout>
 
@@ -143,13 +80,16 @@
 
         <Button
             android:id="@+id/next"
-            android:layout_width="wrap_content"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/bg_button"
-            android:text="next"
-            android:textColor="@color/white"/>
+            android:text="save form"
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 
