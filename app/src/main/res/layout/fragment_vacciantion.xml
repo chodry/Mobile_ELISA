@@ -12,13 +12,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/buttons"
+        android:layout_below="@id/toolbar"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="10dp"
         android:fadeScrollbars="true"
         android:padding="10dp"
-        android:scrollbars="none"
-        android:layout_below="@id/toolbar"
-        android:layout_above="@id/buttons">
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,11 +29,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="Vaccination status"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:textSize="16sp" />
 
             <RadioGroup
                 android:id="@+id/radioGroup"
@@ -60,66 +60,33 @@
             </RadioGroup>
 
             <LinearLayout
+                android:id="@+id/info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/info"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:visibility="gone">
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/layout_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="When was the last vaccination exercise"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-
-                    <Button
-                        android:id="@+id/datepicker"
-                        android:layout_width="0dp"
-                        android:layout_weight="5"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:background="@drawable/bg_button"
-                        android:text="select date"
-                        android:textColor="@color/white" />
-
-                    <TextView
-                        android:id="@+id/date"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:layout_gravity="center_vertical"/>
 
                 </LinearLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/add"
+                    android:background="@drawable/bg_button"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:text="Vaccine Used"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/medication"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@drawable/et_button"
-                    android:gravity="top"
-                    android:inputType="textMultiLine"
+                    android:text="Add Vaccine"
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/white"
                     android:padding="10dp"
-                    android:textSize="14sp"/>
+                    android:textAllCaps="false"
+                    android:drawableEnd="@drawable/ic_add"/>
 
             </LinearLayout>
 

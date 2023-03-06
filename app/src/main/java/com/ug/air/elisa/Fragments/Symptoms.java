@@ -169,7 +169,8 @@ public class Symptoms extends Fragment {
                     checked(vesicle3);
                     checked(vesicle4);
 
-                }else {
+                }
+                else {
                     diarrhea1.setEnabled(true);
                     diarrhea2.setEnabled(true);
                     wounds.setEnabled(true);

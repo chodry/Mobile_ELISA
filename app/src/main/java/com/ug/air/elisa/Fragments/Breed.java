@@ -105,6 +105,20 @@ public class Breed extends Fragment {
                 }
             }
         });
+        
+        checking(duroc, hampshire, landrace, largeWhite, largeBlack, camborough, ankole, nsoga, nyoro, boran, zebu, others, ganda);
+        checking(hampshire, duroc, landrace, largeWhite, largeBlack, camborough, ankole, nsoga, nyoro, boran, zebu, others, ganda);
+        checking(landrace, duroc, hampshire, largeWhite, largeBlack, camborough, ankole, nsoga, nyoro, boran, zebu, others, ganda);
+        checking(largeBlack, duroc, hampshire, landrace, largeWhite, camborough, ankole, nsoga, nyoro, boran, zebu, others, ganda);
+        checking(largeWhite, duroc, hampshire, landrace, largeBlack, camborough, ankole, nsoga, nyoro, boran, zebu, others, ganda);
+        checking(camborough, duroc, hampshire, landrace, largeWhite, largeBlack, ankole, nsoga, nyoro, boran, zebu, others, ganda);
+        checking(ankole, duroc, hampshire, landrace, largeWhite, largeBlack, camborough, nsoga, nyoro, boran, zebu, others, ganda);
+        checking(nsoga, duroc, hampshire, landrace, largeWhite, largeBlack, camborough, ankole, nyoro, boran, zebu, others, ganda);
+        checking(nyoro, duroc, hampshire, landrace, largeWhite, largeBlack, camborough, ankole, nsoga, boran, zebu, others, ganda);
+        checking(boran, duroc, hampshire, landrace, largeWhite, largeBlack, camborough, ankole, nsoga, nyoro, zebu, others, ganda);
+        checking(zebu, duroc, hampshire, landrace, largeWhite, largeBlack, camborough, ankole, nsoga, nyoro, boran, others, ganda);
+        checking(others, duroc, hampshire, landrace, largeWhite, largeBlack, camborough, ankole, nsoga, nyoro, boran, zebu, ganda);
+        checking(ganda, duroc, hampshire, landrace, largeWhite, largeBlack, camborough, ankole, nsoga, nyoro, boran, zebu, others);
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +145,48 @@ public class Breed extends Fragment {
         });
 
         return view;
+    }
+
+    private void checked(CheckBox checkBox){
+        checkBox.setChecked(false);
+        checkBox.setSelected(false);
+        checkBox.setEnabled(false);
+    }
+    
+    private void checking(CheckBox checkBox, CheckBox check2, CheckBox check3, CheckBox check4, CheckBox check5, CheckBox check6, CheckBox check7, CheckBox check8, CheckBox check9, CheckBox check10, CheckBox check11, CheckBox check12, CheckBox check13){
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (checkBox.isChecked()){
+                    checked(check2);
+                    checked(check3);
+                    checked(check4);
+                    checked(check5);
+                    checked(check6);
+                    checked(check7);
+                    checked(check8);
+                    checked(check9);
+                    checked(check10);
+                    checked(check11);
+                    checked(check12);
+                    checked(check13);
+                }
+                else {
+                    check2.setEnabled(true);
+                    check3.setEnabled(true);
+                    check4.setEnabled(true);
+                    check5.setEnabled(true);
+                    check6.setEnabled(true);
+                    check7.setEnabled(true);
+                    check8.setEnabled(true);
+                    check9.setEnabled(true); 
+                    check10.setEnabled(true); 
+                    check11.setEnabled(true); 
+                    check13.setEnabled(true);
+                    check12.setEnabled(true);
+                }
+            }
+        });
     }
 
     private void checkedList() {
