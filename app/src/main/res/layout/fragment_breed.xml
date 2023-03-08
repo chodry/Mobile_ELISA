@@ -34,115 +34,104 @@
                 android:text="Breed"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
-
-            <LinearLayout
-                android:id="@+id/pig_layout"
+            
+            <RadioGroup
+                android:id="@+id/radioGroup"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:layout_height="wrap_content">
 
-                <CheckBox
+                <RadioButton
                     android:id="@+id/duroc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Duroc"
                     android:textSize="14sp" />
 
-                <CheckBox
+                <RadioButton
                     android:id="@+id/hampshire"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hampshire"
                     android:textSize="14sp" />
 
-                <CheckBox
+                <RadioButton
                     android:id="@+id/landrace"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Landrace"
                     android:textSize="14sp" />
 
-                <CheckBox
+                <RadioButton
                     android:id="@+id/large_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Large White"
                     android:textSize="14sp" />
 
-                <CheckBox
+                <RadioButton
                     android:id="@+id/large_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Large Black"
                     android:textSize="14sp" />
 
-                <CheckBox
+                <RadioButton
                     android:id="@+id/camborough"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Camborough"
                     android:textSize="14sp" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/cattle_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <CheckBox
+                <RadioButton
                     android:id="@+id/ankole"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ankole"
                     android:textSize="14sp" />
 
-                <CheckBox
+                <RadioButton
                     android:id="@+id/ganda"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ganda"
                     android:textSize="14sp" />
 
-                <CheckBox
+                <RadioButton
                     android:id="@+id/nyoro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nyoro"
                     android:textSize="14sp" />
 
-                <CheckBox
+                <RadioButton
                     android:id="@+id/zebu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Zebu"
                     android:textSize="14sp" />
 
-                <CheckBox
+                <RadioButton
                     android:id="@+id/boran"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Boran"
                     android:textSize="14sp" />
 
-                <CheckBox
+                <RadioButton
                     android:id="@+id/nsoga"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nsoga"
                     android:textSize="14sp" />
 
-            </LinearLayout>
-
-            <CheckBox
-                android:id="@+id/others"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Others"
-                android:textSize="14sp" />
+                <RadioButton
+                    android:id="@+id/others"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Others"
+                    android:textSize="14sp" />
+                
+            </RadioGroup>
 
             <EditText
                 android:id="@+id/othersText"

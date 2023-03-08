@@ -2,6 +2,7 @@ package com.ug.air.elisa.Fragments;
 
 import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
+import static com.ug.air.elisa.Fragments.PatientSignalement.ANIMAL_TAG;
 import static com.ug.air.elisa.Fragments.PatientSignalement.START_DATE_2;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
@@ -111,9 +112,8 @@ public class Sample extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (checkIfValidAndRead()){
-                    saveForm();
-                }
+                checkIfValidAndRead();
+                saveForm();
             }
         });
 
@@ -207,10 +207,8 @@ public class Sample extends Fragment {
 
         if (nameArrayList.size() == 0) {
             result = false;
-            Toast.makeText(getActivity(), "Add sample first!", Toast.LENGTH_SHORT).show();
-        }else if(!result){
-            Toast.makeText(getActivity(), "Enter All details correctly", Toast.LENGTH_SHORT).show();
-        }else {
+        }
+        else {
             Gson gson = new Gson();
 
             String json = gson.toJson(nameArrayList);
@@ -308,6 +306,7 @@ public class Sample extends Fragment {
         for (Map.Entry<String, ?> x : all.entrySet()) {
             if (x.getValue().getClass().equals(String.class))  editor3.putString(x.getKey(),  (String)x.getValue());
             if (x.getValue().getClass().equals(Boolean.class))  editor3.putBoolean(x.getKey(),  (Boolean) x.getValue());
+            if (x.getValue().getClass().equals(Integer.class))  editor3.putInt(x.getKey(),  (Integer) x.getValue());
         }
 
         editor3.commit();
@@ -336,6 +335,7 @@ public class Sample extends Fragment {
     }
 
     private void generateSampleName(TextView textView2, String time) {
+        String tag = sharedPreferences2.getString(ANIMAL_TAG, "");
         String uuid = UUID.randomUUID().toString().substring(0,5);
         String short_code = "";
         String ani = "";
@@ -367,7 +367,7 @@ public class Sample extends Fragment {
             ani = "pi";
         }
 
-        String sti_code = short_code + '-' + ani + '-' + uuid;
+        String sti_code = short_code + '-' + ani + "-TAG_" + tag + '-' + uuid;
         sti_code = sti_code.toUpperCase();
         textView2.setText(sti_code);
     }

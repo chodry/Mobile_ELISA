@@ -120,7 +120,7 @@ public class Vaccination extends Fragment {
 
                 if (vaccine.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide the required information", Toast.LENGTH_SHORT).show();
-                } else if (vaccine.equals("Not Dewormed")){
+                } else if (vaccine.equals("Not Vaccinated")){
                     saveData();
                 }else {
                     if(checkIfValidAndRead()){

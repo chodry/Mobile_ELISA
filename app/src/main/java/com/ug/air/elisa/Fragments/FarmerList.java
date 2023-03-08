@@ -120,6 +120,7 @@ public class FarmerList extends Fragment {
             for (Map.Entry<String, ?> x : all.entrySet()) {
                 if (x.getValue().getClass().equals(String.class))  editor2.putString(x.getKey(),  (String)x.getValue());
                 if (x.getValue().getClass().equals(Boolean.class))  editor2.putBoolean(x.getKey(),  (Boolean) x.getValue());
+                if (x.getValue().getClass().equals(Integer.class))  editor2.putInt(x.getKey(),  (Integer) x.getValue());
             }
             editor2.commit();
             editor2.apply();

@@ -74,7 +74,7 @@ public class BodyPosture extends Fragment {
         radioButton3 = view.findViewById(R.id.aggressive);
         radioButton4 = view.findViewById(R.id.other);
 
-        textView.setText("Body Posture");
+        textView.setText("Body Posture and Temperament");
 
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();

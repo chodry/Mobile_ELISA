@@ -78,7 +78,7 @@ public class Diagnosis extends Fragment {
                         prognosis = "Guarded";
                         break;
                     case NOT:
-                        prognosis = "Graver";
+                        prognosis = "Grave";
                         break;
                     default:
                         break;
@@ -147,7 +147,7 @@ public class Diagnosis extends Fragment {
             case "Guarded":
                 radioButton2.setChecked(true);
                 break;
-            case "Graver":
+            case "Grave":
                 radioButton3.setChecked(true);
                 break;
             default:

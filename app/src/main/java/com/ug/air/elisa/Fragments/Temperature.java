@@ -67,7 +67,7 @@ public class Temperature extends Fragment {
         etHeart = view.findViewById(R.id.heart);
         etResp = view.findViewById(R.id.resp);
 
-        textView.setText("Auscultation");
+        textView.setText("Temperature and Sound");
 
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
@@ -136,7 +136,7 @@ public class Temperature extends Fragment {
                 resp = etResp.getText().toString();
                 beat = etHeart.getText().toString();
 
-                if (temperature.isEmpty() || heart.isEmpty() || lung.isEmpty() || resp.isEmpty() || beat.isEmpty()){
+                if (temperature.isEmpty() || heart.isEmpty() || lung.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }else {
                     saveData();
@@ -166,7 +166,7 @@ public class Temperature extends Fragment {
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        fr.replace(R.id.fragment_container, new Symptoms());
+        fr.replace(R.id.fragment_container, new Stocking());
         fr.addToBackStack(null);
         fr.commit();
     }

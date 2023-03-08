@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 import com.ug.air.elisa.R;
 
-public class Stocking_cattle extends Fragment implements AdapterView.OnItemSelectedListener {
+public class Stocking extends Fragment implements AdapterView.OnItemSelectedListener {
 
     View view;
     Button backBtn, nextBtn;
@@ -45,8 +45,8 @@ public class Stocking_cattle extends Fragment implements AdapterView.OnItemSelec
     Spinner spinner;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
-    public static final String CATTLE_STOCKING = "cattle_stock_from";
-    public static final String CATTLE_STOCK = "cattle_new_stock";
+    public static final String STOCKING = "stock_from";
+    public static final String STOCK = "new_stock";
     public static final String PERIOD_C = "period_c";
     public static final String TIME_C = "time_c";
     ArrayAdapter<CharSequence> adapter;
@@ -55,7 +55,7 @@ public class Stocking_cattle extends Fragment implements AdapterView.OnItemSelec
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_stocking_cattle, container, false);
+        view = inflater.inflate(R.layout.fragment_stocking, container, false);
 
         nextBtn = view.findViewById(R.id.next);
         backBtn = view.findViewById(R.id.back);
@@ -78,16 +78,16 @@ public class Stocking_cattle extends Fragment implements AdapterView.OnItemSelec
         sharedPreferences2 = requireActivity().getSharedPreferences(SHARED_PREFS_2, 0);
         editor2 = sharedPreferences2.edit();
 
-//        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
-//        animal = sharedPreferences.getString(ANIMAL, "");
-//
-//        if (animal.equals("cattle")){
-//            textView2.setText("Stocking (Brought in new cattle)");
-//            textView3.setText("Where did you buy the cattle from");
-//        }else{
-//            textView2.setText("Stocking (Brought in new pigs)");
-//            textView3.setText("Where did you buy the pigs from");
-//        }
+        sharedPreferences = requireActivity().getSharedPreferences(SHARED_PREFS_1, 0);
+        animal = sharedPreferences.getString(ANIMAL, "");
+
+        if (animal.equals("cattle")){
+            textView2.setText("When did you bring in new cattle?");
+            textView3.setText("Where did you get the cattle from?");
+        }else{
+            textView2.setText("When did you bring in new pigs?");
+            textView3.setText("Where did you get the pigs from?");
+        }
 
         loadData();
 
@@ -161,7 +161,7 @@ public class Stocking_cattle extends Fragment implements AdapterView.OnItemSelec
             @Override
             public void onClick(View view) {
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new BioSecurityMeasures());
+                fr.replace(R.id.fragment_container, new Temperature());
                 fr.commit();
             }
         });
@@ -171,24 +171,14 @@ public class Stocking_cattle extends Fragment implements AdapterView.OnItemSelec
 
     private void saveData() {
 
-        editor2.putString(CATTLE_STOCKING, stocking);
-        editor2.putString(CATTLE_STOCK, date_2);
+        editor2.putString(STOCKING, stocking);
+        editor2.putString(STOCK, date_2);
         editor2.putString(PERIOD_C, date);
         editor2.putString(TIME_C, time);
         editor2.apply();
 
-//        FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-//        fr.replace(R.id.fragment_container, new Stocking_piggery());
-//        fr.addToBackStack(null);
-//        fr.commit();
-
-        String disease = sharedPreferences2.getString(DISEASE, "");
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-        if (disease.equals("Both")){
-            fr.replace(R.id.fragment_container, new Stocking_piggery());
-        }else{
-            fr.replace(R.id.fragment_container, new Feeding());
-        }
+        fr.replace(R.id.fragment_container, new Symptoms());
         fr.addToBackStack(null);
         fr.commit();
     }
@@ -196,7 +186,7 @@ public class Stocking_cattle extends Fragment implements AdapterView.OnItemSelec
     public void loadData(){
         date = sharedPreferences2.getString(PERIOD_C, "");
         time = sharedPreferences2.getString(TIME_C, "");
-        stocking = sharedPreferences2.getString(CATTLE_STOCKING, "");
+        stocking = sharedPreferences2.getString(STOCKING, "");
     }
 
     public void updateViews(){

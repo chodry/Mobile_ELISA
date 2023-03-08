@@ -2,10 +2,13 @@ package com.ug.air.elisa.Activities;
 
 import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
+import static com.ug.air.elisa.Fragments.Breed.BREED1;
+import static com.ug.air.elisa.Fragments.Breed.BREED2;
 import static com.ug.air.elisa.Fragments.FarmerDetails.DISTRICT;
 import static com.ug.air.elisa.Fragments.Feeding.DATE_2;
 import static com.ug.air.elisa.Fragments.Feeding.FILENAME_2;
 import static com.ug.air.elisa.Fragments.PatientSignalement.AGE;
+import static com.ug.air.elisa.Fragments.PatientSignalement.ANIMAL_TAG;
 import static com.ug.air.elisa.Fragments.PatientSignalement.BREED;
 import static com.ug.air.elisa.Fragments.PatientSignalement.GENDER;
 import static com.ug.air.elisa.Fragments.PatientSignalement.MAMMALS;
@@ -55,7 +58,7 @@ public class ListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     FormAdapter formAdapter;
     List<Form> formList;
-    String animal, farm;
+    String animal, farm, breed;
     ArrayList<String> files;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -157,11 +160,25 @@ public class ListActivity extends AppCompatActivity {
 
                             if (mammal.equals(animal)){
                                 String filename = sharedPreferences2.getString(FILENAME, "");
-                                String breed = sharedPreferences2.getString(BREED, "");
+                                String breed1 = sharedPreferences2.getString(BREED1, "");
+                                String tag = sharedPreferences2.getString(ANIMAL_TAG, "");
+                                String breed2 = sharedPreferences2.getString(BREED2, "");
                                 String age = sharedPreferences2.getString(AGE, "");
                                 String gender = sharedPreferences2.getString(GENDER, "");
                                 String dat = sharedPreferences2.getString(DATE, "");
-                                Form form = new Form(breed + " (" + gender + ")", age + " old", dat, mammal, filename);
+
+                                if (breed2.isEmpty()){
+                                    breed =  breed1;
+                                }else{
+                                    breed = breed2;
+                                }
+
+                                Form form;
+                                if (mammal.equals("cattle")){
+                                    form = new Form(tag + " - " + breed + " - " + gender, age + " months old", dat, mammal, filename);
+                                }else {
+                                    form = new Form(tag + " - " + breed + " - " + gender, age + " (Age category)", dat, mammal, filename);
+                                }
                                 formList.add(form);
                             }
 

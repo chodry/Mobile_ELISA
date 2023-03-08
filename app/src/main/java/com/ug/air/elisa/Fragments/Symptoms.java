@@ -217,7 +217,7 @@ public class Symptoms extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
-                fr.replace(R.id.fragment_container, new Temperature());
+                fr.replace(R.id.fragment_container, new Stocking());
                 fr.commit();
             }
         });
