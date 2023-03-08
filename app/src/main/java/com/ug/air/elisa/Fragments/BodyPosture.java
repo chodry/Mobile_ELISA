@@ -30,12 +30,12 @@ public class BodyPosture extends Fragment {
     View view;
     Button backBtn, nextBtn;
     TextView textView;
-    EditText etOthers, etScore;
+    EditText etOthers, etScore, etOthers2;
     RadioGroup radioGroup;
     RadioButton radioButton1, radioButton2, radioButton3, radioButton4;
     CheckBox leap, stand, recumbent, others, none;
     Boolean check1, check2, check3, check4, check5, check6;
-    String other, s, score, temperament;
+    String other, s, score, temperament, other2;
     SharedPreferences sharedPreferences2, sharedPreferences;
     SharedPreferences.Editor editor2;
     public static final String CHECK11X = "check11x";
@@ -45,6 +45,7 @@ public class BodyPosture extends Fragment {
     public static final String CHECK15X = "check15x";
     public static final String POSTURE = "body_posture";
     public static final String OTHERS2 = "others2";
+    public static final String TEMP = "temp";
     public static final String TEMPERAMENT = "temperament";
     public static final String SCORE = "body_condition_score";
     private static final int YES = 0;
@@ -62,6 +63,7 @@ public class BodyPosture extends Fragment {
         backBtn = view.findViewById(R.id.back);
         textView = view.findViewById(R.id.heading);
         etOthers = view.findViewById(R.id.othersText);
+        etOthers2 = view.findViewById(R.id.othersText2);
 //        etScore = view.findViewById(R.id.score);
         stand = view.findViewById(R.id.stand);
         leap = view.findViewById(R.id.limp);
@@ -118,9 +120,13 @@ public class BodyPosture extends Fragment {
             @Override
             public void onClick(View view) {
                 other = etOthers.getText().toString();
+                other2 = etOthers2.getText().toString();
 //                score = etScore.getText().toString();
 
                 if (etOthers.getVisibility()==View.VISIBLE && other.isEmpty()){
+                    Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
+                }
+                else if (etOthers2.getVisibility()==View.VISIBLE && other2.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
                 }
                 else{
@@ -147,15 +153,22 @@ public class BodyPosture extends Fragment {
                 switch (index) {
                     case YES:
                         temperament = "Alert";
+                        etOthers2.setVisibility(View.GONE);
+                        etOthers2.setText("");
                         break;
                     case NO:
                         temperament = "Docile";
+                        etOthers2.setVisibility(View.GONE);
+                        etOthers2.setText("");
                         break;
                     case YESP:
                         temperament = "Aggressive";
+                        etOthers2.setVisibility(View.GONE);
+                        etOthers2.setText("");
                         break;
                     case NOP:
                         temperament = "Other";
+                        etOthers2.setVisibility(View.VISIBLE);
                         break;
                     default:
                         break;
@@ -202,9 +215,15 @@ public class BodyPosture extends Fragment {
 
     public void saveData(){
 
+        if (other2.isEmpty()){
+            editor2.putString(TEMPERAMENT, temperament);
+        }else {
+            editor2.putString(TEMPERAMENT, other2);
+        }
+
         editor2.putString(POSTURE, s);
         editor2.putString(OTHERS2, other);
-        editor2.putString(TEMPERAMENT, temperament);
+        editor2.putString(TEMP, other2);
 //        editor2.putString(SCORE, score);
         editor2.putBoolean(CHECK11X, stand.isChecked());
         editor2.putBoolean(CHECK12X, leap.isChecked());
@@ -228,6 +247,7 @@ public class BodyPosture extends Fragment {
         other = sharedPreferences2.getString(OTHERS2, "");
         score = sharedPreferences2.getString(SCORE, "");
         temperament = sharedPreferences2.getString(TEMPERAMENT, "");
+        other2 = sharedPreferences2.getString(TEMP, "");
     }
 
     private void updateViews() {
@@ -257,8 +277,10 @@ public class BodyPosture extends Fragment {
             radioButton2.setChecked(true);
         }else if (temperament.equals("Aggressive")){
             radioButton3.setChecked(true);
-        }else if (temperament.equals("Other")){
+        }else if (temperament.equals(other2)){
             radioButton4.setChecked(true);
+            etOthers2.setText(other2);
+            etOthers2.setVisibility(View.VISIBLE);
         }else {
             radioButton1.setChecked(false);
             radioButton2.setChecked(false);
