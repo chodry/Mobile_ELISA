@@ -209,7 +209,7 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
         cameraList.add("Front");
         cameraList.add("Right");
         cameraList.add("Left");
-        cameraList.add("Rare");
+        cameraList.add("Rear");
         checking("Wounds");
         checking("Red belly");
         checking("Red shoulders");

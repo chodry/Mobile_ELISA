@@ -47,7 +47,7 @@ public class BodyPosture extends Fragment {
     public static final String OTHERS2 = "others2";
     public static final String TEMP = "temp";
     public static final String TEMPERAMENT = "temperament";
-    public static final String SCORE = "body_condition_score";
+    public static final String SCORE = "body_score";
     private static final int YES = 0;
     private static final int NO = 1;
     private static final int YESP = 2;
@@ -64,7 +64,7 @@ public class BodyPosture extends Fragment {
         textView = view.findViewById(R.id.heading);
         etOthers = view.findViewById(R.id.othersText);
         etOthers2 = view.findViewById(R.id.othersText2);
-//        etScore = view.findViewById(R.id.score);
+        etScore = view.findViewById(R.id.score);
         stand = view.findViewById(R.id.stand);
         leap = view.findViewById(R.id.limp);
         recumbent = view.findViewById(R.id.recumbent);
@@ -84,7 +84,7 @@ public class BodyPosture extends Fragment {
         loadData();
         updateViews();
 
-//        etScore.addTextChangedListener(textWatcher);
+        etScore.addTextChangedListener(textWatcher);
 
         others.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -121,7 +121,7 @@ public class BodyPosture extends Fragment {
             public void onClick(View view) {
                 other = etOthers.getText().toString();
                 other2 = etOthers2.getText().toString();
-//                score = etScore.getText().toString();
+                score = etScore.getText().toString();
 
                 if (etOthers.getVisibility()==View.VISIBLE && other.isEmpty()){
                     Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
@@ -205,7 +205,7 @@ public class BodyPosture extends Fragment {
         }
         s = s.replaceAll(", $", "");
 
-        if (s.equals("") || temperament.isEmpty()){
+        if (s.equals("") || temperament.isEmpty() || score.isEmpty()){
             Toast.makeText(getActivity(), "Please provide all the required information", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -224,7 +224,7 @@ public class BodyPosture extends Fragment {
         editor2.putString(POSTURE, s);
         editor2.putString(OTHERS2, other);
         editor2.putString(TEMP, other2);
-//        editor2.putString(SCORE, score);
+        editor2.putString(SCORE, score);
         editor2.putBoolean(CHECK11X, stand.isChecked());
         editor2.putBoolean(CHECK12X, leap.isChecked());
         editor2.putBoolean(CHECK13X, recumbent.isChecked());
@@ -269,7 +269,7 @@ public class BodyPosture extends Fragment {
             etOthers.setVisibility(View.VISIBLE);
         }
 
-//        etScore.setText(score);
+        etScore.setText(score);
 
         if (temperament.equals("Alert")){
             radioButton1.setChecked(true);

@@ -118,7 +118,7 @@ public class Diagnosis extends Fragment {
 
         editor2.putString(TREAT, treatment);
         editor2.putString(DIAGNOSIS, diagnosis);
-        editor2.putString(OTHER_DIAGNOSIS, diagnosis2);
+//        editor2.putString(OTHER_DIAGNOSIS, diagnosis2);
         editor2.putString(PROGNOSIS, prognosis);
         editor2.apply();
 

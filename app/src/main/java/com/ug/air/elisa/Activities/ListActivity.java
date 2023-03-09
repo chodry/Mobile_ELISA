@@ -9,7 +9,7 @@ import static com.ug.air.elisa.Fragments.Feeding.DATE_2;
 import static com.ug.air.elisa.Fragments.Feeding.FILENAME_2;
 import static com.ug.air.elisa.Fragments.PatientSignalement.AGE;
 import static com.ug.air.elisa.Fragments.PatientSignalement.ANIMAL_TAG;
-import static com.ug.air.elisa.Fragments.PatientSignalement.BREED;
+//import static com.ug.air.elisa.Fragments.PatientSignalement.BREED;
 import static com.ug.air.elisa.Fragments.PatientSignalement.GENDER;
 import static com.ug.air.elisa.Fragments.PatientSignalement.MAMMALS;
 import static com.ug.air.elisa.Fragments.FarmerDetails.NAME;

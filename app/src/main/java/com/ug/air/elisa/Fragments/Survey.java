@@ -117,7 +117,7 @@ public class Survey extends Fragment {
                         disease = "African Swine Fever";
                         break;
                     case NOX:
-                        disease = "Foot and Mouth Disease";
+                        disease = "Foot-and-Mouth Disease";
                         break;
                     case NOXX:
                         disease = "Both";
@@ -224,7 +224,7 @@ public class Survey extends Fragment {
 
         if (disease.equals("African Swine Fever")){
             radioButton5.setChecked(true);
-        }else if (disease.equals("Foot and Mouth Disease")){
+        }else if (disease.equals("Foot-and-Mouth Disease")){
             radioButton6.setChecked(true);
         }else if (disease.equals("Both")){
             radioButton7.setChecked(true);

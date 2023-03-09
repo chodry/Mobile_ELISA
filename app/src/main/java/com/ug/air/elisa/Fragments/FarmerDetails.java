@@ -48,7 +48,7 @@ public class FarmerDetails extends Fragment {
     public static final String SUB_COUNTY = "sub_county";
     public static final String DISTRICT = "district";
     public static final String SPECIAL_UUID = "special_uuid";
-    public static final String START_DATE = "start_date";
+    public static final String START_DATE = "start_date_2";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

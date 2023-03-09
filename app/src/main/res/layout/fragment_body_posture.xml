@@ -12,13 +12,13 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/buttons"
+        android:layout_below="@id/toolbar"
         android:layout_marginEnd="0dp"
         android:layout_marginBottom="10dp"
         android:fadeScrollbars="true"
         android:padding="10dp"
-        android:scrollbars="none"
-        android:layout_below="@id/toolbar"
-        android:layout_above="@id/buttons">
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,59 +29,80 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="Body Posture"
                 android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:textSize="16sp" />
 
             <CheckBox
                 android:id="@+id/stand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Unable to stand" />
+                android:text="Unable to stand"
+                android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/limp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Limping" />
+                android:text="Limping"
+                android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/recumbent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Recumbent" />
+                android:text="Recumbent"
+                android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/none"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="None of these" />
+                android:text="None of these"
+                android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/others"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="Others" />
+                android:text="Others"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/othersText"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/et_button"
                 android:gravity="top"
+                android:hint="Please provide the other body posture"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
-                android:hint="Please provide the other body posture"
-                android:visibility="gone"
+                android:textSize="14sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="Body score"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/score"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textSize="14sp"/>
+                android:background="@drawable/et_button"
+                android:gravity="top"
+                android:hint="From 1 to 5"
+                android:inputType="textMultiLine"
+                android:padding="10dp"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -118,9 +139,9 @@
                     android:id="@+id/aggressive"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:buttonTint="@color/navy_blue"
                     android:text="Aggressive"
-                    android:layout_marginTop="10dp"
                     android:textSize="18sp" />
 
                 <RadioButton
@@ -138,14 +159,14 @@
                 android:id="@+id/othersText2"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/et_button"
                 android:gravity="top"
-                android:visibility="gone"
                 android:hint="Please fill in this section"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:visibility="gone" />
 
         </LinearLayout>
 

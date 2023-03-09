@@ -13,7 +13,7 @@ import static com.ug.air.elisa.Fragments.Feeding.INCOMPLETE_2;
 import static com.ug.air.elisa.Fragments.Sample.DATE;
 import static com.ug.air.elisa.Fragments.Sample.FILENAME;
 import static com.ug.air.elisa.Fragments.PatientSignalement.AGE;
-import static com.ug.air.elisa.Fragments.PatientSignalement.BREED;
+//import static com.ug.air.elisa.Fragments.PatientSignalement.BREED;
 import static com.ug.air.elisa.Fragments.PatientSignalement.GENDER;
 import static com.ug.air.elisa.Fragments.PatientSignalement.MAMMALS;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;

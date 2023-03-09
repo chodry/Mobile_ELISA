@@ -55,7 +55,7 @@ public class PatientSignalement extends Fragment {
     private static final int NOT2 = 2;
     public static final String GENDER = "gender";
     public static final String AGE = "age";
-    public static final String BREED = "breed";
+//    public static final String BREED = "breed";
     public static final String ANIMAL_NAME = "animal_name";
     public static final String ANIMAL_TAG = "animal_tag";
     public static final String START_DATE_2 = "start_date";

@@ -44,7 +44,7 @@ public class BioSecurityMeasures extends Fragment {
     public static final String CHECK9X = "check9x";
     public static final String CHECK10X = "check10x";
     public static final String CHECK11X = "check11x";
-    public static final String SECURITY = "security_measures";
+    public static final String SECURITY = "bio_security_measures";
     public static final String OTHERSX = "othersx";
 
     @Override

@@ -2,7 +2,6 @@ package com.ug.air.elisa.Fragments;
 
 import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
-import static com.ug.air.elisa.Fragments.PatientSignalement.BREED;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.content.SharedPreferences;
@@ -41,8 +40,8 @@ public class Breed extends Fragment {
     RadioButton duroc, hampshire, landrace, largeWhite, largeBlack, camborough, ankole, ganda, nyoro, zebu, boran, nsoga, others;
     Boolean check1, check2, check3, check4, check5, check6, check7, check8, check9, check10, check11, check12, check13;
     private static final String SELECT = "selector";
-    public static final String BREED1 = "breed1";
-    public static final String BREED2 = "breed2";
+    public static final String BREED1 = "breed";
+    public static final String BREED2 = "other_breed";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -49,7 +49,7 @@ public class Vaccination extends Fragment {
     private static final int YES = 0;
     private static final int NO = 1;
     public static final String VACCINATION = "vaccination";
-    public static final String VACCINE = "vaccine";
+    public static final String VACCINE = "vaccine_info";
     View view;
     Button backBtn, nextBtn, addBtn;
     TextView textView, txtDate;
