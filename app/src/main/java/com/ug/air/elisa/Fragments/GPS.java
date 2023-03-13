@@ -384,7 +384,12 @@ public class GPS extends Fragment implements LocationListener {
         SimpleDateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
         String formattedDate = df.format(currentTime);
 
-        getDuration(currentTime);
+        String duration = sharedPreferences2.getString(DURATION_2, "");
+        if (duration.isEmpty()){
+            getDuration(currentTime);
+        }else {
+            Log.d("Nothing special", "saveForm: For mi");
+        }
 
         String uniqueID = UUID.randomUUID().toString();
         String filename = "farm_" + formattedDate + "_" + uniqueID;
@@ -412,7 +417,7 @@ public class GPS extends Fragment implements LocationListener {
 
     private void getDuration(Date currentTime) {
         String initial_date = sharedPreferences2.getString(START_DATE, "");
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
         try {
             Date d1 = format.parse(initial_date);
 
@@ -425,6 +430,7 @@ public class GPS extends Fragment implements LocationListener {
             Log.d("Difference in time", "getTimeDifference: " + minutes);
 
         } catch (ParseException e) {
+            Toast.makeText(getActivity(), "chodrine", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
     }

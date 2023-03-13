@@ -22,4 +22,8 @@ public interface JsonPlaceHolder {
                           @Part MultipartBody.Part[] files,
                           @Part MultipartBody.Part file);
 
+    @Multipart
+    @POST("send_farm_data/")
+    Call<String> sendFarmFile(@Header("Authorization") String header, @Part MultipartBody.Part file);
+
 }
