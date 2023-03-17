@@ -58,7 +58,6 @@ public class PatientSignalement extends Fragment {
 //    public static final String BREED = "breed";
     public static final String ANIMAL_NAME = "animal_name";
     public static final String ANIMAL_TAG = "animal_tag";
-    public static final String START_DATE_2 = "start_date";
     public static final String MAMMALS = "mammal";
 
     @Override
@@ -175,13 +174,6 @@ public class PatientSignalement extends Fragment {
 
     private void saveData() {
 
-        if (start.isEmpty()){
-            Date currentTime = Calendar.getInstance().getTime();
-            SimpleDateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
-            String formattedDate = df.format(currentTime);
-            editor2.putString(START_DATE_2, formattedDate);
-        }
-
         editor2.putString(AGE, age);
         editor2.putString(ANIMAL_NAME, name);
         editor2.putString(ANIMAL_TAG, tag);
@@ -200,7 +192,7 @@ public class PatientSignalement extends Fragment {
         tag = sharedPreferences2.getString(ANIMAL_TAG, "");
         name = sharedPreferences2.getString(ANIMAL_NAME, "");
         gender = sharedPreferences2.getString(GENDER, "");
-        start = sharedPreferences2.getString(START_DATE_2, "");
+
     }
 
     private void updateViews() {

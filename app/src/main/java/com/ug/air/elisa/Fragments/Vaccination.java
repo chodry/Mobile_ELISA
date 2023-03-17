@@ -97,6 +97,8 @@ public class Vaccination extends Fragment {
                     case NO:
                         vaccine = "Not Vaccinated";
                         linearLayout2.setVisibility(View.GONE);
+                        editor2.putString(VACCINE, "[]");
+                        editor2.apply();
                         break;
 
                     default:

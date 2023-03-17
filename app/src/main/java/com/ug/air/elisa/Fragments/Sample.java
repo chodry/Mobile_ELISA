@@ -3,7 +3,7 @@ package com.ug.air.elisa.Fragments;
 import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.PatientSignalement.ANIMAL_TAG;
-import static com.ug.air.elisa.Fragments.PatientSignalement.START_DATE_2;
+import static com.ug.air.elisa.Fragments.FarmerList.START_DATE_2;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import android.app.DatePickerDialog;
@@ -207,18 +207,18 @@ public class Sample extends Fragment {
 
         if (nameArrayList.size() == 0) {
             result = false;
+            editor2.putString(SAMPLE, "[]");
         }
         else {
             Gson gson = new Gson();
 
             String json = gson.toJson(nameArrayList);
             editor2.putString(SAMPLE, json);
-            editor2.apply();
         }
+        editor2.apply();
 
         return result;
     }
-
 
     private void saveData() {
 //        saveForm();
@@ -287,7 +287,12 @@ public class Sample extends Fragment {
         SimpleDateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
         String formattedDate = df.format(currentTime);
 
-        getDuration(currentTime);
+        String duration = sharedPreferences2.getString(DURATION, "");
+        if (duration.isEmpty()){
+            getDuration(currentTime);
+        }else {
+            Log.d("Nothing special", "saveForm: For mi");
+        }
 
         String uniqueID = UUID.randomUUID().toString();
         String filename = formattedDate + "_" + uniqueID;
@@ -317,7 +322,7 @@ public class Sample extends Fragment {
 
     private void getDuration(Date currentTime) {
         String initial_date = sharedPreferences2.getString(START_DATE_2, "");
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
         try {
             Date d1 = format.parse(initial_date);
 

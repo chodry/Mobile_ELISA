@@ -3,6 +3,7 @@ package com.ug.air.elisa.Fragments;
 import static com.ug.air.elisa.Activities.HomeActivity.ANIMAL;
 import static com.ug.air.elisa.Activities.WelcomeActivity.SHARED_PREFS_1;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
+import static com.ug.air.elisa.Fragments.Vaccination.VACCINE;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -241,11 +242,12 @@ public class Breed extends Fragment {
         editor2.putString(BREED1, breed);
         editor2.putString(BREED2, other);
         editor2.putInt(SELECT, index);
-
         editor2.apply();
 
         FragmentTransaction fr = requireActivity().getSupportFragmentManager().beginTransaction();
         if (animal.equals("piggery")){
+            editor2.putString(VACCINE, "[]");
+            editor2.apply();
             fr.replace(R.id.fragment_container, new Deworming());
         }else{
             fr.replace(R.id.fragment_container, new Vaccination());

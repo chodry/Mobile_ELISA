@@ -104,7 +104,8 @@ public class Deworming extends Fragment {
                     case NO:
                         vaccine = "Not Dewormed";
                         linearLayout2.setVisibility(View.GONE);
-
+                        editor2.putString(DEWORMER, "[]");
+                        editor2.apply();
                         break;
 
                     default:

@@ -101,6 +101,8 @@ public class Illness extends Fragment {
                     case NO:
                         illness = "No";
                         linearLayout2.setVisibility(View.GONE);
+                        editor2.putString(SUFFERING, "[]");
+                        editor2.apply();
                         break;
                     default:
                         break;

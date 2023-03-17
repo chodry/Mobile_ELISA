@@ -104,13 +104,13 @@ public class FormMenuActivity extends AppCompatActivity {
 
             cardView3.setVisibility(View.GONE);
             cardView4.setVisibility(View.GONE);
-//            cardView5.setVisibility(View.GONE);
-            cardView5.setVisibility(View.VISIBLE);
+            cardView5.setVisibility(View.GONE);
+//            cardView5.setVisibility(View.VISIBLE);
 //            getSavedForms2();
         }
-//        else {
-//            getSavedForms();
-//        }
+        else {
+            cardView5.setVisibility(View.VISIBLE);
+        }
         getSavedForms();
 
 
@@ -145,70 +145,71 @@ public class FormMenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-//    public void send_forms(View view) {
+    public void send_forms(View view) {
 //        Toast.makeText(this, "This feature is currently disabled", Toast.LENGTH_SHORT).show();
-////        File src = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs");
-////        if (src.exists()) {
-////            File[] contents = src.listFiles();
-////            if (contents.length != 0) {
-////                for (File f : contents) {
-////                    if (f.isFile()) {
-////                        String name = f.getName().toString();
-////                        if (!name.equals("shared_prefs.xml") && !name.equals("identity.xml") && name.startsWith("farm_")){
-////                            String names = name.replace(".xml", "");
-////                            SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
-////                            String incomplete = sharedPreferences2.getString(INCOMPLETE, "");
-////                            String mammal = sharedPreferences2.getString(MAMMALS, "");
-////
-////                            if (incomplete.equals("complete") && mammal.equals(animal)){
-////                                String image_urls = sharedPreferences2.getString(IMAGE_URL, "");
-////
-////                                imagesList = Arrays.asList(image_urls.split(","));
-////                                MultipartBody.Part[] fileUpload = new MultipartBody.Part[imagesList.size()];
-////                                for(String url: imagesList){
-////                                    Log.d("ELISA", "" + url);
-////                                    File file2 = new File(url);
-////                                    RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), file2);
-////                                    fileUpload[imagesList.indexOf(url)] = MultipartBody.Part.createFormData("files", file2.getPath(), fileBody);
-////                                }
-////
-////                                fileX = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs/" + name);
-////                                RequestBody filePart = RequestBody.create(MediaType.parse("*/*"), fileX);
-////                                MultipartBody.Part fileUpload2 = MultipartBody.Part.createFormData("file", fileX.getName() ,filePart);
-////
-////
-////                                token = sharedPreferences.getString(TOKEN, "");
-////                                Call<String> call = jsonPlaceHolder.sendFile("Token " + token, fileUpload, fileUpload2);
-////                                call.enqueue(new Callback<String>() {
-////                                    @Override
-////                                    public void onResponse(Call<String> call, Response<String> response) {
-////                                        if (!response.isSuccessful()){
-////                                            Toast.makeText(FormMenuActivity.this, "Something went wrong, Please try again later", Toast.LENGTH_SHORT).show();
-////                                            return;
-////                                        }
-////                                        String value = response.body();
-////                                        fileX.delete();
-////                                        for(String url: imagesList){
-////                                            File file2 = new File(url);
-////                                            file2.delete();
-////                                        }
-////
-////                                        Toast.makeText(FormMenuActivity.this, value, Toast.LENGTH_SHORT).show();
-////                                    }
-////
-////                                    @Override
-////                                    public void onFailure(Call<String> call, Throwable t) {
-////                                        Toast.makeText(FormMenuActivity.this, "Something went wrong" + t.getMessage(), Toast.LENGTH_SHORT).show();
-////                                    }
-////                                });
-////                            }
-////
-////                        }
-////                    }
-////                }
-////            }
-////        }
-//    }
+        File src = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs");
+        if (src.exists()) {
+            File[] contents = src.listFiles();
+            if (contents.length != 0) {
+                for (File f : contents) {
+                    if (f.isFile()) {
+                        String name = f.getName().toString();
+                        if (!name.equals("shared_prefs.xml") && !name.equals("identity.xml") && !name.startsWith("farm_")){
+                            String names = name.replace(".xml", "");
+                            SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
+                            String incomplete = sharedPreferences2.getString(INCOMPLETE, "");
+                            String mammal = sharedPreferences2.getString(MAMMALS, "");
+
+                            if (incomplete.equals("complete")){
+//                                String image_urls = sharedPreferences2.getString(IMAGE_URL, "");
+
+//                                imagesList = Arrays.asList(image_urls.split(","));
+//                                MultipartBody.Part[] fileUpload = new MultipartBody.Part[imagesList.size()];
+//                                for(String url: imagesList){
+//                                    Log.d("ELISA", "" + url);
+//                                    File file2 = new File(url);
+//                                    RequestBody fileBody = RequestBody.create(MediaType.parse("image/*"), file2);
+//                                    fileUpload[imagesList.indexOf(url)] = MultipartBody.Part.createFormData("files", file2.getPath(), fileBody);
+//                                }
+
+                                fileX = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs/" + name);
+                                RequestBody filePart = RequestBody.create(MediaType.parse("*/*"), fileX);
+                                MultipartBody.Part fileUpload2 = MultipartBody.Part.createFormData("file", fileX.getName() ,filePart);
+
+
+                                token = sharedPreferences.getString(TOKEN, "");
+//                                Call<String> call = jsonPlaceHolder.sendFile("Token " + token, fileUpload, fileUpload2);
+                                Call<String> call = jsonPlaceHolder.sendFile("Token " + token, fileUpload2);
+                                call.enqueue(new Callback<String>() {
+                                    @Override
+                                    public void onResponse(Call<String> call, Response<String> response) {
+                                        if (!response.isSuccessful()){
+                                            Toast.makeText(FormMenuActivity.this, "Something went wrong, Please try again later", Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+                                        String value = response.body();
+//                                        fileX.delete();
+//                                        for(String url: imagesList){
+//                                            File file2 = new File(url);
+//                                            file2.delete();
+//                                        }
+
+                                        Toast.makeText(FormMenuActivity.this, value, Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<String> call, Throwable t) {
+                                        Toast.makeText(FormMenuActivity.this, "Something went wrong" + t.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public void send_forms_2(View view) {
 //        Toast.makeText(this, "waiting", Toast.LENGTH_SHORT).show();
@@ -227,6 +228,7 @@ public class FormMenuActivity extends AppCompatActivity {
                             String sub = sharedPreferences2.getString("submitted", "");
 
                             if (incomplete.equals("complete") && sub.isEmpty()){
+//                            if (incomplete.equals("complete")){
                                 fileX = new File("/data/data/" + BuildConfig.APPLICATION_ID + "/shared_prefs/" + name);
                                 RequestBody filePart = RequestBody.create(MediaType.parse("*/*"), fileX);
                                 MultipartBody.Part fileUpload2 = MultipartBody.Part.createFormData("file", fileX.getName() ,filePart);
@@ -290,26 +292,11 @@ public class FormMenuActivity extends AppCompatActivity {
                                 count1 += 1;
                             }
                         }else if (name.startsWith("farm_")){
-//                            String names = name.replace(".xml", "");
-//                            SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
                             count2 += 1;
-                            String names = name.replace(".xml", "");
-                            SharedPreferences sharedPreferences2 = getSharedPreferences(names, Context.MODE_PRIVATE);
-                            String incomplete = sharedPreferences2.getString(INCOMPLETE_2, "");
-                            String sub = sharedPreferences2.getString("submitted", "");
-
-                            if (sub.isEmpty()){
-                                count2 += 1;
-                            }
-
-                            if (incomplete.equals("complete") && sub.isEmpty()){
-                                count3 += 1;
-                            }
                         }
                     }
                 }
-//                txtSend.setText("Send Forms ("+ count3 + ")");
-                txtSend.setText("Send forms");
+                txtSend.setText("Send Forms ("+ count1 + ")");
                 txtEdit.setText("Edit Forms ("+ count + ")");
                 txtEdit2.setText("Edit Forms ("+ count2 + ")");
             }

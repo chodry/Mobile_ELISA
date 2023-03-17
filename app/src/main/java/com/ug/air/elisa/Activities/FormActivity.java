@@ -16,7 +16,7 @@ import static com.ug.air.elisa.Fragments.Sample.DURATION;
 import static com.ug.air.elisa.Fragments.Sample.FILENAME;
 import static com.ug.air.elisa.Fragments.Sample.INCOMPLETE;
 import static com.ug.air.elisa.Fragments.Sample.UNIQUE;
-import static com.ug.air.elisa.Fragments.PatientSignalement.START_DATE_2;
+import static com.ug.air.elisa.Fragments.FarmerList.START_DATE_2;
 import static com.ug.air.elisa.Fragments.Survey.SHARED_PREFS_2;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -116,7 +116,7 @@ public class FormActivity extends AppCompatActivity {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
                 String formattedDate = df.format(currentTime);
 
-                getDuration(currentTime);
+//                getDuration(currentTime);
 
                 String uniqueID = UUID.randomUUID().toString();
 

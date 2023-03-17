@@ -46,8 +46,11 @@ import com.ug.air.elisa.Models.Form;
 import com.ug.air.elisa.R;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -63,11 +66,12 @@ public class FarmerList extends Fragment {
     Button next;
     TextView textView;
     RadioGroup radioGroup;
-    String option, filename;
+    String option, filename, start;
     SharedPreferences sharedPreferences2, sharedPreferences, sharedPreferences3;
     SharedPreferences.Editor editor2;
     public static final String FARM = "farm";
     public static final String UUID_SPECIAL = "uuid_special";
+    public static final String START_DATE_2 = "start_date";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -199,6 +203,12 @@ public class FarmerList extends Fragment {
     }
 
     private void saveData() {
+        if (start.isEmpty()){
+            Date currentTime = Calendar.getInstance().getTime();
+            SimpleDateFormat df = new SimpleDateFormat(("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+            String formattedDate = df.format(currentTime);
+            editor2.putString(START_DATE_2, formattedDate);
+        }
 
         editor2.putString(UUID_SPECIAL, option);
         editor2.apply();
@@ -211,6 +221,7 @@ public class FarmerList extends Fragment {
 
     private void loadData(){
         option = sharedPreferences2.getString(UUID_SPECIAL, "");
+        start = sharedPreferences2.getString(START_DATE_2, "");
 //        Toast.makeText(getActivity(), option, Toast.LENGTH_SHORT).show();
     }
 

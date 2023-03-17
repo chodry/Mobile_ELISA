@@ -277,7 +277,7 @@ public class BodyPosture extends Fragment {
             radioButton2.setChecked(true);
         }else if (temperament.equals("Aggressive")){
             radioButton3.setChecked(true);
-        }else if (temperament.equals(other2)){
+        }else if (!other2.isEmpty()){
             radioButton4.setChecked(true);
             etOthers2.setText(other2);
             etOthers2.setVisibility(View.VISIBLE);
