@@ -16,15 +16,10 @@ public interface JsonPlaceHolder {
     @POST("login/")
     Call<Token> login(@Body User user);
 
-//    @Multipart
-//    @POST("send_data/")
-//    Call<String> sendFile(@Header("Authorization") String header,
-//                          @Part MultipartBody.Part[] files,
-//                          @Part MultipartBody.Part file);
-
     @Multipart
     @POST("send_data/")
     Call<String> sendFile(@Header("Authorization") String header,
+                          @Part MultipartBody.Part[] files,
                           @Part MultipartBody.Part file);
 
     @Multipart

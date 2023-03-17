@@ -94,6 +94,8 @@ public class FormActivity extends AppCompatActivity {
         String name = sharedPreferences2.getString(NAME, "");
         String farmer = sharedPreferences2.getString(UUID_SPECIAL, "");
 
+        Toast.makeText(this, name + " and " +farmer, Toast.LENGTH_SHORT).show();
+
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.exit);
         dialog.setCancelable(true);
@@ -150,46 +152,6 @@ public class FormActivity extends AppCompatActivity {
                     finish();
                 }
 
-//                if (name.isEmpty() ){
-//                    dialog.dismiss();
-//                    startActivity(new Intent(FormActivity.this, FormMenuActivity.class));
-//                    finish();
-//                }
-//                else{
-//                    Date currentTime = Calendar.getInstance().getTime();
-//                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault());
-//                    String formattedDate = df.format(currentTime);
-//
-//                    getDuration(currentTime);
-//
-//                    String uniqueID = UUID.randomUUID().toString();
-//
-//
-//                    if (animal.equals("farm")) {
-//                        filename = "farm_" + formattedDate + "_" + uniqueID;
-//
-//                        editor2.putString(DATE_2, formattedDate);
-//                        editor2.putString(UNIQUE_2, uniqueID);
-//                        editor2.putString(FILENAME_2, filename);
-//                        editor2.putString(INCOMPLETE_2, "incomplete");
-////
-//                    }else {
-//                        filename = formattedDate + "_" + uniqueID;
-//
-//                        editor2.putString(DATE, formattedDate);
-//                        editor2.putString(UNIQUE, uniqueID);
-//                        editor2.putString(FILENAME, filename);
-//                        editor2.putString(INCOMPLETE, "incomplete");
-//
-//                    }
-//
-//                    editor2.apply();
-//
-//                    doLogic(filename);
-//
-//                    dialog.dismiss();
-//
-//                }
             }
         });
 

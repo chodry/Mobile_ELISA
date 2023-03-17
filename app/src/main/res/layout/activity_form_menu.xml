@@ -158,14 +158,40 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
-                    android:onClick="send_forms"
                     app:cardBackgroundColor="@color/grotto_blue"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="5dp"
+                    android:visibility="gone"
                     tools:ignore="OnClick,UsingOnClickInXml">
 
                     <TextView
                         android:id="@+id/sent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/farm"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardBackgroundColor="@color/grotto_blue"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp"
+                    android:visibility="gone"
+                    tools:ignore="OnClick,UsingOnClickInXml">
+
+                    <TextView
+                        android:id="@+id/sentx"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
