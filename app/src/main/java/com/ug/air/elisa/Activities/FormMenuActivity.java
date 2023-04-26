@@ -63,7 +63,7 @@ public class FormMenuActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
     String animal, token;
     File[] contents;
-    int count, count1, count2, count3 = 0;
+    int count, count1, count2, count3, count4 = 0;
     TextView txtSend, txtEdit, txtEdit2, txtSubmit, txtSend2;
     Dialog dialog;
     List<String> imagesList, items;
@@ -269,7 +269,7 @@ public class FormMenuActivity extends AppCompatActivity {
                             String sub = sharedPreferences2.getString("submitted", "");
                             count2 += 1;
                             if (incomplete.equals("complete") && sub.isEmpty()){
-                                count1 += 1;
+                                count4 += 1;
                             }
                             if (sub.isEmpty()) {
                                 count3 += 1;
@@ -278,7 +278,7 @@ public class FormMenuActivity extends AppCompatActivity {
                     }
                 }
                 txtSend.setText("Send Forms ("+ count1 + ")");
-                txtSend2.setText("Send Forms ("+ count1 + ")");
+                txtSend2.setText("Send Forms ("+ count4 + ")");
                 txtEdit.setText("Edit Forms ("+ count + ")");
                 txtEdit2.setText("Edit Forms ("+ count2 + ")");
             }
@@ -358,7 +358,7 @@ public class FormMenuActivity extends AppCompatActivity {
             }
 
             Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
-            activity.txtSend.setText("Send Forms (0)");
+//            activity.txtSend.setText("Send Forms (0)");
             activity.filenames.clear();
             activity.dialog.dismiss();
         }
@@ -437,7 +437,7 @@ public class FormMenuActivity extends AppCompatActivity {
                 return;
             }
             activity.filenames.clear();
-            activity.txtSend2.setText("Send Forms (0)");
+//            activity.txtSend2.setText("Send Forms (0)");
             Toast.makeText(activity, s, Toast.LENGTH_SHORT).show();
             activity.dialog.dismiss();
         }

@@ -205,6 +205,7 @@ public class Camera extends Fragment implements AdapterView.OnItemSelectedListen
 
         currentPhotoPath = "";
 
+        cameraList.clear();
         cameraList.add("Select one...");
         cameraList.add("Front");
         cameraList.add("Right");
